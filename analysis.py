@@ -54,16 +54,33 @@ def testin():
     return(transactions)
 
 def sep_ie(transactions):
-    income = {}
-    expense = {}
-    for i in transactions:
+    income = []
+    expense = []
+    for i in range(len(transactions)):
         if transactions[i]["type"] == "income":
-            income += transactions[i]
+            income.append(transactions[i])
         elif transactions[i]["type"] == "expense":
-            expense += transactions[i]
+            expense.append(transactions[i])
         else:
             print(f"invalid type in: {transactions[i]["name"]}; type: {transactions[i]["type"]}")
     return(income, expense)
 
-lstdict = testin()
-print(sep_ie(lstdict))
+def toti(income):
+    toti = 0.0
+    for i in range(len(income)):
+        toti += income[i]["amount"]
+    return(toti)
+
+def tote(expense):
+    tote = 0.0
+    for i in range(len(expense)):
+        tote += expense[i]["amount"]
+    return(tote)
+
+if __name__ == "__main__":
+    lstdict = testin()
+    income, expense = sep_ie(lstdict)
+    print(f"Income: {income}\nExpense: {expense}\n")
+    print("\n")
+    print(toti(income))
+    print(tote(expense))
