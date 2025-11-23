@@ -50,9 +50,10 @@ def main(): # main loop
     core.initvars()
     print("\n")
     print(f"""Here are the following definers: {definers}\nPut in your values in the order of the list above.\n\nThis means:""")
+    var = 1 
     for name, dtype in definers:
-        var = 1
         print(f"""{var}. "{name.capitalize()}" in the format "{dtype}" """)
+        var += 1
     print("Ready? y/n")
     usr_i = input().strip().upper()
     #
