@@ -1,27 +1,27 @@
-# Take userinput & give it to storage (& analysis, if applicable).
-#         "name": "Salary November",
-#        "category": "income",
-#        "type": "I",
-#        "amount": 1450.00,
-import core
+# Take userinput & give it to storage.py (& utils.py, if applicable).
 
-def stop(): # check if stop after each item
-    usr_i = input("Do you want to stop? (y/n)\n").upper()
-    if usr_i in ("Y", "YES", "YE"):
-        return(True)
-    elif usr_i in ("N", "NO"):
-        return
- 
-def itemloop(): # loop for filling item dict
-    global count, definers, item
-    print("\n")
-    if True == True: # irrelevant. If statement to collapse in IDE
-        suffix = ["st", "nd", "rd", "th"]
-        if count < 3:
-            print(f"{count+1}{suffix[count]} Item:")
+import parameters
+
+def stop() -> bool: # check if stop after each item
+    while True:
+        usr_i = input("Do you want to stop? (y/n)\n").upper().strip()
+        if usr_i in ("Y", "YES", "YE"):
+            return True
+        elif usr_i in ("N", "NO"):
+            return False
         else:
-            print(f"{count+1}{suffix[3]} Item:")
-    #
+            print("Please answer with y/n.")
+ 
+def itemloop(definers, count): # loop for filling item dict
+    print("\n")
+    suffix = ["st", "nd", "rd", "th"]
+    if count < 3:
+        print(f"{count+1}{suffix[count]} Item:")
+    else:
+        print(f"{count+1}{suffix[3]} Item:")
+
+    item = {}
+
     for name, dtype in definers: # Put usr_i in item{}
         while True:
             raw = input(f"{name.capitalize()}, {dtype.__name__}: ").strip()
@@ -31,12 +31,12 @@ def itemloop(): # loop for filling item dict
                 if raw not in ("I", "E"):
                     print("ERROR: Type must be I or E.")
                     continue
-                item[name] = raw
+                item[name] = raw 
                 break
         
             try: # general datatype validator
                 value = dtype(raw) 
-            except:
+            except ValueError:
                 print(f"ERROR: Expected {dtype.__name__}.")
                 continue
                     
@@ -44,33 +44,34 @@ def itemloop(): # loop for filling item dict
             break
     print(f"\nItem {count+1}:\n{item}\n")
     count += 1
-    return(item)
+    return item, count
 
 def main(): # main loop
-    core.initvars()
+    transactions, definers, _, count = parameters.initvars()
     print("\n")
     print(f"""Here are the following definers: {definers}\nPut in your values in the order of the list above.\n\nThis means:""")
     var = 1 
     for name, dtype in definers:
-        print(f"""{var}. "{name.capitalize()}" in the format "{dtype}" """)
+        print(f"""{var}. "{name.capitalize()}" in the format "{dtype.__name__}" """)
         var += 1
     print("Ready? y/n")
     usr_i = input().strip().upper()
-    #
+    
     if usr_i in ("Y", "YES", "YE"):
         while True:
-            if count == 0: pass
-            elif stop() == True: break
-            transactions.append(itemloop().copy())
+            item, count = itemloop(definers, count)
+            transactions.append(item) # add item to transactions[]
             print("successfully added")
-            for i in range(len(definers)): item.pop(definers[i][0]) # clears item{}
+
+            if stop(): 
+                break
 
     elif usr_i in ("N", "NO"):
         exit("User cancelled")
     
-    return(transactions)
+    return transactions
     
+# ---Testing---
 
 if __name__ == "__main__":
-    transactions, definers, item, count = core.initvars()
     print(main())
