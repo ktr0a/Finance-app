@@ -45,6 +45,7 @@ Finance-App/
 ├── storage.py       # JSON save/load logic
 ├── parameters.py    # Data schema and default definitions
 └── save.json        # Auto-created: stores transaction data
+```
 
 ## Installation & Running
 
