@@ -1,4 +1,4 @@
-# Finance Tracker CLI — Version 1.0
+# Finance Tracker CLI - Version 1.0.0
 
 A simple, modular command-line finance tracker written in Python.  
 This V1 release includes save/load functionality, transaction entry, and two basic calculations (total income and total expense).
@@ -87,5 +87,4 @@ MIT License
 ---
 
 ## Author
-
 Created by ktr0a
