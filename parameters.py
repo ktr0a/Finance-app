@@ -1,4 +1,4 @@
-# What todo with data. Calculations, etc.
+# Defined basic data. Basis of other parts.
 
 def testin():
     transactions = [
@@ -59,7 +59,7 @@ def initvars():
     definers = ( # parameters of one item
 ("name", str), 
 ("category", str), 
-("type", str), 
+("type", str),              # Used in cli.py: DO NOT CHANGE NAME
 ("amount", float)
 )
     for i in range(len(definers)): item[definers[i][0]] = definers[i][1]
@@ -67,29 +67,8 @@ def initvars():
     return(transactions, definers, item, count)
 
 
-def sep_ie(transactions):
-    income = []
-    expense = []
-    for i in range(len(transactions)):
-        if transactions[i]["type"] == "I":
-            income.append(transactions[i])
-        elif transactions[i]["type"] == "E":
-            expense.append(transactions[i])
-        else:
-            print(f"invalid type in: {transactions[i]["name"]}; type: {transactions[i]["type"]}") # needs adjustment
-    return(income, expense)
 
-def toti(income):
-    toti = 0.0
-    for i in range(len(income)):
-        toti += income[i]["amount"]
-    return(toti)
-
-def tote(expense):
-    tote = 0.0
-    for i in range(len(expense)):
-        tote += expense[i]["amount"]
-    return(tote)
+# ---Testing---
 
 if __name__ == "__main__":
     """lstdict = testin()
@@ -97,5 +76,5 @@ if __name__ == "__main__":
     print(f"Income: {income}\nExpense: {expense}\n")
     print("\n")
     print(toti(income))
-    print(tote(expense))"""
-    print(initvars()[2])
+    print(tote(expense
+    print(initvars()[2])"""
