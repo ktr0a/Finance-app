@@ -1,0 +1,26 @@
+[
+    {
+        "name": "Work",
+        "category": "Income",
+        "type": "I",
+        "amount": 100.0
+    },
+    {
+        "name": "Allowance",
+        "category": "Allowance",
+        "type": "I",
+        "amount": 69.9
+    },
+    {
+        "name": "McDonalds",
+        "category": "Food",
+        "type": "E",
+        "amount": 2.5
+    },
+    {
+        "name": "Date",
+        "category": "other",
+        "type": "E",
+        "amount": 40.0
+    }
+]

@@ -66,8 +66,6 @@ def initvars():
     count = 0 # amount of items, used for logic
     return(transactions, definers, item, count)
 
-
-
 # ---Testing---
 
 if __name__ == "__main__":
