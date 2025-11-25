@@ -1,6 +1,7 @@
 # Calculations with list of items & parameters (dicts). Returns 
 
-currency = "€" # future plans - adaptive currency
+def format(amount):
+    return f"{amount:.2f}€"
 
 def split_IE(transactions): # seperate i/e
     income = []
@@ -17,18 +18,18 @@ def split_IE(transactions): # seperate i/e
 def toti(save):
     income, _ = split_IE(save)
     toti = sum(t["amount"] for t in income)
-    return str(toti) + currency
+    return format(toti)
 
 def tote(save):
     _, expense = split_IE(save)
     tote = sum(t["amount"] for t in expense)
-    return str(tote) + currency
+    return f"-{format(tote)}"
 
 def netbal(save):
     income, expense = split_IE(save)
     netbal = sum(i["amount"] for i in income) - sum(e["amount"] for e in expense)
-    return str(netbal) + currency
-
+    if netbal < 0: return f"-{format(netbal)}"
+    else: return format(netbal)
 
 
 # UTILS - imported by main.py
