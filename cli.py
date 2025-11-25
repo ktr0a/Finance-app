@@ -162,7 +162,9 @@ def itemloop(definers, count): # loop for filling item dict
                     continue
                 item[name] = raw 
                 break
-        
+            elif name == "amount":
+                raw = raw.replace("-"," ")
+                raw = raw.replace(",",".")
             try: # general datatype validator
                 value = dtype(raw) 
             except ValueError:
