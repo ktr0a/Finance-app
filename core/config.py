@@ -1,4 +1,7 @@
-# Defined basic data. Basis of other parts.
+# Config
+# ***WARNING: The config is used for alot of logic operations. Adjusting it might break parts of the system. 
+
+# Goal: link up all options from cli to the config. 
 
 def testin():
     transactions = [

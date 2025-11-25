@@ -1,6 +1,6 @@
 # Sorting utilities
 
-from storage import load
+from core.storage import load
 
 def filter_save(filterby_key, filterby_value, old_save):
     filtered_save = []

@@ -1,10 +1,10 @@
 # Take userinput & give it to storage.py (& utils.py, if applicable).
 
-import parameters
+import core.config as config
 import time
-from calc_utils import calc_util_func as c_util
-from sort_utils import sort_util_func as s_util
-import storage as s
+from core.calc_utils import calc_util_func as c_util
+from core.sort_utils import sort_util_func as s_util
+import core.storage as s
 
 
 # main cli 
@@ -54,7 +54,7 @@ def prehub(choice):
         return cr_new_save()
     else: exit("prehub: invalid initial choice")
 def cr_save(): 
-    transactions, definers, _, count = parameters.initvars()
+    transactions, definers, _, count = config.initvars()
 
     print("\nHere are the following definers:\n")
     for idx, (name, dtype) in enumerate(definers, start=1):
@@ -98,7 +98,7 @@ def hub(save): # General Hub
             view_data(save)
         else: exit("hub: User exited choice") # Exit
 def analyze_hub(save):
-    _, definers, _, _ = parameters.initvars()
+    _, definers, _, _ = config.initvars()
     while True:
         print("\nHow do you want to select transactions?\n")
         choice_str = input("1. Analyze all transactions\n" \
@@ -248,7 +248,7 @@ def validate_numberinput(choice_str, max_index):
 
     return num
 def validate_entry(key, raw_input):
-    _, definers, _, _ = parameters.initvars()
+    _, definers, _, _ = config.initvars()
     raw = raw_input.strip()
     
     var = [t for dkey, t in definers if dkey == key]
@@ -300,5 +300,5 @@ def cr_new_save():
 # ---Testing---
 
 if __name__ == "__main__":
-    save = parameters.testin()
+    save = config.testin()
     analyze_hub(save)
