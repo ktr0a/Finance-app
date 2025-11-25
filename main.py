@@ -1,6 +1,6 @@
-from cli import start, ld_save, hub
+from cli import start, prehub, hub
 
 if __name__ == "__main__":
     choice = start()
-    save = ld_save(choice)
+    save = prehub(choice)
     hub(save)

@@ -6,7 +6,7 @@ from pathlib import Path
 
 DATA_FILE = Path("save.json")
 
-def save(lst):
+def save(lst, *args):
     with DATA_FILE.open("w", encoding="utf-8") as f:
         json.dump(lst, f, indent=4)
 
