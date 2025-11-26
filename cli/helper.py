@@ -33,7 +33,7 @@ def validate_entry(key, raw_input):
     var = [t for dkey, t in definers if dkey == key]
 
     if not var:
-        print(f"pp.highlight: Unknown field '{key}'.")
+        print(f"ERROR: Unknown field '{key}'.")
         return None
 
     dtype = var[0]
@@ -44,7 +44,7 @@ def validate_entry(key, raw_input):
     if key == "type":
         raw = raw.upper()
         if raw not in ("I", "E"):
-            print("pp.highlight: Type must be I or E.")
+            print("ERROR: Type must be I or E.")
             return None
         return raw
 
@@ -57,7 +57,7 @@ def validate_entry(key, raw_input):
     try:
         value = dtype(raw)
     except ValueError :
-        print(f"pp.highlight: Expected {dtype.__name__}.")
+        print(f"ERROR: Expected {dtype.__name__}.")
         return None
 
     return value

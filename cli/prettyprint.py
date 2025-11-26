@@ -1,6 +1,13 @@
 import core.config as config
 import core.storage as s
+import os
+import platform
 
+def clearterminal():
+    if platform.system() == "Windows":
+        os.system("cls")
+    else:
+        os.system("clear")
 
 def prettyprint_dict(lst):
     for idx, item in enumerate(lst, start=1):
@@ -18,9 +25,17 @@ def view_data(save): # universal view list (hub & analyze hub)
     return 
 
 def highlight(prompt):
-    length = len(prompt)
+    length = 0
+    var = ""
+    if isinstance(prompt, list) == True:
+        for i in prompt:
+            length += len(i)
+            var += f"{i}, "
+    else: 
+        length = len(prompt)
+        var = str(prompt)
     dashcount = length*"-" + "------"
     print(dashcount)
-    print(f"---{prompt}---")
+    print(f"---{var}---")
     print(dashcount)
     return

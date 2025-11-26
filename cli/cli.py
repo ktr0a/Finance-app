@@ -17,7 +17,8 @@ import time
 
 # main cli 
 def start(): # Ask if Load or Create Save?
-    print("\nProgram On\n")
+    pp.clearterminal()
+    print("\nProgram On")
 
     options = [ # put into parameters
         "Load existing save",
@@ -25,11 +26,11 @@ def start(): # Ask if Load or Create Save?
     ]
 
     while True:
-        print("Would you like to:")
+        print("\nWould you like to:")
         for idx, opt in enumerate(options, start=1):
             print(f"{idx}. {opt}")
 
-        choice = input("Enter the according number: ").strip()
+        choice = input("\nEnter the according number: ").strip()
         if not choice.isdigit(): # digit validator
             pp.highlight("Please enter a number.")
             continue
@@ -41,6 +42,7 @@ def start(): # Ask if Load or Create Save?
     return choice
 
 def prehub(choice): # Load or Create Save
+    pp.clearterminal()
     if choice == 1: # Load existing save
         print("\nloading save...")
 
@@ -66,7 +68,8 @@ def prehub(choice): # Load or Create Save
 def hub(save): # General Hub
     print("Save loaded\n")
     while True:
-        choice = input("Would you like to:\n1. Analyze / Calculate\n2. View save\n3. Exit\nEnter the according number: ").strip()
+        pp.clearterminal()
+        choice = input("\nWould you like to:\n\n1. Analyze / Calculate\n2. View save\n3. Exit\n\nEnter the according number: ").strip()
         if not choice.isdigit():
             pp.highlight("Please enter a number")
             continue
@@ -81,15 +84,19 @@ def hub(save): # General Hub
             calc_hub(new_save)
         elif choice == 2: # View save
             pp.view_data(save)
-        else: exit("hub: User exited choice") # Exit
+            input("\nInput any character to continue\n")
+        else: 
+            pp.clearterminal()
+            exit("hub: User exited choice") # Exit
 
 def analyze_hub(save): # Filterting Hub
+    pp.clearterminal()
     _, definers, _, _ = config.initvars()
     while True:
         print("\nHow do you want to select transactions?\n")
         choice_str = input("1. Analyze all transactions\n" \
         "2. Filter transactions before analyzing\n" \
-        "3. Back to main menu\n")
+        "3. Back to main menu\n\nEnter the according number: ")
         choice = h.validate_numberinput(choice_str, 3)
         if choice == 1:
             return save
@@ -97,7 +104,11 @@ def analyze_hub(save): # Filterting Hub
             break
         else:
             return[]
+    return analyze_filtered_save(save, definers)
+
+def analyze_filtered_save(save, definers):
     while True:        
+        pp.clearterminal()
         print("\nWhat would you like to filter your data by?")
         for idx, (name, dtype) in enumerate(definers, start=1):
             print(f"{idx}. {name.capitalize()}")
@@ -110,13 +121,16 @@ def analyze_hub(save): # Filterting Hub
                 break
 
         while True: # filtervalue
+            pp.clearterminal()
+            print(f"Filtering by -> {filterby_key}")
             choice_str = input("\nWhat value would you like to filter it by?\n")
             choice = h.validate_entry(filterby_key, choice_str)
             if choice is not None:
                 filterby_value = choice
                 break
-        
-        print(f"\nFiltering by → {filterby_key.capitalize()}: {filterby_value}")
+
+        pp.clearterminal()
+        print(f"\nFiltering by -> {filterby_key.capitalize()}: {filterby_value}")
 
         _, func = s_util[0]
         filtered_save = func(filterby_key, filterby_value, save)
@@ -135,24 +149,32 @@ def analyze_hub(save): # Filterting Hub
     return filtered_save
 
 def calc_hub(save): # Calculating Hub
+    result_list = []
     while True:
-        print("\nWhat would you like to calculate?")
+        pp.clearterminal()
+        if result_list != []:
+            pp.highlight(result_list)
+        print("\nWhat would you like to calculate?\n")
         for idx, (label, func) in enumerate(c_util, start=1):
             print(f"{idx}. {label}")
         
         while True:
-            choice2_str = input("Enter the according number: ").strip()
+            choice2_str = input("\nEnter the according number: ").strip()
             choice2 = h.validate_numberinput(choice2_str, len(c_util))
             if choice2 is not None:   # valid
                 break                 # exit input loop
         
-        print(calc_loop(choice2, save)) 
+        result = calc_loop(choice2, save)
+        print(f"\n{result}\n")
+        result_list.append(result)
+
 
         again = h.ask_yes_no("Would you like to calculate something else? (y/n)")
         if not again:
             return
 
 def cr_save_loop(): # Generate Save 
+    pp.clearterminal()
     transactions, definers, _, count = config.initvars()
 
     print("\nHere are the following definers:\n")
@@ -178,7 +200,7 @@ def cr_save_loop(): # Generate Save
     return transactions
 
 def item_loop(definers, count): # Generate each item for Save
-    print("\n")
+    pp.clearterminal()
     suffix = ["st", "nd", "rd", "th"]
     if count < 3:
         print(f"{count+1}{suffix[count]} Item:")
@@ -191,32 +213,17 @@ def item_loop(definers, count): # Generate each item for Save
         while True:
             raw = input(f"{name.capitalize()}, {dtype.__name__}: ").strip()
 
-            if name == "category": # make category all lower
-                raw = raw.lower()
-            
-            if name == "type": # validator for Type: only I/E
-                raw = raw.upper()
-                if raw not in ("I", "E"):
-                    print("ERROR: Type must be I or E.")
-                    continue
-                item[name] = raw 
-                break
-
-            if name == "amount":
-                raw = raw.replace("-"," ")
-                raw = raw.replace(",",".")
-            try: # general datatype validator
-                value = dtype(raw) 
-            except ValueError:
-                print(f"ERROR: Expected {dtype.__name__}.")
+            # use shared validator
+            value = h.validate_entry(name, raw)
+            if value is None:
+                # validation failed → ask again
                 continue
-                    
+
             item[name] = value
             break
-    print(f"\nItem {count+1}:\n{item}\n")
+
     count += 1
     return item, count
-
 def calc_loop(choice, save): # Calculate
     label, func = c_util[choice-1]
     result = func(save)
