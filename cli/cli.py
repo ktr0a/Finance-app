@@ -10,6 +10,8 @@ import core.storage as s
 import cli.helper as h
 import cli.prettyprint as pp
 
+import cli.prompts as pr
+
 import time
 
 
@@ -18,44 +20,37 @@ import time
 # main cli 
 def start(): # Ask if Load or Create Save?
     pp.clearterminal()
-    print("\nProgram On")
-
-    options = [ # put into parameters
-        "Load existing save",
-        "Create new save"
-    ]
+    print(pr.PROGRAM_ON)
+    print()
+    print(pr.WOULDYOU_PROMPT)
+    print()
+    pp.listoptions(pr.START_OPTIONS)
+    print(pr.EXIT)
+    print()
 
     while True:
-        print("\nWould you like to:")
-        for idx, opt in enumerate(options, start=1):
-            print(f"{idx}. {opt}")
-
-        choice = input("\nEnter the according number: ").strip()
-        if not choice.isdigit(): # digit validator
-            pp.highlight("Please enter a number.")
-            continue
-        choice = int(choice)
-        if 1 <= choice <= len(options):
-            break
-        else:
-            pp.highlight("Invalid choice. Try again.")
+        choice_str = pp.pinput(pr.ENTER_ACC_NUMBER)
+        choice = h.validate_numberinput(choice_str, len(pr.START_OPTIONS) + 1)
+        if choice is not None:   # valid
+            break                 # exit input loop
     return choice
 
 def prehub(choice): # Load or Create Save
     pp.clearterminal()
+    pp.highlight(pr.PREHUB)
     if choice == 1: # Load existing save
-        print("\nloading save...")
+        print(pr.LOADING_SAVE)
 
         try: save = s.load()
         except Exception:  # Save file exists but is unreadable / corrupted
-            print("Save file is corrupted or unreadable.")
-            if h.ask_yes_no("Would you like to create a new save instead? (y/n)"):
+            print(pr.FILE_CORRUPTED)
+            if h.ask_yes_no(f"{pr.CR_NEW_SAVE_INSTEAD} {pr.YN}"):
                 return cr_new_save()
             else: exit("o1hub: usr N1")
 
         if not save:  # no save / empty save
-            print("No save detected.")
-            if h.ask_yes_no("Would you like to create a new save instead? (y/n)"):
+            print(pr.NO_SAVE_DETECTED)
+            if h.ask_yes_no(f"{pr.CR_NEW_SAVE_INSTEAD} {pr.YN}"):
                 return cr_new_save()
             else: exit("o1hub: usr N2")
         
@@ -66,25 +61,33 @@ def prehub(choice): # Load or Create Save
     else: exit("prehub: invalid initial choice")
 
 def hub(save): # General Hub
-    print("Save loaded\n")
+    print(pr.SAVE_LOADED)
+    time.sleep(1)
     while True:
+
         pp.clearterminal()
-        choice = input("\nWould you like to:\n\n1. Analyze / Calculate\n2. View save\n3. Exit\n\nEnter the according number: ").strip()
-        if not choice.isdigit():
-            pp.highlight("Please enter a number")
-            continue
-        choice = int(choice)
-        if choice not in (1, 2, 3):
-            pp.highlight("Please enter a valid number")
-            continue
-        elif choice == 1: # Analyze
+        pp.highlight("HUB")
+        print()
+        print(pr.WOULDYOU_PROMPT)
+        print()
+        pp.listoptions(pr.HUB_OPTIONS)
+        print(pr.EXIT)
+        print()
+
+        while True:
+            choice_str = pp.pinput(pr.ENTER_ACC_NUMBER)
+            choice = h.validate_numberinput(choice_str, len(pr.HUB_OPTIONS) + 1)
+            if choice is not None:   # valid
+                break                 # exit input loop
+
+        if choice == 1: # Analyze
             new_save = analyze_hub(save)
             if new_save == []:
                 continue
             calc_hub(new_save)
         elif choice == 2: # View save
             pp.view_data(save)
-            input("\nInput any character to continue\n")
+            pp.pinput(pr.INPUT_ANY)
         else: 
             pp.clearterminal()
             exit("hub: User exited choice") # Exit
@@ -92,38 +95,51 @@ def hub(save): # General Hub
 def analyze_hub(save): # Filterting Hub
     pp.clearterminal()
     _, definers, _, _ = config.initvars()
+
+    print()
+    print(pr.AHUB_PROMPT)
+    print()
+    pp.listoptions(pr.AHUB_OPTIONS)
+    print(pr.EXIT)
+    print()
+
     while True:
-        print("\nHow do you want to select transactions?\n")
-        choice_str = input("1. Analyze all transactions\n" \
-        "2. Filter transactions before analyzing\n" \
-        "3. Back to main menu\n\nEnter the according number: ")
-        choice = h.validate_numberinput(choice_str, 3)
-        if choice == 1:
-            return save
-        elif choice == 2:
-            break
-        else:
-            return[]
-    return analyze_filtered_save(save, definers)
+        choice_str = pp.pinput(pr.ENTER_ACC_NUMBER)
+        choice = h.validate_numberinput(choice_str, len(pr.AHUB_OPTIONS) + 1)
+        if choice is not None: break
+    
+    if choice == 1:
+        return save
+    elif choice == 2:
+        return analyze_filtered_save(save, definers)
+    else: exit()
 
 def analyze_filtered_save(save, definers):
+    if save == []:
+        print("shits empty")
+        return []
     while True:        
         pp.clearterminal()
-        print("\nWhat would you like to filter your data by?")
-        for idx, (name, dtype) in enumerate(definers, start=1):
-            print(f"{idx}. {name.capitalize()}")
+
+        _, definers, _, _ = config.initvars()
+
+        print(pr.FILTER_PROMPT_KEY)
+        print()
+        pp.listnested(definers)
+        print()
 
         while True: # filterkey
-            choice_str = input("Enter the according number: ").strip()
+            choice_str = pp.pinput(pr.ENTER_ACC_NUMBER)
             choice = h.validate_numberinput(choice_str, len(definers))
             if choice is not None:
                 filterby_key = definers[choice - 1][0] # Name, category, type or amount
                 break
 
+        pp.clearterminal()
+        print(f"Filtering by -> {filterby_key}")
+        
         while True: # filtervalue
-            pp.clearterminal()
-            print(f"Filtering by -> {filterby_key}")
-            choice_str = input("\nWhat value would you like to filter it by?\n")
+            choice_str = pp.pinput(pr.FILTER_PROMPT_VALUE)
             choice = h.validate_entry(filterby_key, choice_str)
             if choice is not None:
                 filterby_value = choice
@@ -136,14 +152,15 @@ def analyze_filtered_save(save, definers):
         filtered_save = func(filterby_key, filterby_value, save)
 
         # if filter = 0
-        if not filtered_save and h.ask_yes_no(f"""\nYour selection "{filterby_key}: {filterby_value}" was not found.\nWould you like to try again? (y/n)""") == True:
+        print(pr.SELECTION_NOT_FOUND.format(key=filterby_key, value=filterby_value))
+        if not filtered_save and h.ask_yes_no(f"{pr.RETRY_PROMPT} {pr.YN}"):
             continue
 
         pp.prettyprint_dict(filtered_save)
-        if h.ask_yes_no(f"\nWould you like to analyze this dataset? (y/n)") == True:
+        if h.ask_yes_no(f"{pr.USE_FILTERED_DATASET} {pr.YN}") == True:
             break
         
-        if h.ask_yes_no(f"\nDo you want to try filtering again? (y/n)") == True:
+        if h.ask_yes_no(f"{pr.RETRY_FILTER} {pr.YN}") == True:
             continue
         return []
     return filtered_save
@@ -152,14 +169,18 @@ def calc_hub(save): # Calculating Hub
     result_list = []
     while True:
         pp.clearterminal()
+
         if result_list != []:
             pp.highlight(result_list)
-        print("\nWhat would you like to calculate?\n")
-        for idx, (label, func) in enumerate(c_util, start=1):
-            print(f"{idx}. {label}")
+        
+        print()
+        print(pr.CALC_HUB_PROMPT)
+        print()
+        pp.listnested(c_util)
+        print()
         
         while True:
-            choice2_str = input("\nEnter the according number: ").strip()
+            choice2_str = pp.pinput(pr.ENTER_ACC_NUMBER)
             choice2 = h.validate_numberinput(choice2_str, len(c_util))
             if choice2 is not None:   # valid
                 break                 # exit input loop
@@ -168,33 +189,34 @@ def calc_hub(save): # Calculating Hub
         print(f"\n{result}\n")
         result_list.append(result)
 
-
-        again = h.ask_yes_no("Would you like to calculate something else? (y/n)")
+        again = h.ask_yes_no(f"{pr.REDO_CALC_PROMPT} {pr.YN}")
         if not again:
             return
 
 def cr_save_loop(): # Generate Save 
-    pp.clearterminal()
     transactions, definers, _, count = config.initvars()
 
-    print("\nHere are the following definers:\n")
-    for idx, (name, dtype) in enumerate(definers, start=1):
-        print(f"{idx}. {name.capitalize():<10} (type: {dtype.__name__})")
-    print("\nPut in your values in the order of the list above.\n")
+    pp.clearterminal()
+    print()
+    print(pr.CR_SAVE_LOOP_PROMPT)
+    print()
+    pp.listnested(definers)
+    print()
 
-    if not h.ask_yes_no("Ready? (y/n)"):
+    if not h.ask_yes_no(f"{pr.WOULDYOU_PROCEED_PROMPT} {pr.YN}"):
         exit("User cancelled")
 
     while True:
         item, count = item_loop(definers, count)
         transactions.append(item)
 
-        print("\nSuccessfully added item:\n")
+        print()
+        print(pr.SUCCESSFULLY_ADDED)
         for key, value in item.items():
             print(f"  {key.capitalize():<10}: {value}")
         print()
 
-        if not h.ask_yes_no("Do you want add another item? (y/n)"):
+        if not h.ask_yes_no(f"{pr.ADD_ANOTHER_PROMPT} {pr.YN}"):
             break
 
     return transactions
@@ -211,7 +233,7 @@ def item_loop(definers, count): # Generate each item for Save
 
     for name, dtype in definers: # Put usr_i in item{}
         while True:
-            raw = input(f"{name.capitalize()}, {dtype.__name__}: ").strip()
+            raw = pp.pinput(f"{name.capitalize()}, {dtype.__name__}: ")
 
             # use shared validator
             value = h.validate_entry(name, raw)
@@ -230,10 +252,12 @@ def calc_loop(choice, save): # Calculate
     return(f"{label}: {result}")  
 
 def cr_new_save():
-    print("\ncreating save...")
+    print()
+    print(f"{pr.CR_SAVE}")
     save = cr_save_loop()
     s.save(save)
-    print("save created, loading save...")
+    print()
+    print(f"{pr.LD_SAVE}")
     return save
 
 
