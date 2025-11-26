@@ -9,6 +9,7 @@ import core.storage as s
 
 import cli.helper as h
 import cli.prettyprint as pp
+
 import time
 
 
@@ -30,13 +31,13 @@ def start(): # Ask if Load or Create Save?
 
         choice = input("Enter the according number: ").strip()
         if not choice.isdigit(): # digit validator
-            h.error("Please enter a number.")
+            pp.highlight("Please enter a number.")
             continue
         choice = int(choice)
         if 1 <= choice <= len(options):
             break
         else:
-            h.error("Invalid choice. Try again.")
+            pp.highlight("Invalid choice. Try again.")
     return choice
 
 def prehub(choice): # Load or Create Save
@@ -67,11 +68,11 @@ def hub(save): # General Hub
     while True:
         choice = input("Would you like to:\n1. Analyze / Calculate\n2. View save\n3. Exit\nEnter the according number: ").strip()
         if not choice.isdigit():
-            h.error("Please enter a number")
+            pp.highlight("Please enter a number")
             continue
         choice = int(choice)
         if choice not in (1, 2, 3):
-            h.error("Please enter a valid number")
+            pp.highlight("Please enter a valid number")
             continue
         elif choice == 1: # Analyze
             new_save = analyze_hub(save)

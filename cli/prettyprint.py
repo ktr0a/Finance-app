@@ -17,3 +17,10 @@ def view_data(save): # universal view list (hub & analyze hub)
         print()  # empty line after each dict
     return 
 
+def highlight(prompt):
+    length = len(prompt)
+    dashcount = length*"-" + "------"
+    print(dashcount)
+    print(f"---{prompt}---")
+    print(dashcount)
+    return

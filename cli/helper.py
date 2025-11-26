@@ -1,14 +1,7 @@
 # Helper functions for cli
 import core.config as config
 import core.storage as s
-
-def error(prompt):
-    length = len(prompt)
-    dashcount = length*"-" + "------"
-    print(dashcount)
-    print(f"---{prompt}---")
-    print(dashcount)
-    return
+import cli.prettyprint as pp
 
 def ask_yes_no(prompt) -> bool:
     while True:
@@ -18,17 +11,17 @@ def ask_yes_no(prompt) -> bool:
         elif choice in ("N", "NO"):
             return False
         else:
-            error("Please enter y/n.")
+            pp.highlight("Please enter y/n.")
 
 def validate_numberinput(choice_str, max_index):
     if not choice_str.isdigit():
-        error("Please enter a number")
+        pp.highlight("Please enter a number")
         return None
 
     num = int(choice_str)
 
     if not (1 <= num <= max_index):
-        error("Invalid choice. Try again.")
+        pp.highlight("Invalid choice. Try again.")
         return None
 
     return num
@@ -40,7 +33,7 @@ def validate_entry(key, raw_input):
     var = [t for dkey, t in definers if dkey == key]
 
     if not var:
-        print(f"ERROR: Unknown field '{key}'.")
+        print(f"pp.highlight: Unknown field '{key}'.")
         return None
 
     dtype = var[0]
@@ -51,7 +44,7 @@ def validate_entry(key, raw_input):
     if key == "type":
         raw = raw.upper()
         if raw not in ("I", "E"):
-            print("ERROR: Type must be I or E.")
+            print("pp.highlight: Type must be I or E.")
             return None
         return raw
 
@@ -63,8 +56,8 @@ def validate_entry(key, raw_input):
     # General datatype conversion
     try:
         value = dtype(raw)
-    except ValueError:
-        print(f"ERROR: Expected {dtype.__name__}.")
+    except ValueError :
+        print(f"pp.highlight: Expected {dtype.__name__}.")
         return None
 
     return value
