@@ -19,7 +19,7 @@ START_OPTIONS = (
 )
 
 # prehub()
-PREHUB = "Pre-Hub"
+PREHUB_NAME = "Pre-Hub"
 LOADING_SAVE = "Loading save..."
 FILE_CORRUPTED = "Save file is corrupted or unreadable."
 NO_SAVE_DETECTED = "No save was detected"
@@ -27,7 +27,7 @@ NO_SAVE_DETECTED = "No save was detected"
 CR_NEW_SAVE_INSTEAD = "Would you like to create a new save instead?"
 
 # hub()
-HUB = "General Hub"
+HUB_NAME = "General Hub"
 SAVE_LOADED = "Save loaded"
 HUB_OPTIONS = (
     "Analyze / Calculate",
@@ -35,7 +35,7 @@ HUB_OPTIONS = (
 )
 
 # analyze_hub()
-
+AHUB_NAME = "Analyzing Hub"
 AHUB_PROMPT = "How do you want to select transactions?"
 AHUB_OPTIONS = (
     "Analyze all transactions",
@@ -43,7 +43,7 @@ AHUB_OPTIONS = (
 )
 
 # analyze_filtered_save()
-
+FILTER_NAME = "Filtering save"
 FILTER_PROMPT_KEY = "What would you like to filter your data by?"
 FILTER_PROMPT_VALUE = "What value would you like to filter your data by?"
 
@@ -55,12 +55,12 @@ USE_FILTERED_DATASET = "Would you like to analyze this dataset?"
 RETRY_FILTER = "Do you want to try filtering again?"
 
 # calc_hub()
-
+CALC_HUB_NAME = "Calculating Hub"
 CALC_HUB_PROMPT = "What would you like to calculate?"
 REDO_CALC_PROMPT = "Would you like to calculate something else?"
 
 # cr_save_loop()
-
+CR_SAVE_NAME = "Creating save"
 CR_SAVE_LOOP_PROMPT = "Input your Data in the following order:"
 
 SUCCESSFULLY_ADDED = "Successfully added item:"

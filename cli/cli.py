@@ -20,12 +20,12 @@ import time
 # main cli 
 def start(): # Ask if Load or Create Save?
     pp.clearterminal()
-    print(pr.PROGRAM_ON)
+    pp.highlight(pr.PROGRAM_ON)
     print()
     print(pr.WOULDYOU_PROMPT)
     print()
     pp.listoptions(pr.START_OPTIONS)
-    print(pr.EXIT)
+    print(f"0. {pr.EXIT}")
     print()
 
     while True:
@@ -37,8 +37,12 @@ def start(): # Ask if Load or Create Save?
 
 def prehub(choice): # Load or Create Save
     pp.clearterminal()
-    pp.highlight(pr.PREHUB)
-    if choice == 1: # Load existing save
+    pp.highlight(pr.PREHUB_NAME)
+
+    if choice == 0: # Exit
+        return None
+    
+    elif choice == 1: # Load existing save
         print(pr.LOADING_SAVE)
 
         try: save = s.load()
@@ -58,6 +62,7 @@ def prehub(choice): # Load or Create Save
         
     elif choice == 2: # Create save
         return cr_new_save()
+    
     else: exit("prehub: invalid initial choice")
 
 def hub(save): # General Hub
@@ -66,12 +71,12 @@ def hub(save): # General Hub
     while True:
 
         pp.clearterminal()
-        pp.highlight("HUB")
+        pp.highlight(pr.HUB_NAME)
         print()
         print(pr.WOULDYOU_PROMPT)
         print()
         pp.listoptions(pr.HUB_OPTIONS)
-        print(pr.EXIT)
+        print(f"0. {pr.EXIT}")
         print()
 
         while True:
@@ -79,28 +84,34 @@ def hub(save): # General Hub
             choice = h.validate_numberinput(choice_str, len(pr.HUB_OPTIONS) + 1)
             if choice is not None:   # valid
                 break                 # exit input loop
-
-        if choice == 1: # Analyze
+        
+        if choice == 0: # Exit
+            return None
+        
+        elif choice == 1: # Analyze
             new_save = analyze_hub(save)
-            if new_save == []:
+            if new_save is None: # 
                 continue
             calc_hub(new_save)
+
         elif choice == 2: # View save
             pp.view_data(save)
             pp.pinput(pr.INPUT_ANY)
-        else: 
-            pp.clearterminal()
-            exit("hub: User exited choice") # Exit
+
+        else: # Failsafe/debug
+            print("ERROR: Invaoic choice, hub")
+            return None # Exit
 
 def analyze_hub(save): # Filterting Hub
-    pp.clearterminal()
     _, definers, _, _ = config.initvars()
 
+    pp.clearterminal()
+    pp.highlight(pr.AHUB_NAME)
     print()
     print(pr.AHUB_PROMPT)
     print()
     pp.listoptions(pr.AHUB_OPTIONS)
-    print(pr.EXIT)
+    print(f"0. {pr.EXIT}")
     print()
 
     while True:
@@ -108,21 +119,30 @@ def analyze_hub(save): # Filterting Hub
         choice = h.validate_numberinput(choice_str, len(pr.AHUB_OPTIONS) + 1)
         if choice is not None: break
     
-    if choice == 1:
+    if choice == 0: # Exit
+        return None
+
+    elif choice == 1:
         return save
+    
     elif choice == 2:
         return analyze_filtered_save(save, definers)
-    else: exit()
+    
+    else: # Failsafe/debug
+        print("ERROR: Invaoic choice, ahub")
+        return None
 
 def analyze_filtered_save(save, definers):
-    if save == []:
-        print("shits empty")
-        return []
+    if not save: # no/empty save
+        print("save is empty")
+        return None
+    
     while True:        
-        pp.clearterminal()
-
         _, definers, _, _ = config.initvars()
 
+        pp.clearterminal()
+        pp.highlight(pr.FILTER_NAME)
+        print()
         print(pr.FILTER_PROMPT_KEY)
         print()
         pp.listnested(definers)
@@ -136,7 +156,10 @@ def analyze_filtered_save(save, definers):
                 break
 
         pp.clearterminal()
+        pp.highlight(pr.FILTER_NAME)
+        print()
         print(f"Filtering by -> {filterby_key}")
+        print()
         
         while True: # filtervalue
             choice_str = pp.pinput(pr.FILTER_PROMPT_VALUE)
@@ -146,7 +169,10 @@ def analyze_filtered_save(save, definers):
                 break
 
         pp.clearterminal()
+        pp.highlight(pr.FILTER_NAME)
+        print()
         print(f"\nFiltering by -> {filterby_key.capitalize()}: {filterby_value}")
+        print()
 
         _, func = s_util[0]
         filtered_save = func(filterby_key, filterby_value, save)
@@ -162,16 +188,20 @@ def analyze_filtered_save(save, definers):
         
         if h.ask_yes_no(f"{pr.RETRY_FILTER} {pr.YN}") == True:
             continue
-        return []
-    return filtered_save
+
+        return None # dont use result + dont retry
+    
+    return filtered_save # use result
 
 def calc_hub(save): # Calculating Hub
-    result_list = []
+    result_list = [] # to display what has been calculated
     while True:
         pp.clearterminal()
+        pp.highlight(pr.CALC_HUB_NAME)
 
-        if result_list != []:
-            pp.highlight(result_list)
+        if result_list != []: # if smth has been calculated
+            print()
+            print(", ".join(result_list))
         
         print()
         print(pr.CALC_HUB_PROMPT)
@@ -197,6 +227,7 @@ def cr_save_loop(): # Generate Save
     transactions, definers, _, count = config.initvars()
 
     pp.clearterminal()
+    pp.highlight(pr.CR_SAVE_NAME)
     print()
     print(pr.CR_SAVE_LOOP_PROMPT)
     print()
@@ -246,6 +277,7 @@ def item_loop(definers, count): # Generate each item for Save
 
     count += 1
     return item, count
+
 def calc_loop(choice, save): # Calculate
     label, func = c_util[choice-1]
     result = func(save)

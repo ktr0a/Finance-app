@@ -2,6 +2,13 @@ from cli.cli import start, prehub, hub
 import cli.prettyprint as pp
 
 if __name__ == "__main__":
-    x1 = start()
-    x2 = prehub(x1)
-    x3 = hub(x2)
+    x = start()
+    while True:
+        x = prehub(x)
+        if x is None:
+            print("Exited prehub")
+            break
+
+        if hub(x) is None:
+            print("Exited hub")
+            break

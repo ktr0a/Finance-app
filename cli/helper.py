@@ -21,6 +21,9 @@ def validate_numberinput(choice_str, max_index):
 
     num = int(choice_str)
 
+    if num == 0: # exit, 0
+        return num
+
     if not (1 <= num <= max_index):
         pp.highlight("Invalid choice. Try again.")
         return None

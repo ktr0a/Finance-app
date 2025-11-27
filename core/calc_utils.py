@@ -28,8 +28,7 @@ def tote(save):
 def netbal(save):
     income, expense = split_IE(save)
     netbal = sum(i["amount"] for i in income) - sum(e["amount"] for e in expense)
-    if netbal < 0: return f"-{format(netbal)}"
-    else: return format(netbal)
+    return format(netbal)
 
 
 # UTILS - imported by main.py
