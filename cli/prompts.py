@@ -54,7 +54,7 @@ AHUB_OPTIONS = (
     "Filter transactions before analyzing",
 )
 
-# analyze_filtered_save()
+# filter_save()
 FILTER_NAME = "Filtering save"
 FILTER_PROMPT_KEY = "What would you like to filter your data by?"
 FILTER_PROMPT_VALUE = "What value would you like to filter your data by?"
