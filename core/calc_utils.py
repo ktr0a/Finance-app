@@ -1,6 +1,6 @@
 # Calculations with list of items & parameters (dicts). Returns 
 
-def format(amount):
+def format(amount: float) -> str:
     return f"{amount:.2f}€"
 
 def split_IE(transactions): # seperate i/e
@@ -15,26 +15,22 @@ def split_IE(transactions): # seperate i/e
             print(f"""invalid type in: {transactions[i]["name"]}; type: {transactions[i]["type"]}""") 
     return income, expense
 
-def toti(save):
+def toti_raw(save) -> float:
     income, _ = split_IE(save)
-    toti = sum(t["amount"] for t in income)
-    return format(toti)
+    return sum(t["amount"] for t in income)
 
-def tote(save):
+def tote_raw(save) -> float:
     _, expense = split_IE(save)
-    tote = sum(t["amount"] for t in expense)
-    return f"-{format(tote)}"
+    return sum(t["amount"] for t in expense)
 
-def netbal(save):
-    income, expense = split_IE(save)
-    netbal = sum(i["amount"] for i in income) - sum(e["amount"] for e in expense)
-    return format(netbal)
+def netbal_raw(save) -> float:
+    return toti_raw(save) - tote_raw(save)
 
 
 # UTILS - imported by main.py
 
 calc_util_func = [
-    ("Total income", toti),
-    ("Total expense", tote),
-    ("Net Balance", netbal),
+    ("Total income", toti_raw),
+    ("Total expense", tote_raw),
+    ("Net Balance", netbal_raw),
 ]

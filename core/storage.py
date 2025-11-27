@@ -12,14 +12,14 @@ def save(lst, *args):
 
 def load():
     if DATA_FILE.exists() == False:
-        return False # no save yet
+        return None # no save yet
     else:
         with DATA_FILE.open("r", encoding="utf-8") as f:
             return json.load(f) # returns list of dicts
         
 def delsavereq():
     if DATA_FILE.exists() == False:
-        return False # no save 
+        return None # no save 
     else:
         os.remove("save.json")
         return True # successful

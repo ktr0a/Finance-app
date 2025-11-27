@@ -50,18 +50,23 @@ def prehub(choice): # Load or Create Save
             print(pr.FILE_CORRUPTED)
             if h.ask_yes_no(f"{pr.CR_NEW_SAVE_INSTEAD} {pr.YN}"):
                 return cr_new_save()
-            else: exit("o1hub: usr N1")
+            else: 
+                return None
 
         if not save:  # no save / empty save
             print(pr.NO_SAVE_DETECTED)
             if h.ask_yes_no(f"{pr.CR_NEW_SAVE_INSTEAD} {pr.YN}"):
                 return cr_new_save()
-            else: exit("o1hub: usr N2")
+            else: 
+                return None
         
         return save
         
     elif choice == 2: # Create save
-        return cr_new_save()
+        save = cr_new_save()
+        if save is None:
+            return None
+        return save
     
     else: exit("prehub: invalid initial choice")
 
@@ -178,9 +183,11 @@ def analyze_filtered_save(save, definers):
         filtered_save = func(filterby_key, filterby_value, save)
 
         # if filter = 0
-        print(pr.SELECTION_NOT_FOUND.format(key=filterby_key, value=filterby_value))
-        if not filtered_save and h.ask_yes_no(f"{pr.RETRY_PROMPT} {pr.YN}"):
-            continue
+        if not filtered_save:
+            print(pr.SELECTION_NOT_FOUND.format(key=filterby_key, value=filterby_value))
+            if h.ask_yes_no(f"{pr.RETRY_PROMPT} {pr.YN}"):
+                continue
+            return None
 
         pp.prettyprint_dict(filtered_save)
         if h.ask_yes_no(f"{pr.USE_FILTERED_DATASET} {pr.YN}") == True:
@@ -235,7 +242,7 @@ def cr_save_loop(): # Generate Save
     print()
 
     if not h.ask_yes_no(f"{pr.WOULDYOU_PROCEED_PROMPT} {pr.YN}"):
-        exit("User cancelled")
+        return None
 
     while True:
         item, count = item_loop(definers, count)
@@ -278,15 +285,18 @@ def item_loop(definers, count): # Generate each item for Save
     count += 1
     return item, count
 
-def calc_loop(choice, save): # Calculate
+def calc_loop(choice, save):
     label, func = c_util[choice-1]
-    result = func(save)
-    return(f"{label}: {result}")  
+    result = func(save)           # float
+    return f"{label}: {format(result)}"
+ 
 
 def cr_new_save():
     print()
     print(f"{pr.CR_SAVE}")
     save = cr_save_loop()
+    if save is None:
+        return None
     s.save(save)
     print()
     print(f"{pr.LD_SAVE}")
