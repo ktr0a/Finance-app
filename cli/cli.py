@@ -36,6 +36,7 @@ def start(): # Ask if Load or Create Save?
             break                 # exit input loop
     return choice
 
+
 def prehub(choice): # Load or Create Save
     pp.clearterminal()
     pp.highlight(pr.PREHUB_NAME)
@@ -71,6 +72,72 @@ def prehub(choice): # Load or Create Save
     
     else: exit("prehub: invalid initial choice")
 
+def cr_new_save():
+    print()
+    print(f"{pr.CR_SAVE}")
+    save = cr_save_loop()
+    if save is None:
+        return None
+    s.save(save)
+    print()
+    print(f"{pr.LD_SAVE}")
+    return save
+def cr_save_loop(): # Generate Save 
+    transactions, definers, _, count = config.initvars()
+
+    pp.clearterminal()
+    pp.highlight(pr.CR_SAVE_NAME)
+    print()
+    print(pr.CR_SAVE_LOOP_PROMPT)
+    print()
+    pp.listnested(definers)
+    print()
+
+    if not h.ask_yes_no(f"{pr.WOULDYOU_PROCEED_PROMPT} {pr.YN}"):
+        return None
+
+    while True:
+        item, count = item_loop(definers, count)
+        transactions.append(item)
+
+        print()
+        print(pr.SUCCESSFULLY_ADDED)
+        for key, value in item.items():
+            print(f"  {key.capitalize():<10}: {value}")
+        print()
+
+        if not h.ask_yes_no(f"{pr.ADD_ANOTHER_PROMPT} {pr.YN}"):
+            break
+
+    return transactions
+def item_loop(definers, count): # Generate each item for Save
+    pp.clearterminal()
+    suffix = ["st", "nd", "rd", "th"]
+    if count < 3:
+        print(f"{count+1}{suffix[count]} Item:")
+    else:
+        print(f"{count+1}{suffix[3]} Item:")
+
+    item = {}
+
+    for name, dtype in definers: # Put usr_i in item{}
+        while True:
+            raw = pp.pinput(f"{name.capitalize()}, {dtype.__name__}: ")
+
+            # use shared validator
+            value = h.validate_entry(name, raw)
+            if value is None:
+                # validation failed → ask again
+                continue
+
+            item[name] = value
+            break
+
+    count += 1
+    return item, count
+
+
+
 def hub(save): # General Hub
     print(pr.SAVE_LOADED)
     time.sleep(1)
@@ -103,7 +170,7 @@ def hub(save): # General Hub
         elif choice == 2: # View save
             pp.view_data(save)
             pp.pinput(pr.INPUT_ANY)
-
+            
         else: # Failsafe/debug
             print("ERROR: Invaoic choice, hub")
             return None # Exit
@@ -132,13 +199,12 @@ def analyze_hub(save): # Filterting Hub
         return save
     
     elif choice == 2:
-        return analyze_filtered_save(save, definers)
+        return filter_save(save, definers)
     
     else: # Failsafe/debug
         print("ERROR: Invaoic choice, ahub")
         return None
-
-def analyze_filtered_save(save, definers):
+def filter_save(save, definers):
     if not save: # no/empty save
         print("save is empty")
         return None
@@ -230,80 +296,12 @@ def calc_hub(save): # Calculating Hub
         again = h.ask_yes_no(f"{pr.REDO_CALC_PROMPT} {pr.YN}")
         if not again:
             return
-
-def cr_save_loop(): # Generate Save 
-    transactions, definers, _, count = config.initvars()
-
-    pp.clearterminal()
-    pp.highlight(pr.CR_SAVE_NAME)
-    print()
-    print(pr.CR_SAVE_LOOP_PROMPT)
-    print()
-    pp.listnested(definers)
-    print()
-
-    if not h.ask_yes_no(f"{pr.WOULDYOU_PROCEED_PROMPT} {pr.YN}"):
-        return None
-
-    while True:
-        item, count = item_loop(definers, count)
-        transactions.append(item)
-
-        print()
-        print(pr.SUCCESSFULLY_ADDED)
-        for key, value in item.items():
-            print(f"  {key.capitalize():<10}: {value}")
-        print()
-
-        if not h.ask_yes_no(f"{pr.ADD_ANOTHER_PROMPT} {pr.YN}"):
-            break
-
-    return transactions
-
-def item_loop(definers, count): # Generate each item for Save
-    pp.clearterminal()
-    suffix = ["st", "nd", "rd", "th"]
-    if count < 3:
-        print(f"{count+1}{suffix[count]} Item:")
-    else:
-        print(f"{count+1}{suffix[3]} Item:")
-
-    item = {}
-
-    for name, dtype in definers: # Put usr_i in item{}
-        while True:
-            raw = pp.pinput(f"{name.capitalize()}, {dtype.__name__}: ")
-
-            # use shared validator
-            value = h.validate_entry(name, raw)
-            if value is None:
-                # validation failed → ask again
-                continue
-
-            item[name] = value
-            break
-
-    count += 1
-    return item, count
-
 def calc_loop(choice, save):
     label, func, mode = c_util[choice-1]
     result = func(save)           
     output = format(result, mode)
 
     return f"{label}: {output}"
- 
-
-def cr_new_save():
-    print()
-    print(f"{pr.CR_SAVE}")
-    save = cr_save_loop()
-    if save is None:
-        return None
-    s.save(save)
-    print()
-    print(f"{pr.LD_SAVE}")
-    return save
 
 
 
