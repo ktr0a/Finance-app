@@ -1,7 +1,12 @@
 # Calculations with list of items & parameters (dicts). Returns 
 
-def format(amount: float) -> str:
-    return f"{amount:.2f}€"
+def format(value, mode) -> str:
+    if mode == "money":
+        return f"{value:.2f}€"
+    elif mode == "int":
+        return str(value)
+    
+    else: return str(value) # failsafe
 
 def split_IE(transactions): # seperate i/e
     income = []
@@ -11,8 +16,8 @@ def split_IE(transactions): # seperate i/e
             income.append(transactions[i])
         elif transactions[i]["type"] == "E":
             expense.append(transactions[i])
-        else:
-            print(f"""invalid type in: {transactions[i]["name"]}; type: {transactions[i]["type"]}""") 
+        else: 
+            raise ValueError(f"Invalid type in: {transactions[i]['name']}; type: {transactions[i]['type']}")
     return income, expense
 
 def toti_raw(save) -> float:
@@ -26,11 +31,33 @@ def tote_raw(save) -> float:
 def netbal_raw(save) -> float:
     return toti_raw(save) - tote_raw(save)
 
+def count_transactions(save):
+    return len(save)
+
+def avg_transaction_amount(save) -> float:
+    if not save:
+        return 0.0
+    return sum(v["amount"] for v in save) / len(save)
+
+def max_transaction_amount(save) -> float:
+    if not save:
+        return 0.0
+    return max(v["amount"] for v in save)
+
+def min_transaction_amount(save) -> float:
+    if not save:
+        return 0.0
+    return min(v["amount"] for v in save)
 
 # UTILS - imported by main.py
 
 calc_util_func = [
-    ("Total income", toti_raw),
-    ("Total expense", tote_raw),
-    ("Net Balance", netbal_raw),
+    ("Total income", toti_raw, "money"),
+    ("Total expense", tote_raw, "money"),
+    ("Net Balance", netbal_raw, "money"),
+    ("Number of transactions", count_transactions, "int"),
+    ("Average transaction amount", avg_transaction_amount, "money"),
+    ("Max transaction amount", max_transaction_amount, "money"),
+    ("Min transaction amount", min_transaction_amount, "money"),
+
 ]

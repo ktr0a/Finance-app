@@ -3,6 +3,7 @@
 import core.config as config
 
 from core.calc_utils import calc_util_func as c_util
+from core.calc_utils import format
 from core.sort_utils import sort_util_func as s_util
 
 import core.storage as s
@@ -286,9 +287,11 @@ def item_loop(definers, count): # Generate each item for Save
     return item, count
 
 def calc_loop(choice, save):
-    label, func = c_util[choice-1]
-    result = func(save)           # float
-    return f"{label}: {format(result)}"
+    label, func, mode = c_util[choice-1]
+    result = func(save)           
+    output = format(result, mode)
+
+    return f"{label}: {output}"
  
 
 def cr_new_save():

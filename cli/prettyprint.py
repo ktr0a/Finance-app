@@ -41,7 +41,7 @@ def listoptions(list):
         print(f"{idx}. {opt.capitalize()}")
 
 def listnested(lst):
-    for idx, (name, obj) in enumerate(lst, start=1):
+    for idx, (name, obj, *args) in enumerate(lst, start=1):
         print(f"{idx}. {name.capitalize()}")
 
 def prettyprint_dict(lst):
