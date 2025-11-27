@@ -26,6 +26,18 @@ NO_SAVE_DETECTED = "No save was detected"
 
 CR_NEW_SAVE_INSTEAD = "Would you like to create a new save instead?"
 
+# cr_save_loop()
+CR_SAVE_NAME = "Creating save"
+CR_SAVE_LOOP_PROMPT = "Input your Data in the following order:"
+
+SUCCESSFULLY_ADDED = "Successfully added item:"
+ADD_ANOTHER_PROMPT = "Would you like to add another item?"
+
+# cr_new_save()
+
+CR_SAVE = "Creating save..."
+LD_SAVE = "Save created, loading save...."
+
 # hub()
 HUB_NAME = "General Hub"
 SAVE_LOADED = "Save loaded"
@@ -59,14 +71,4 @@ CALC_HUB_NAME = "Calculating Hub"
 CALC_HUB_PROMPT = "What would you like to calculate?"
 REDO_CALC_PROMPT = "Would you like to calculate something else?"
 
-# cr_save_loop()
-CR_SAVE_NAME = "Creating save"
-CR_SAVE_LOOP_PROMPT = "Input your Data in the following order:"
 
-SUCCESSFULLY_ADDED = "Successfully added item:"
-ADD_ANOTHER_PROMPT = "Would you like to add another item?"
-
-# cr_new_save()
-
-CR_SAVE = "Creating save..."
-LD_SAVE = "Save created, loading save...."
