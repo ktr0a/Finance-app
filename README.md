@@ -1,4 +1,4 @@
-# Finance Tracker CLI - Version 1.0.0
+# Finance Tracker CLI - Version 1.1
 
 A modular command-line finance tracker written in Python.
 Version 1.1 extends the original release with editing, deletion, filtering, and expanded calculations, with a strong focus on stability and input validation.
