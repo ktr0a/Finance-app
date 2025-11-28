@@ -3,11 +3,11 @@
 ### cli.py
 # general
 
-ENTER_ACC_NUMBER = "Enter the according number: "
+ENTER_ACC_NUMBER = "Enter the corresponding number: "
 YN = "(y/n)"
 EXIT = "Exit"
-INPUT_ANY = "Input any character to continue"
-WOULDYOU_PROMPT = "Would you like to:"
+INPUT_ANY = "Press any character to continue"
+WOULDYOU_PROMPT = "What would you like to do?"
 WOULDYOU_PROCEED_PROMPT = "Would you like to proceed?"
 
 # start()
@@ -19,7 +19,7 @@ START_OPTIONS = (
 )
 
 # prehub()
-PREHUB_NAME = "Pre-Hub"
+PREHUB_NAME = "Pre-hub"
 LOADING_SAVE = "Loading save..."
 FILE_CORRUPTED = "Save file is corrupted or unreadable."
 NO_SAVE_DETECTED = "No save was detected"
@@ -28,19 +28,19 @@ CR_NEW_SAVE_INSTEAD = "Would you like to create a new save instead?"
 
 # cr_new_save()
 CR_SAVE = "Creating save..."
-LD_SAVE = "Save created, loading save...."
+LD_SAVE = "Save created, loading save..."
 
 # cr_save_loop()
-CR_SAVE_NAME = "Creating save"
-CR_SAVE_LOOP_PROMPT = "Input your Data in the following order:"
+CR_SAVE_NAME = "Create transactions"
+CR_SAVE_LOOP_PROMPT = "Enter your data in the following order:"
 
+SUCCESSFULLY_ADDED = "Successfully added transaction:"
+ADD_ANOTHER_PROMPT = "Would you like to add another transaction?"
 
-SUCCESSFULLY_ADDED = "Successfully added item:"
-ADD_ANOTHER_PROMPT = "Would you like to add another item?"
 
 # hub()
-HUB_NAME = "General Hub"
-SAVE_LOADED = "Save loaded"
+HUB_NAME = "Main hub"
+SAVE_LOADED = "Save loaded."
 HUB_OPTIONS = (
     "Analyze save",
     "View save",
@@ -48,7 +48,7 @@ HUB_OPTIONS = (
 )
 
 # analyze_hub()
-AHUB_NAME = "Analyzing Hub"
+AHUB_NAME = "Analysis hub"
 AHUB_PROMPT = "How do you want to select transactions?"
 AHUB_OPTIONS = (
     "Analyze all transactions",
@@ -56,44 +56,43 @@ AHUB_OPTIONS = (
 )
 
 # filter_save()
-FILTER_NAME = "Filtering save"
-FILTER_PROMPT_KEY = "What would you like to filter your data by?"
-FILTER_PROMPT_VALUE = "What value would you like to filter your data by?"
+FILTER_NAME = "Filter transactions"
+FILTER_PROMPT_KEY = "Which field would you like to filter by?"
+FILTER_PROMPT_VALUE = "Enter the value to filter by:"
 
 SELECTION_NOT_FOUND = 'Your selection "{key}: {value}" was not found.'
-RETRY_PROMPT = "would you like to try again?"
+RETRY_PROMPT = "Would you like to try again?"
 
-USE_FILTERED_DATASET = "Would you like to analyze this dataset?"
+USE_FILTERED_DATASET = "Would you like to analyze only this filtered dataset?"
 
-RETRY_FILTER = "Do you want to try filtering again?"
+RETRY_FILTER = "Would you like to try a different filter?"
 
 # calc_hub()
-CALC_HUB_NAME = "Calculating Hub"
+CALC_HUB_NAME = "Calculation Hub"
 CALC_HUB_PROMPT = "What would you like to calculate?"
 REDO_CALC_PROMPT = "Would you like to calculate something else?"
 
 # edit_hub()
-EDIT_HUB_NAME = "Editing Hub"
-EDIT_HUB_PROMPT = "What would you like to edit?"
+EDIT_HUB_NAME = "Edit hub"
+EDIT_HUB_PROMPT = "What would you like to do?"
 EDIT_HUB_OPTIONS = (
     "Edit a transaction",
     "Delete a transaction",
     "Add a new transaction",
-    "View save", # DO NOT DELETE
+    "View save",  # DO NOT DELETE
 )
 
-ADD_TRANSACTION_PROMPT = "Add Item Hub"
+ADD_TRANSACTION_PROMPT = "Add transaction"
 
 # edit_transaction()
-EDIT_TRANSACTION_PROMPT = "Which Item would you like to edit?"
-SEL_ITEM_PROMPT = "What would you like to edit?"
-NEW_VALUE_PROMPT = "Enter new value"
-REDO_EDIT_TRANSACTION_PROMPT = "Would you like to edit a different value of the item?"
-ADD_ITEM_TO_SAVE = "Would you like to save your edits?"
+EDIT_TRANSACTION_PROMPT = "Which transaction would you like to edit?"
+SEL_ITEM_PROMPT = "Which field would you like to edit?"
+NEW_VALUE_PROMPT = "Enter the new value:"
+REDO_EDIT_TRANSACTION_PROMPT = "Would you like to edit another field in this transaction?"
+ADD_ITEM_TO_SAVE = "Save these changes?"
 
-# delete_transactio()
-DEL_TRANSACTION_PROMPT = "Which Item would you like to delete?"
-RETRY_DEL_PROMPT = "Would you like to try again?"
-DEL_ANOTHER_PROMPT = "Would you like to delete another item?"
-
+# del_transaction()
+DEL_TRANSACTION_PROMPT = "Which transaction would you like to delete?"
+RETRY_DEL_PROMPT = "Would you like to select a different transaction?"
+DEL_ANOTHER_PROMPT = "Would you like to delete another transaction?"
 
