@@ -1,4 +1,4 @@
-# Finance Tracker CLI - Version 1.1
+# Finance Tracker CLI - Version 1.0.0
 
 A modular command-line finance tracker written in Python.
 Version 1.1 extends the original release with editing, deletion, filtering, and expanded calculations, with a strong focus on stability and input validation.
@@ -91,28 +91,33 @@ The user can retry filters and choose whether to analyze the filtered dataset or
 
 ## Project Structure
 
-* `main.py` - program entry point
-* `core/`
+```text
+Finance-App/
+│
+├── main.py          # Entry point: start → load/create → hub
+├── cli.py           # All interactive CLI logic
+├── utils.py         # Calculation utilities (total income/expense)
+├── storage.py       # JSON save/load logic
+├── parameters.py    # Data schema and default definitions
+└── save.json        # Auto-created: stores transaction data
+```
 
-  * `config.py` - schema and default definitions
-  * `calc_utils.py` - calculation logic
-  * `sort_utils.py` - filtering and dataset operations
-  * `storage.py` - JSON save/load system
-* `cli/`
+## Installation & Running
 
-  * `cli.py` - main CLI logic
-  * `helper.py` - validation and helpers
-  * `prettyprint.py` - terminal formatting
-  * `prompts.py` - user-facing text
-* `save.json` - auto-created transaction storage
+### 1. Clone the repository
+```bash
+git clone <your-repo-url>
+cd Finance-App
+```
 
----
+### 2. Run the program
+```bash
+python main.py
+```
 
-## Running the Program
-
-1. Clone the repository
-2. Run `python main.py`
-3. Follow the CLI to load or create a save, then view, analyze, edit, or delete transactions
+### 3. Use the CLI prompts
+Choose between loading an existing save or creating a new one.  
+Enter transactions, view them, and run calculations — all via clean terminal prompts.
 
 ---
 
@@ -149,5 +154,4 @@ MIT License
 ---
 
 ## Author
-
-ktr0a
+Created by ktr0a
