@@ -13,7 +13,8 @@ def ask_yes_no(prompt) -> bool:
         else:
             pp.highlight("Please enter y/n.")
 
-def validate_numberinput(choice_str, max_index):
+def validate_numberinput(choice_str, max_index, allow_zero = False):
+    
     choice_str = choice_str.strip()
     if not choice_str.isdigit():
         pp.highlight("Please enter a number")
@@ -21,12 +22,15 @@ def validate_numberinput(choice_str, max_index):
 
     num = int(choice_str)
 
-    if num == 0: # exit, 0
-        return num
+    if allow_zero == True:
+        if not (0 <= num <= max_index):
+            pp.highlight("Invalid choice. Try again.")
+            return None
 
-    if not (1 <= num <= max_index):
-        pp.highlight("Invalid choice. Try again.")
-        return None
+    else:
+        if not (1 <= num <= max_index):
+            pp.highlight("Invalid choice. Try again.")
+            return None
 
     return num
 

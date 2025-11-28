@@ -1,4 +1,5 @@
 # Take userinput & give it to storage.py (& utils.py, if applicable).
+import copy
 
 import core.config as config
 
@@ -31,7 +32,7 @@ def start(): # Ask if Load or Create Save?
 
     while True:
         choice_str = pp.pinput(pr.ENTER_ACC_NUMBER)
-        choice = h.validate_numberinput(choice_str, len(pr.START_OPTIONS) + 1)
+        choice = h.validate_numberinput(choice_str, len(pr.START_OPTIONS), allow_zero = True)
         if choice is not None:   # valid
             break                 # exit input loop
     return choice
@@ -75,18 +76,18 @@ def prehub(choice): # Load or Create Save
 def cr_new_save():
     print()
     print(f"{pr.CR_SAVE}")
-    save = cr_save_loop()
+    save = cr_save_loop(pr.CR_SAVE_NAME)
     if save is None:
         return None
     s.save(save)
     print()
     print(f"{pr.LD_SAVE}")
     return save
-def cr_save_loop(): # Generate Save 
+def cr_save_loop(PROMPT): # Generate Save 
     transactions, definers, _, count = config.initvars()
 
     pp.clearterminal()
-    pp.highlight(pr.CR_SAVE_NAME)
+    pp.highlight(PROMPT)
     print()
     print(pr.CR_SAVE_LOOP_PROMPT)
     print()
@@ -154,7 +155,7 @@ def hub(save): # General Hub
 
         while True:
             choice_str = pp.pinput(pr.ENTER_ACC_NUMBER)
-            choice = h.validate_numberinput(choice_str, len(pr.HUB_OPTIONS) + 1)
+            choice = h.validate_numberinput(choice_str, len(pr.HUB_OPTIONS), allow_zero = True)
             if choice is not None:   # valid
                 break                 # exit input loop
         
@@ -168,12 +169,20 @@ def hub(save): # General Hub
             calc_hub(new_save)
 
         elif choice == 2: # View save
-            pp.view_data(save)
+            pp.listnesteddict(save)
             pp.pinput(pr.INPUT_ANY)
-            
+
+        elif choice == 3:  # Edit save
+            edited_save = edit_hub(save)
+            if edited_save is not None:
+                save = edited_save          # use updated data
+                s.save(save)                # persist it
+
+
         else: # Failsafe/debug
             print("ERROR: Invaoic choice, hub")
             return None # Exit
+
 
 def analyze_hub(save): # Filterting Hub
     _, definers, _, _ = config.initvars()
@@ -189,7 +198,7 @@ def analyze_hub(save): # Filterting Hub
 
     while True:
         choice_str = pp.pinput(pr.ENTER_ACC_NUMBER)
-        choice = h.validate_numberinput(choice_str, len(pr.AHUB_OPTIONS) + 1)
+        choice = h.validate_numberinput(choice_str, len(pr.AHUB_OPTIONS), allow_zero = True)
         if choice is not None: break
     
     if choice == 0: # Exit
@@ -256,7 +265,7 @@ def filter_save(save, definers):
                 continue
             return None
 
-        pp.prettyprint_dict(filtered_save)
+        pp.listnesteddict(filtered_save)
         if h.ask_yes_no(f"{pr.USE_FILTERED_DATASET} {pr.YN}") == True:
             break
         
@@ -266,6 +275,7 @@ def filter_save(save, definers):
         return None # dont use result + dont retry
     
     return filtered_save # use result
+
 
 def calc_hub(save): # Calculating Hub
     result_list = [] # to display what has been calculated
@@ -304,10 +314,157 @@ def calc_loop(choice, save):
     return f"{label}: {output}"
 
 
+def edit_hub(save):
+    # print
+    while True:
+        pp.clearterminal()
+        _, definers, _, _ = config.initvars()
+        pp.highlight(pr.EDIT_HUB_NAME)
+        print()
+        print(pr.EDIT_HUB_PROMPT)
+        print()
+        pp.listoptions(pr.EDIT_HUB_OPTIONS)
+        print(f"0. {pr.EXIT}")
+        print()
+        # ask 
 
+        while True:
+            choice_str = pp.pinput(pr.ENTER_ACC_NUMBER)
+            choice = h.validate_numberinput(choice_str, len(pr.EDIT_HUB_OPTIONS), allow_zero = True)
+            if choice is not None:   # valid
+                break                 # exit input loop
+        
+        if choice == 0: # Exit
+            return None
+        
+        elif choice == 1: # Edit transaction
+            return edit_transaction(save, definers)
+        
+        elif choice == 2: # Delete transaction
+            return delete_transaction(save)
+        
+        elif choice == 3: # Add new transaction
+            return add_transaction(save)
+        
+        elif choice == 4: # View save
+            pp.listnesteddict(save)
+            pp.pinput(pr.INPUT_ANY)
+            continue
+        
+        else: # Failsafe/debug
+            print("ERROR: Invaoic choice, hub")
+        pass
+def edit_transaction(save, definers):
+    pp.listnesteddict(save)
+    print()
+    print(pr.EDIT_TRANSACTION_PROMPT)
+    print(f"0. {pr.EXIT}")
+    print()
+
+    while True:
+        choice_str = pp.pinput(pr.ENTER_ACC_NUMBER)
+        choice = h.validate_numberinput(choice_str, len(save), allow_zero = True)
+        if choice is not None:   # valid
+            break                 # exit input loop
+
+    if choice == 0: # exit
+        return None
+    
+    item_index = choice
+    item = copy.deepcopy(save[choice - 1])
+    print(f"Selected Item:\nItem: {choice}")
+
+    while True:
+        pp.listdict(item)
+        print()
+        print(pr.SEL_ITEM_PROMPT)
+        print()
+        pp.listnested(definers)
+        print(f"0. {pr.EXIT}")
+        print()
+
+        while True: # select key
+            choice_str = pp.pinput(pr.ENTER_ACC_NUMBER)
+            key_choice = h.validate_numberinput(choice_str, len(definers), allow_zero = True)
+            if key_choice is not None:   # valid
+                break                 # exit input loop
+
+        if key_choice == 0: # exit
+            return None
+
+        selected_key = definers[key_choice - 1][0]
+        print(f"Selected key: {selected_key.capitalize()}")
+        print()
+        
+        while True: # edit value
+            raw = pp.pinput(f"{pr.NEW_VALUE_PROMPT}: ")
+            value = h.validate_entry(selected_key, raw)
+            if value is None:
+                continue
+            break
+
+        item[selected_key] = value # insert new value
+
+        pp.listdict(item)
+
+        if h.ask_yes_no(f"{pr.REDO_EDIT_TRANSACTION_PROMPT} {pr.YN}"):
+            continue
+
+        if h.ask_yes_no(f"{pr.ADD_ITEM_TO_SAVE} {pr.YN}"):
+            save[item_index - 1] = item
+            return save
+        
+        return None
+def delete_transaction(save):
+    deleted_any = False
+
+    while True:
+        pp.listnesteddict(save)
+        print()
+        print(pr.DEL_TRANSACTION_PROMPT)
+        print(f"0. {pr.EXIT}")
+        print()
+
+        while True:
+            choice_str = pp.pinput(pr.ENTER_ACC_NUMBER)
+            choice = h.validate_numberinput(choice_str, len(save), allow_zero = True)
+            if choice is not None:   # valid
+                break                 # exit input loop
+
+        if choice == 0:
+            return save if deleted_any else None
+        
+        item = save[choice - 1]
+        print(f"Selected Item for deletion (Item {choice}):")
+        pp.listdict(item)
+
+        if not h.ask_yes_no(f"{pr.WOULDYOU_PROCEED_PROMPT} {pr.YN}"): # try again?
+            if h.ask_yes_no(f"{pr.RETRY_DEL_PROMPT} {pr.YN}"): 
+                continue
+            return save if deleted_any else None
+
+        # actually delete
+        save.pop(choice - 1)
+        deleted_any = True
+
+        if not save: # failsafe: save has no more items
+            print("No more transactions.")
+            return save
+
+        if not h.ask_yes_no(f"{pr.DEL_ANOTHER_PROMPT} {pr.YN}"):
+            return save
+def add_transaction(save):
+    addition = cr_save_loop(pr.ADD_TRANSACTION_PROMPT)
+    if addition is None:
+        return None
+
+    for i in addition:
+        save.append(i)
+
+    return save 
 
 # ---Testing---
 
 if __name__ == "__main__":
     save = config.testin()
-    analyze_hub(save)
+    print(edit_hub(save))

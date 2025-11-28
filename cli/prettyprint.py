@@ -12,14 +12,6 @@ def clearterminal():
     else:
         os.system("clear")
 
-def view_data(save): # universal view list (hub & analyze hub)
-    for idx, entry in enumerate(save, start=1):
-        print(f"Item {idx}:")
-        for key, value in entry.items():
-            print(f"  {key}: {value}")
-        print()  # empty line after each dict
-    return 
-
 def highlight(prompt):
     length = 0
     var = ""
@@ -28,7 +20,7 @@ def highlight(prompt):
             length += len(i)
             var += f"{i}, "
     else: 
-        length = len(prompt)
+        length = len(str(prompt))
         var = str(prompt)
     dashcount = length*"-" + "------"
     print(dashcount)
@@ -36,19 +28,23 @@ def highlight(prompt):
     print(dashcount)
     return
 
-def listoptions(list):
-    for idx, opt in enumerate(list, start=1):
+def listoptions(lst):
+    for idx, opt in enumerate(lst, start=1):
         print(f"{idx}. {opt.capitalize()}")
+
+def listdict(dct):
+    for key, value in dct.items():
+        print(f"  {key.capitalize():<10}: {value}")
 
 def listnested(lst):
     for idx, (name, obj, *args) in enumerate(lst, start=1):
         print(f"{idx}. {name.capitalize()}")
 
-def prettyprint_dict(lst):
+def listnesteddict(lst):
     for idx, item in enumerate(lst, start=1):
         print(f"Item {idx}:")
         for key, value in item.items():
-            print(f"  {key.capitalize():<10}: {value}")
+            print(f"  {str(key).capitalize():<10}: {value}")
         print()
 
 def pinput(prompt):
