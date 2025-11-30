@@ -2,6 +2,7 @@
 import core.config as config
 import core.storage as s
 import cli.prettyprint as pp
+from datetime import datetime
 
 def ask_yes_no(prompt) -> bool:
     while True:
@@ -55,6 +56,15 @@ def validate_entry(key, raw_input):
             print("ERROR: Type must be I or E.")
             return None
         return raw
+
+    if key == "date":
+        try:
+            parsed = datetime.strptime(raw, "%d.%m.%Y")
+        except ValueError:
+            print("ERROR: Date must follow DD.MM.YYYY (e.g. 05.01.2025).")
+            return None
+        # Ensure consistent zero-padded formatting
+        return parsed.strftime("%d.%m.%Y")
 
     # Special case: AMOUNT
     if key == "amount":

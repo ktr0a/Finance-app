@@ -123,12 +123,16 @@ def item_loop(definers, count): # Generate each item for Save
 
     for name, dtype in definers: # Put usr_i in item{}
         while True:
-            raw = pp.pinput(f"{name.capitalize()}, {dtype.__name__}: ")
+            prompt_label = f"{name.capitalize()}, {dtype.__name__}"
+            if name == "date":
+                prompt_label = f"{name.capitalize()} (DD.MM.YYYY), {dtype.__name__}"
+
+            raw = pp.pinput(f"{prompt_label}: ")
 
             # use shared validator
             value = h.validate_entry(name, raw)
             if value is None:
-                # validation failed → ask again
+                # validation failed -> ask again
                 continue
 
             item[name] = value
