@@ -1,6 +1,6 @@
 # Calculations with list of items & parameters (dicts). Returns 
 
-def format(value, mode) -> str:
+def format(value, mode: str) -> str:
     if mode == "money":
         return f"{value:.2f}€"
     elif mode == "int":
@@ -31,7 +31,7 @@ def tote_raw(save) -> float:
 def netbal_raw(save) -> float:
     return toti_raw(save) - tote_raw(save)
 
-def count_transactions(save):
+def count_transactions(save) -> int:
     return len(save)
 
 def avg_transaction_amount(save) -> float:
@@ -49,13 +49,13 @@ def min_transaction_amount(save) -> float:
         return 0.0
     return min(v["amount"] for v in save)
 
-# UTILS - imported by main.py
+# UTILS - imported by cli/cli.py
 
 calc_util_func = [
-    ("Total income", toti_raw, "money"),
-    ("Total expense", tote_raw, "money"),
+    ("Total Income", toti_raw, "money"),
+    ("Total Expense", tote_raw, "money"),
     ("Net Balance", netbal_raw, "money"),
-    ("Number of transactions", count_transactions, "int"),
+    ("Number of Transactions", count_transactions, "int"),
     ("Average transaction amount", avg_transaction_amount, "money"),
     ("Max transaction amount", max_transaction_amount, "money"),
     ("Min transaction amount", min_transaction_amount, "money"),

@@ -2,7 +2,7 @@
 
 from core.storage import load
 
-def filter_save(filterby_key, filterby_value, old_save):
+def filter_save(filterby_key, filterby_value, old_save) -> list:
     filtered_save = []
 
     for item in old_save:

@@ -72,6 +72,36 @@ CALC_HUB_NAME = "Calculation Hub"
 CALC_HUB_PROMPT = "What would you like to calculate?"
 REDO_CALC_PROMPT = "Would you like to calculate something else?"
 
+# summary_hub()
+SUMMARY_NAME = "Summary Hub"
+SUMMARY_PROMPT = "How would you like to summarize?"
+SUMMARY_OPTIONS = (
+    "All-time summary",
+    "General Category overview", # category
+    "General Income vs Expense overview", # I/E
+    "Summary by Name", # Name
+    "Summary by category", # category
+    "Summary by type (income vs expense)", # I/E
+    "Summary by month", # time
+    "Summary by custom date range", # time
+)
+REDO_SORT_PROMPT = "Would you like to summarize something else?"
+SUMMARY_NO_DATA = 'No transactions were found for "{selection}".'
+SUMMARY_RETRY_PROMPT = "Would you like to try a different summary?"
+
+# display_summary()
+DISPLAY_SUMMARY_PROMPT = "Press any character to return to the Summary hub."
+SPECIAL_H1, SPECIAL_H2, SPECIAL_H3 = "Category", "Count", "Total"
+spacer1 = 5
+spacer2 = 4
+vertical_divider = " | "
+horizontal_divider = "-"
+
+INCOME = "Income"
+EXPENSE = "Expense"
+spacer3 = 6
+
+
 # edit_hub()
 EDIT_HUB_NAME = "Edit hub"
 EDIT_HUB_PROMPT = "What would you like to do?"
@@ -81,6 +111,8 @@ EDIT_HUB_OPTIONS = (
     "Add a new transaction",
     "View save",  # DO NOT DELETE
 )
+
+SUMMARY_HUB_OPTION = "Summary hub"
 
 ADD_TRANSACTION_PROMPT = "Add transaction"
 
