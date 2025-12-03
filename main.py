@@ -1,14 +1,24 @@
 from cli.cli import start, prehub, hub
-import cli.prettyprint as pp
+
+
+def run_cli():
+    """Entry point wrapper that keeps the CLI flow predictable."""
+    while True:
+        choice = start()
+
+        if choice == 0:
+            print("Exited start")
+            return
+
+        save = prehub(choice)
+        if save is None:
+            print("Exited prehub")
+            return
+
+        if hub(save) is None:
+            print("Exited hub")
+            return
+
 
 if __name__ == "__main__":
-    x = start()
-    while True:
-        x = prehub(x)
-        if x is None:
-            print("Exited prehub")
-            break
-
-        if hub(x) is None:
-            print("Exited hub")
-            break
+    run_cli()
