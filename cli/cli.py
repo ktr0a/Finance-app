@@ -6,22 +6,36 @@ import cli.prompts as pr
 from cli.cli_hub_modules.main_hub import hub
 from cli.cli_hub_modules.prehub import prehub
 
-__all__ = ["start", "prehub", "hub"]
+__all__ = ["start", "hub"]
 
 
 def start():
     pp.clearterminal()
     pp.highlight(pr.PROGRAM_ON)
-    print()
-    print(pr.WOULDYOU_PROMPT)
-    print()
-    pp.listoptions(pr.START_OPTIONS)
-    print(f"0. {pr.EXIT}")
-    print()
-
+    """Run the initial start flow and return a loaded save when successful."""
     while True:
-        choice_str = pp.pinput(pr.ENTER_ACC_NUMBER)
-        choice = h.validate_numberinput(choice_str, len(pr.START_OPTIONS), allow_zero=True)
-        if choice is not None:
-            break
-    return choice
+        pp.clearterminal()
+        pp.highlight(pr.START)
+        print()
+        print(pr.WOULDYOU_PROMPT)
+        print()
+        pp.listoptions(pr.START_OPTIONS)
+        print(f"0. {pr.EXIT}")
+        print()
+
+        while True:
+            choice_str = pp.pinput(pr.ENTER_ACC_NUMBER)
+            choice = h.validate_numberinput(choice_str, len(pr.START_OPTIONS), allow_zero=True)
+            if choice is not None:
+                break
+
+        if choice == 0:
+            return None
+
+        save = prehub(choice)
+
+        if save is None:
+            # User backed out, so keep looping in the start menu.
+            continue
+
+        return save

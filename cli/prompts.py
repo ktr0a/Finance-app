@@ -9,12 +9,15 @@ EXIT = "Exit"
 INPUT_ANY = "Press any character to continue"
 WOULDYOU_PROMPT = "What would you like to do?"
 WOULDYOU_PROCEED_PROMPT = "Would you like to proceed?"
+WOULDYOU_INSTEAD_PROMPT = "Would you like to instead: "
 
 # start()
 
+START = "Starting Hub"
 PROGRAM_ON = "Program On"
 START_OPTIONS = (
     "Load existing save",
+    "Restore from latest backup",
     "Create new save",
 )
 
@@ -23,6 +26,11 @@ PREHUB_NAME = "Pre-hub"
 LOADING_SAVE = "Loading save..."
 FILE_CORRUPTED = "Save file is corrupted or unreadable."
 NO_SAVE_DETECTED = "No save was detected"
+
+CONFIRM_BACKUP_OVERRIDE = "This will override your current save.json with the latest backup."
+NO_BACKUPS_FOUND = "No backups found to restore"
+BACKUP_FAILED = "Failed to restore backup"
+BACKUP_REINSTATED = "Backup successfully reinstated as save"
 
 CR_NEW_SAVE_INSTEAD = "Would you like to create a new save instead?"
 
@@ -44,7 +52,9 @@ SAVE_LOADED = "Save loaded."
 HUB_OPTIONS = (
     "Analyze save",
     "View save",
-    "Edit save"
+    "Edit save",
+    "Create backup now",
+    "Restore from previous backups"
 )
 
 # analyze_hub()

@@ -5,6 +5,8 @@ import core.config as config
 
 from cli.cli_hub_modules.calc_hub import calc_loop
 import main
+import core.storage as storage
+import time
 
 
 class CalcHubTests(unittest.TestCase):
@@ -21,26 +23,27 @@ class CalcHubTests(unittest.TestCase):
 
 
 class MainFlowTests(unittest.TestCase):
-    def test_run_cli_exits_before_prehub(self):
-        with mock.patch("main.start", return_value=0), \
-             mock.patch("main.prehub") as prehub_mock, \
+    def test_run_cli_exits_when_start_returns_none(self):
+        with mock.patch("main.start", return_value=None) as start_mock, \
              mock.patch("main.hub") as hub_mock, \
              mock.patch("builtins.print"):
             main.run_cli()
 
-        prehub_mock.assert_not_called()
+        start_mock.assert_called_once()
         hub_mock.assert_not_called()
 
-    def test_run_cli_stops_when_prehub_returns_none(self):
-        with mock.patch("main.start", return_value=1), \
-             mock.patch("main.prehub", return_value=None) as prehub_mock, \
-             mock.patch("main.hub") as hub_mock, \
+    def test_run_cli_calls_hub_when_save_is_loaded(self):
+        sample_save = {"foo": "bar"}
+        with mock.patch("main.start", return_value=sample_save) as start_mock, \
+             mock.patch("main.hub", return_value=None) as hub_mock, \
              mock.patch("builtins.print"):
             main.run_cli()
 
-        prehub_mock.assert_called_once_with(1)
-        hub_mock.assert_not_called()
+        start_mock.assert_called_once()
+        hub_mock.assert_called_once_with(sample_save)
 
 
 if __name__ == "__main__":
-    unittest.main()
+    save = config.testin()
+
+    

@@ -749,7 +749,10 @@ def initvars():
     count = 0 # amount of items, used for logic
     return(transactions, definers, item, count)
 
-# ---Testing---
+# PARAMETERS:
+
+AMOUNT_OF_BACKUPS = 5
+AMOUNT_OF_CONSECUTIVE_PREHUB_FAILS = 5
 
 if __name__ == "__main__":
     """lstdict = testin()

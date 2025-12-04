@@ -8,40 +8,94 @@ import cli.prompts as pr
 
 
 def prehub(choice):
-    """Handle save loading or creation based on the initial choice."""
     pp.clearterminal()
     pp.highlight(pr.PREHUB_NAME)
 
-    if choice == 0:
-        return None
+    max_fails = config.AMOUNT_OF_CONSECUTIVE_PREHUB_FAILS
+    load_failures = 0
 
-    if choice == 1:
-        print(pr.LOADING_SAVE)
+    while True:
+        if choice == 1:  # Load save
+            print(pr.LOADING_SAVE)
+            status, save = s.load()
 
-        try:
-            save = s.load()
-        except Exception:
-            print(pr.FILE_CORRUPTED)
-            if h.ask_yes_no(f"{pr.CR_NEW_SAVE_INSTEAD} {pr.YN}"):
-                return cr_new_save()
-            return None
+            if status is True:  # success
+                load_failures = 0
+                return save
 
-        if not save:
-            print(pr.NO_SAVE_DETECTED)
-            if h.ask_yes_no(f"{pr.CR_NEW_SAVE_INSTEAD} {pr.YN}"):
-                return cr_new_save()
-            return None
+            if status is False:
+                pp.highlight(pr.NO_SAVE_DETECTED)
+            elif status is None:
+                pp.highlight(pr.FILE_CORRUPTED)
+            else:
+                pp.highlight("Unknown load state")  # failsafe
 
-        return save
+            load_failures += 1
+            if load_failures > max_fails: # Too many fails
+                raise SystemExit("Contact Dev - repeated load failures")
 
-    if choice == 2:
-        save = cr_new_save()
-        if save is None:
-            return None
-        return save
+            REMAINING_OPTIONS = pr.START_OPTIONS[1:]
+            print()
+            print(pr.WOULDYOU_INSTEAD_PROMPT)
+            print()
+            pp.listoptions(REMAINING_OPTIONS)
+            print(f"0. {pr.EXIT}")
 
-    raise SystemExit("prehub: invalid initial choice")
+            while True:
+                choice2_str = pp.pinput(pr.ENTER_ACC_NUMBER)
+                choice2 = h.validate_numberinput(choice2_str, len(REMAINING_OPTIONS), allow_zero=True)
+                if choice2 is None:
+                    continue
+                if choice2 == 0:
+                    return None
+                break
 
+            choice = choice2 + 1  # map trimmed list back to original indices
+            # Reset because we're leaving the "load" path
+            load_failures = 0
+            continue
+
+        elif choice == 2:  # Restore from latest backup
+            print(pr.CONFIRM_BACKUP_OVERRIDE)
+            if not h.ask_yes_no(pr.WOULDYOU_PROCEED_PROMPT):
+                return None
+
+            status = s.restore_latest_backup()
+
+            if status is True:
+                pp.highlight(pr.BACKUP_REINSTATED)
+                # Load the restored save now and return
+                status2, save2 = s.load()
+                if status2 is True:
+                    load_failures = 0
+                    return save2
+                # If loading right after restore still fails, escalate via load path:
+                choice = 1
+                continue
+
+            if status is False:
+                pp.clearterminal()
+                pp.highlight(pr.BACKUP_FAILED)
+            else:  # None
+                pp.clearterminal()
+                pp.highlight(pr.NO_BACKUPS_FOUND)
+
+            if not h.ask_yes_no(f"{pr.CR_NEW_SAVE_INSTEAD} {pr.YN}"):
+                return None
+
+            choice = 3
+            load_failures = 0
+            continue
+
+        elif choice == 3:  # Create new save
+            save = cr_new_save()
+            if save is None:
+                return None
+            load_failures = 0
+            return save
+
+        else:
+            raise SystemExit("prehub: invalid initial choice")
 
 def cr_new_save():
     print()
@@ -49,7 +103,12 @@ def cr_new_save():
     save = cr_save_loop(pr.CR_SAVE_NAME)
     if save is None:
         return None
-    s.save(save)
+    
+    save_result = s.save(save)
+
+    if save_result is not True:
+        pp.highlight("Failed to write save file.")
+        return None
     print()
     print(f"{pr.LD_SAVE}")
     return save

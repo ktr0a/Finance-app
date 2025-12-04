@@ -29,7 +29,7 @@ sort_util_func = [
 ]
 
 if __name__ == "__main__":
-    save = load()
+    _, save_data = load()
     sortby_key = "category"
     sortby_value = "Food"
-    print(filter_save(sortby_key, sortby_value, save))
+    print(filter_save(sortby_key, sortby_value, save_data or []))
