@@ -4,7 +4,7 @@ from pathlib import Path
 import tempfile
 
 from cli.cli_hub_modules.main_hub import hub
-import core.config as config
+import core.core_config as core_config
 
 from cli.cli_hub_modules.calc_hub import calc_loop
 import main
@@ -14,7 +14,7 @@ import time
 
 class CalcHubTests(unittest.TestCase):
     def setUp(self):
-        self.sample_save = config.testin()
+        self.sample_save = core_config.testin()
 
     def test_total_income_calculation(self):
         result = calc_loop(1, self.sample_save)
@@ -88,7 +88,7 @@ class UndoRedoTests(unittest.TestCase):
 
 if __name__ == "__main__":
     # Manual undo/redo check using the sample dataset from config.testin()
-    sample_save = config.testin()
+    sample_save = core_config.testin()
 
     with tempfile.TemporaryDirectory() as tmp:
         base = Path(tmp)
