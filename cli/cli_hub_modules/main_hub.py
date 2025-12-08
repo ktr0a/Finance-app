@@ -11,6 +11,7 @@ import cli.prompts as pr
 from cli.cli_hub_modules.analyze_hub import analyze_hub
 from cli.cli_hub_modules.calc_hub import calc_hub
 from cli.cli_hub_modules.edit_hub import edit_hub
+from cli.cli_hub_modules.undoredo_hub import undoredo_hub
 
 
 
@@ -70,7 +71,7 @@ def hub(save):
                     session_backup_done = True
 
             
-            status = s.cr_backup_lst(save, mode='undo', delbackup=False) # backup current save to undo stack
+            status = s.cr_backup_lst(old_save, mode='undo', delbackup=False) # backup current save to undo stack
             if status is not True:
                 pp.highlight("Undo Backup failed")
                 if not h.ask_yes_no(f"Continue without undo backup? {pr.YN}"):
@@ -101,7 +102,8 @@ def hub(save):
                 session_backup_done = False
 
         elif choice == 6:
-            pass
+            save = undoredo_hub(save)
+
 
 
         else:

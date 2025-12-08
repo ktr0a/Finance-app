@@ -147,7 +147,6 @@ def delete_transaction(save):
             return save
 
         if not h.ask_yes_no(f"{pr.DEL_ANOTHER_PROMPT} {pr.YN}"):
-            print(save)
             return save
 
 

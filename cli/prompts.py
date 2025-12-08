@@ -27,7 +27,7 @@ LOADING_SAVE = "Loading save..."
 FILE_CORRUPTED = "Save file is corrupted or unreadable."
 NO_SAVE_DETECTED = "No save was detected"
 
-CONFIRM_BACKUP_OVERRIDE = "This will override your current save.json with the latest backup."
+CONFIRM_BACKUP_OVERRIDE = "This will override storage/save.json with the latest backup."
 NO_BACKUPS_FOUND = "No backups found to restore"
 BACKUP_FAILED = "Failed to restore backup"
 BACKUP_REINSTATED = "Backup successfully reinstated as save"
@@ -54,7 +54,8 @@ HUB_OPTIONS = (
     "View save",
     "Edit save",
     "Create backup now",
-    "Restore from previous backups"
+    "Restore from previous backups",
+    "Undo/Redo"
 )
 
 # analyze_hub()
@@ -114,7 +115,6 @@ spacer3 = 6
 
 # edit_hub()
 EDIT_HUB_NAME = "Edit hub"
-EDIT_HUB_PROMPT = "What would you like to do?"
 EDIT_HUB_OPTIONS = (
     "Edit a transaction",
     "Delete a transaction",
@@ -138,3 +138,10 @@ DEL_TRANSACTION_PROMPT = "Which transaction would you like to delete?"
 RETRY_DEL_PROMPT = "Would you like to select a different transaction?"
 DEL_ANOTHER_PROMPT = "Would you like to delete another transaction?"
 
+# undoredo_hub()
+UNDOREDO_HUB_NAME = "Undo / Redo Menu"
+UNDOREDO_HUB_OPTIONS = (
+    "Undo last action",
+    "Redo last action",
+    "View current save",
+)

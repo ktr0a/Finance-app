@@ -125,8 +125,8 @@ The user can:
 
 ## Save System
 
-* Transactions are saved to `save.json`
-* Data is loaded from `save.json`
+* Transactions are saved to `storage/save.json`
+* Data is loaded from `storage/save.json`
 * Missing, empty, and corrupted save files are detected
 * All edits and deletions persist immediately
 * The new `date` field is stored alongside the existing transaction fields
@@ -176,24 +176,28 @@ The user can:
 
 ```text
 Finance-App/
-│
-├── main.py               # Entry point: start → load/create → hub
-│
-├── core/
-│   ├── config.py         # Data schema, defaults, and init helpers
-│   ├── storage.py        # JSON save/load logic
-│   ├── calc_utils.py     # Basic calculations and formatting helpers
-│   ├── sort_utils.py     # Filtering and sorting utilities
-│   └── sum_utils.py      # Summary modes (all-time, category, date-range, etc.)
-│
-├── cli/
-│   ├── cli.py            # Main CLI flow (start, hub, analysis, edit)
-│   ├── helper.py         # Input validation and shared CLI helpers
-│   ├── prettyprint.py    # Output formatting and terminal helpers
-│   └── prompts.py        # All user-facing strings and prompts
-│
-└── save.json             # Auto-created: stores transaction data
+|-- main.py                # Entry point: start + load/create + hub
+|
+|-- core/
+|   |-- config.py          # Data schema, defaults, and init helpers
+|   |-- storage.py         # JSON save/load logic
+|   |-- calc_utils.py      # Basic calculations and formatting helpers
+|   |-- sort_utils.py      # Filtering and sorting utilities
+|   `-- sum_utils.py       # Summary modes (all-time, category, date-range, etc.)
+|
+|-- cli/
+|   |-- cli.py             # Main CLI flow (start, hub, analysis, edit)
+|   |-- helper.py          # Input validation and shared CLI helpers
+|   |-- prettyprint.py     # Output formatting and terminal helpers
+|   `-- prompts.py         # All user-facing strings and prompts
+|
+`-- storage/
+    |-- save.json          # Auto-created: stores transaction data
+    |-- backups/           # Regular backups
+    |-- undo_stack/        # Undo history
+    `-- redo_stack/        # Redo history
 ```
+
 
 ---
 

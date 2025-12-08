@@ -1,6 +1,9 @@
 import unittest
 from unittest import mock
+from pathlib import Path
+import tempfile
 
+from cli.cli_hub_modules.main_hub import hub
 import core.config as config
 
 from cli.cli_hub_modules.calc_hub import calc_loop
@@ -43,7 +46,67 @@ class MainFlowTests(unittest.TestCase):
         hub_mock.assert_called_once_with(sample_save)
 
 
-if __name__ == "__main__":
-    save = config.testin()
+class UndoRedoTests(unittest.TestCase):
+    def setUp(self):
+        self.tmp_dir = tempfile.TemporaryDirectory()
+        self.addCleanup(self.tmp_dir.cleanup)
 
-    
+        base = Path(self.tmp_dir.name)
+        patchers = [
+            mock.patch.object(storage, "MAIN_DATA_FILE", base / "storage/save.json"),
+            mock.patch.object(storage, "BACKUP_DIR", base / "storage/backups/"),
+            mock.patch.object(storage, "UNDO_DIR", base / "storage/undo_stack/"),
+            mock.patch.object(storage, "REDO_DIR", base / "storage/redo_stack/"),
+        ]
+
+        for patcher in patchers:
+            patcher.start()
+            self.addCleanup(patcher.stop)
+
+        self.undo_dir = storage.UNDO_DIR
+        self.redo_dir = storage.REDO_DIR
+
+    def test_undo_and_redo_round_trip(self):
+        original = [{"id": 1, "amount": 100, "date": storage.DEFAULT_DATE}]
+        updated = [{"id": 1, "amount": 50, "date": storage.DEFAULT_DATE}]
+
+        storage.save(original)
+        storage.cr_backup_lst(original, mode="undo", delbackup=False)
+        storage.save(updated)
+
+        status, data = storage.undo_action()
+        self.assertTrue(status)
+        self.assertEqual(data, original)
+
+        redo_entries = list(self.redo_dir.glob(f"{storage.BACKUP_DATA_FILE_NAME}*.json"))
+        self.assertGreaterEqual(len(redo_entries), 1)
+
+        status, data = storage.redo_action()
+        self.assertTrue(status)
+        self.assertEqual(data, updated)
+
+
+if __name__ == "__main__":
+    # Manual undo/redo check using the sample dataset from config.testin()
+    sample_save = config.testin()
+
+    with tempfile.TemporaryDirectory() as tmp:
+        base = Path(tmp)
+        with mock.patch.object(storage, "MAIN_DATA_FILE", base / "storage/save.json"), \
+             mock.patch.object(storage, "BACKUP_DIR", base / "storage/backups/"), \
+             mock.patch.object(storage, "UNDO_DIR", base / "storage/undo_stack/"), \
+             mock.patch.object(storage, "REDO_DIR", base / "storage/redo_stack/"):
+
+            storage.save(sample_save)
+            storage.cr_backup_lst(sample_save, mode="undo", delbackup=False)
+
+            updated_save = [dict(txn) for txn in sample_save]
+            if updated_save:
+                updated_save[0]["amount"] = updated_save[0].get("amount", 0) + 1
+            storage.save(updated_save)
+
+            undo_status, undo_data = storage.undo_action()
+            redo_status, redo_data = storage.redo_action()
+
+            print("Undo status/data:", undo_status, len(undo_data) if undo_data else None)
+            print("Redo status/data:", redo_status, len(redo_data) if redo_data else None)
