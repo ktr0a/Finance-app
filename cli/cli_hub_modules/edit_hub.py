@@ -16,7 +16,7 @@ def edit_hub(save):
         _, definers, _, _ = config.initvars()
         pp.highlight(pr.EDIT_HUB_NAME)
         print()
-        print(pr.EDIT_HUB_PROMPT)
+        print(pr.WOULDYOU_PROMPT)
         print()
         pp.listoptions(pr.EDIT_HUB_OPTIONS)
         print(f"0. {pr.EXIT}")
@@ -147,6 +147,7 @@ def delete_transaction(save):
             return save
 
         if not h.ask_yes_no(f"{pr.DEL_ANOTHER_PROMPT} {pr.YN}"):
+            print(save)
             return save
 
 

@@ -1,5 +1,6 @@
 """General hub routing to other hubs."""
 import time
+import copy
 
 import core.storage as s
 
@@ -10,6 +11,7 @@ import cli.prompts as pr
 from cli.cli_hub_modules.analyze_hub import analyze_hub
 from cli.cli_hub_modules.calc_hub import calc_hub
 from cli.cli_hub_modules.edit_hub import edit_hub
+
 
 
 def hub(save):
@@ -48,22 +50,34 @@ def hub(save):
             pp.pinput(pr.INPUT_ANY)
 
         elif choice == 3:
+            old_save = copy.deepcopy(save)
+
             edited_save = edit_hub(save)
 
             if edited_save is None:
+                print('1')
+                pp.pinput(pr.INPUT_ANY)
                 continue
 
-            if edited_save == save:
+            if edited_save == old_save:
                 pp.highlight("No changes made.")
+                pp.pinput(pr.INPUT_ANY)
                 continue
 
             if not session_backup_done:
-                save_status = s.edit_and_backup_save(edited_save)
+                save_status = s.edit_and_backup_save(old_save) # backup current save
                 if save_status is True:
                     session_backup_done = True
 
-            else:
-                save_status = s.save(edited_save)
+            
+            status = s.cr_backup_lst(save, mode='undo', delbackup=False) # backup current save to undo stack
+            if status is not True:
+                pp.highlight("Undo Backup failed")
+                if not h.ask_yes_no(f"Continue without undo backup? {pr.YN}"):
+                    continue
+
+            save_status = s.save(edited_save)
+            s.clear_redo_stack()
 
             if save_status is not True:
                 pp.highlight("Failed to save changes to disk.")
@@ -75,6 +89,7 @@ def hub(save):
             status = s.cr_backup_lst(save)
             if status is True:
                 pp.highlight("Backup created.")
+                session_backup_done = True
             else:
                 pp.highlight(pr.BACKUP_FAILED)
             pp.pinput(pr.INPUT_ANY)
@@ -84,6 +99,10 @@ def hub(save):
             if restored_save is not None:
                 save = restored_save
                 session_backup_done = False
+
+        elif choice == 6:
+            pass
+
 
         else:
             raise SystemExit("hub: invalid choice")
