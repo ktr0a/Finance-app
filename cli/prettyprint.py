@@ -1,16 +1,14 @@
-import core.config as config
-import core.storage as s
 import os
 import platform
-import cli.prompts as pr
-import core.config as config
+
+from config.style import CLEAR_COMMAND_WINDOWS, CLEAR_COMMAND_UNIX, HIGHLIGHT_PADDING
 
 
 def clearterminal():
     if platform.system() == "Windows":
-        os.system("cls")
+        os.system(CLEAR_COMMAND_WINDOWS)
     else:
-        os.system("clear")
+        os.system(CLEAR_COMMAND_UNIX)
 
 def highlight(prompt):
     length = 0
@@ -22,7 +20,7 @@ def highlight(prompt):
     else: 
         length = len(str(prompt))
         var = str(prompt)
-    dashcount = length*"-" + "------"
+    dashcount = length*"-" + HIGHLIGHT_PADDING
     print(dashcount)
     print(f"---{var}---")
     print(dashcount)

@@ -1,4 +1,5 @@
 # Sorting utilities
+from config.text import FILTER_BY_KEY_VALUE_LABEL
 
 from core.storage import load
 
@@ -25,7 +26,7 @@ def filter_save(filterby_key, filterby_value, old_save) -> list:
 
 
 sort_util_func = [
-    ("Filter by key, value", filter_save),
+    (FILTER_BY_KEY_VALUE_LABEL, filter_save),
 ]
 
 if __name__ == "__main__":

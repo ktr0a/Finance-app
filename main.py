@@ -1,3 +1,4 @@
+import cli.prompts as pr
 from cli.cli import start, hub
 
 
@@ -6,11 +7,11 @@ def run_cli():
     while True:
         save = start()
         if save is None:
-            print("Exited start")
+            print(pr.EXITED_START)
             return
         
         if hub(save) is None:
-            print("Exited hub")
+            print(pr.EXITED_HUB)
             return
 
 

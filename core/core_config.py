@@ -3,6 +3,8 @@
 
 # Goal: link up all options from cli to the config. 
 
+from config.schema import DEFINERS, AMOUNT_OF_BACKUPS, AMOUNT_OF_CONSECUTIVE_PREHUB_FAILS
+
 def testin():
     transactions = [
         # --- Income ---
@@ -738,21 +740,10 @@ def testin():
 def initvars():
     transactions = [] # totallist
     item = {} # one item
-    definers = ( # parameters of one item
-("name", str), 
-("category", str), 
-("type", str),              # Used in cli.py: DO NOT CHANGE NAME
-("amount", float),
-("date", str),              # EU format: DD.MM.YYYY
-)
+    definers = DEFINERS
     for i in range(len(definers)): item[definers[i][0]] = definers[i][1]
     count = 0 # amount of items, used for logic
     return(transactions, definers, item, count)
-
-# PARAMETERS:
-
-AMOUNT_OF_BACKUPS = 5
-AMOUNT_OF_CONSECUTIVE_PREHUB_FAILS = 5
 
 if __name__ == "__main__":
     """lstdict = testin()

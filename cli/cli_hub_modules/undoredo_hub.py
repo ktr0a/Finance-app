@@ -1,7 +1,7 @@
 """"""
 import copy
 
-import core.config as config
+import core.core_config as core_config
 import core.storage as s
 
 import cli.helper as h
@@ -34,23 +34,23 @@ def undoredo_hub(save):
         if choice == 1:  # undo
             ok, new_save = s.undo_action()
             if not ok or new_save is None:
-                pp.highlight("Nothing to undo or undo failed.")
+                pp.highlight(pr.NOTHING_TO_UNDO)
                 pp.pinput(pr.INPUT_ANY)
                 continue
 
             save = new_save
-            pp.highlight("Action undone.")
+            pp.highlight(pr.ACTION_UNDONE)
             pp.pinput(pr.INPUT_ANY)
 
         elif choice == 2:  # redo
             ok, new_save = s.redo_action()
             if not ok or new_save is None:
-                pp.highlight("Nothing to redo or redo failed.")
+                pp.highlight(pr.NOTHING_TO_REDO)
                 pp.pinput(pr.INPUT_ANY)
                 continue
 
             save = new_save
-            pp.highlight("Action redone.")
+            pp.highlight(pr.ACTION_REDONE)
             pp.pinput(pr.INPUT_ANY)
 
         if choice == 3:

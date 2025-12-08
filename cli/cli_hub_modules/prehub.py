@@ -1,5 +1,5 @@
 """Hub for creating or loading saves."""
-import core.config as config
+import core.core_config as core_config
 import core.storage as s
 
 import cli.helper as h
@@ -11,7 +11,7 @@ def prehub(choice):
     pp.clearterminal()
     pp.highlight(pr.PREHUB_NAME)
 
-    max_fails = config.AMOUNT_OF_CONSECUTIVE_PREHUB_FAILS
+    max_fails = core_config.AMOUNT_OF_CONSECUTIVE_PREHUB_FAILS
     load_failures = 0
 
     while True:
@@ -31,11 +31,11 @@ def prehub(choice):
             elif status is None:
                 pp.highlight(pr.FILE_CORRUPTED)
             else:
-                pp.highlight("Unknown load state")  # failsafe
+                pp.highlight(pr.UNKNOWN_LOAD_STATE)  # failsafe
 
             load_failures += 1
             if load_failures > max_fails: # Too many fails
-                raise SystemExit("Contact Dev - repeated load failures")
+                raise SystemExit(pr.PREHUB_TOO_MANY_FAILS)
 
             REMAINING_OPTIONS = pr.START_OPTIONS[1:]
             print()
@@ -98,7 +98,7 @@ def prehub(choice):
             return save
 
         else:
-            raise SystemExit("prehub: invalid initial choice")
+            raise SystemExit(pr.PREHUB_INVALID_INITIAL_CHOICE)
 
 def cr_new_save():
     print()
@@ -110,7 +110,7 @@ def cr_new_save():
     save_result = s.save(save)
 
     if save_result is not True:
-        pp.highlight("Failed to write save file.")
+        pp.highlight(pr.FAILED_TO_WRITE_SAVE)
         return None
     print()
     print(f"{pr.LD_SAVE}")
@@ -118,7 +118,7 @@ def cr_new_save():
 
 
 def cr_save_loop(prompt_label):
-    transactions, definers, _, count = config.initvars()
+    transactions, definers, _, count = core_config.initvars()
 
     pp.clearterminal()
     pp.highlight(prompt_label)
@@ -149,11 +149,11 @@ def cr_save_loop(prompt_label):
 
 def item_loop(definers, count):
     pp.clearterminal()
-    suffix = ["st", "nd", "rd", "th"]
+    suffix = list(pr.ITEM_SUFFIXES)
     if count < 3:
-        print(f"{count+1}{suffix[count]} Item:")
+        print(f"{count+1}{suffix[count]} {pr.ITEM_LABEL}:")
     else:
-        print(f"{count+1}{suffix[3]} Item:")
+        print(f"{count+1}{suffix[3]} {pr.ITEM_LABEL}:")
 
     item = {}
 
@@ -161,7 +161,7 @@ def item_loop(definers, count):
         while True:
             prompt_label = f"{name.capitalize()}, {dtype.__name__}"
             if name == "date":
-                prompt_label = f"{name.capitalize()} (DD.MM.YYYY), {dtype.__name__}"
+                prompt_label = f"{name.capitalize()} ({pr.DATE_FORMAT_HUMAN}), {dtype.__name__}"
 
             raw = pp.pinput(f"{prompt_label}: ")
 

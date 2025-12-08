@@ -1,5 +1,5 @@
 """Hub for filtering data before calculations."""
-import core.config as config
+import core.core_config as core_config
 
 from core.sort_utils import sort_util_func as s_util
 
@@ -9,7 +9,7 @@ import cli.prompts as pr
 
 
 def analyze_hub(save):
-    _, definers, _, _ = config.initvars()
+    _, definers, _, _ = core_config.initvars()
 
     pp.clearterminal()
     pp.highlight(pr.AHUB_NAME)
@@ -35,16 +35,16 @@ def analyze_hub(save):
     if choice == 2:
         return filter_save(save, definers)
 
-    raise SystemExit("analyze_hub: invalid choice")
+    raise SystemExit(pr.ANALYZE_HUB_INVALID_CHOICE)
 
 
 def filter_save(save, definers):
     if not save:
-        print("save is empty")
+        print(pr.SAVE_IS_EMPTY)
         return None
 
     while True:
-        _, definers, _, _ = config.initvars()
+        _, definers, _, _ = core_config.initvars()
 
         pp.clearterminal()
         pp.highlight(pr.FILTER_NAME)
@@ -64,7 +64,7 @@ def filter_save(save, definers):
         pp.clearterminal()
         pp.highlight(pr.FILTER_NAME)
         print()
-        print(f"Filtering by -> {filterby_key}")
+        print(pr.FILTERING_BY_LABEL.format(field=filterby_key))
         print()
 
         while True:
@@ -77,7 +77,7 @@ def filter_save(save, definers):
         pp.clearterminal()
         pp.highlight(pr.FILTER_NAME)
         print()
-        print(f"\nFiltering by -> {filterby_key.capitalize()}: {filterby_value}")
+        print(f"\n{pr.FILTERING_BY_VALUE_LABEL.format(field=filterby_key.capitalize(), value=filterby_value)}")
         print()
 
         _, func = s_util[0]

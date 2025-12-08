@@ -1,7 +1,7 @@
 """Hub for editing transactions."""
 import copy
 
-import core.config as config
+import core.core_config as core_config
 
 import cli.helper as h
 import cli.prettyprint as pp
@@ -13,7 +13,7 @@ from cli.cli_hub_modules.prehub import cr_save_loop
 def edit_hub(save):
     while True:
         pp.clearterminal()
-        _, definers, _, _ = config.initvars()
+        _, definers, _, _ = core_config.initvars()
         pp.highlight(pr.EDIT_HUB_NAME)
         print()
         print(pr.WOULDYOU_PROMPT)
@@ -45,7 +45,7 @@ def edit_hub(save):
             pp.pinput(pr.INPUT_ANY)
             continue
 
-        raise SystemExit("edit_hub: invalid choice")
+        raise SystemExit(pr.EDIT_HUB_INVALID_CHOICE)
 
 
 def edit_transaction(save, definers):
@@ -66,7 +66,8 @@ def edit_transaction(save, definers):
 
     item_index = choice
     item = copy.deepcopy(save[choice - 1])
-    print(f"Selected Item:\nItem: {choice}")
+    print(pr.SELECTED_ITEM_LABEL)
+    print(pr.ITEM_NUMBER_LABEL.format(index=choice))
 
     while True:
         pp.listdict(item)
@@ -87,7 +88,7 @@ def edit_transaction(save, definers):
             return None
 
         selected_key = definers[key_choice - 1][0]
-        print(f"Selected key: {selected_key.capitalize()}")
+        print(pr.SELECTED_KEY_LABEL.format(key=selected_key.capitalize()))
         print()
 
         while True:
@@ -131,7 +132,7 @@ def delete_transaction(save):
             return save if deleted_any else None
 
         item = save[choice - 1]
-        print(f"Selected Item for deletion (Item {choice}):")
+        print(pr.SELECTED_ITEM_FOR_DELETION.format(index=choice))
         pp.listdict(item)
 
         if not h.ask_yes_no(f"{pr.WOULDYOU_PROCEED_PROMPT} {pr.YN}"):
@@ -143,7 +144,7 @@ def delete_transaction(save):
         deleted_any = True
 
         if not save:
-            print("No more transactions.")
+            print(pr.NO_MORE_TRANSACTIONS)
             return save
 
         if not h.ask_yes_no(f"{pr.DEL_ANOTHER_PROMPT} {pr.YN}"):

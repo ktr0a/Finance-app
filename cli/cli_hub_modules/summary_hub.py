@@ -1,8 +1,15 @@
 """Hub responsible for summary generation and display."""
 import calendar
 
-import core.config as config
+import core.core_config as core_config
 
+from config.calc_summary import (
+    SUMMARY_DISPLAY_KEYS,
+    SUMMARY_KEY_MAP,
+    NUMBER_OF_TRANSACTIONS_LABEL,
+    TRANSACTIONS_ANALYZED_KEY,
+    KEY_VALUE_PAIR_LABEL,
+)
 from core.calc_utils import format
 from core.sum_utils import SUMMARY_TEMPLATE as sumtemp
 from core.sum_utils import sum_util_func as sum_util
@@ -13,7 +20,7 @@ import cli.prompts as pr
 
 
 def summary_hub(save):
-    _, definers, _, _ = config.initvars()
+    _, definers, _, _ = core_config.initvars()
 
     while True:
         pp.clearterminal()
@@ -41,7 +48,7 @@ def summary_hub(save):
             filterby_key = definers[choice - 4][0]
             while True:
                 print()
-                choice2_raw = pp.pinput(f"Enter value for {filterby_key}: ")
+                choice2_raw = pp.pinput(pr.ENTER_VALUE_FOR_LABEL.format(field=filterby_key))
                 choice2 = h.validate_entry(filterby_key, choice2_raw)
                 if choice2 is not None:
                     filterby_value = choice2
@@ -51,19 +58,19 @@ def summary_hub(save):
             filterby_key = definers[4][0]
 
             while True:
-                month_raw = pp.pinput("Enter month (1-12): ").strip()
+                month_raw = pp.pinput(pr.ENTER_MONTH_PROMPT).strip()
                 if month_raw.isdigit():
                     month = int(month_raw)
                     if 1 <= month <= 12:
                         break
-                pp.highlight("Invalid month. Please enter a number between 1 and 12.")
+                pp.highlight(pr.INVALID_MONTH_MESSAGE)
 
             while True:
-                year_raw = pp.pinput("Enter year (YYYY): ").strip()
+                year_raw = pp.pinput(pr.ENTER_YEAR_PROMPT).strip()
                 if year_raw.isdigit() and len(year_raw) == 4:
                     year = int(year_raw)
                     break
-                pp.highlight("Invalid year. Please enter a four-digit year (e.g., 2025).")
+                pp.highlight(pr.INVALID_YEAR_MESSAGE)
 
             _, last_day = calendar.monthrange(year, month)
             start_date = f"01.{month:02d}.{year}"
@@ -74,13 +81,13 @@ def summary_hub(save):
             filterby_key = definers[4][0]
 
             while True:
-                start_raw = pp.pinput("Enter start date (DD.MM.YYYY): ")
+                start_raw = pp.pinput(pr.ENTER_START_DATE_PROMPT)
                 start_date = h.validate_entry("date", start_raw)
                 if start_date is not None:
                     break
 
             while True:
-                end_raw = pp.pinput("Enter end date (DD.MM.YYYY): ")
+                end_raw = pp.pinput(pr.ENTER_END_DATE_PROMPT)
                 end_date = h.validate_entry("date", end_raw)
                 if end_date is not None:
                     break
@@ -88,14 +95,15 @@ def summary_hub(save):
             filterby_value = (start_date, end_date)
 
         else:
-            raise SystemExit("summary_hub: invalid choice")
+            raise SystemExit(pr.SUMMARY_HUB_INVALID_CHOICE)
 
         _, func = sum_util[choice - 1]
         result = func(filterby_key, filterby_value, save)
-        transactions_found = result.get("Transactions Analyzed", 0)
+        transactions_key = SUMMARY_KEY_MAP.get(NUMBER_OF_TRANSACTIONS_LABEL, TRANSACTIONS_ANALYZED_KEY)
+        transactions_found = result.get(transactions_key, 0)
 
         if transactions_found == 0:
-            selection = result.get("Key Value Pair", "selection")
+            selection = result.get(KEY_VALUE_PAIR_LABEL, pr.SUMMARY_SELECTION_FALLBACK)
             print()
             print(pr.SUMMARY_NO_DATA.format(selection=selection))
             if h.ask_yes_no(f"{pr.SUMMARY_RETRY_PROMPT} {pr.YN}"):
@@ -114,18 +122,20 @@ def summary_hub(save):
 
 def display_summary(result):
     pp.clearterminal()
+    transactions_key = SUMMARY_KEY_MAP.get(NUMBER_OF_TRANSACTIONS_LABEL, TRANSACTIONS_ANALYZED_KEY)
+    net_balance_label = SUMMARY_DISPLAY_KEYS[-1]
 
     if result.keys() == sumtemp.keys():
         print()
-        title = result.get("Key Value Pair", "Summary")
+        title = result.get(KEY_VALUE_PAIR_LABEL, pr.SUMMARY_FALLBACK_TITLE)
         pp.highlight(str(title).capitalize())
         print()
 
-        transactions = result.get("Transactions Analyzed", 0)
-        print(f"Transactions analyzed: {format(transactions, 'int')}")
+        transactions = result.get(transactions_key, 0)
+        print(f"{pr.TRANSACTIONS_ANALYZED_LABEL}: {format(transactions, 'int')}")
         print()
 
-        for key in ("Total Income", "Total Expense", "Net Balance"):
+        for key in SUMMARY_DISPLAY_KEYS:
             value = result.get(key, 0)
             formatted_value = format(value, "money")
             if key == "Total Expense" and not formatted_value.startswith("-"):
@@ -135,7 +145,7 @@ def display_summary(result):
     elif "Special1" in result:
         pp.highlight(result["Special1"])
         print()
-        print(f"Transactions analyzed: {format(result['Transactions Analyzed'], 'int')}")
+        print(f"{pr.TRANSACTIONS_ANALYZED_LABEL}: {format(result.get(transactions_key, 0), 'int')}")
         print()
 
         categories = result.get("Categories", [])
@@ -162,15 +172,18 @@ def display_summary(result):
             print(f"{cat_name.ljust(hi_categoryname).capitalize()}{' ' * spacerh1}{divider1}{cat_count.center(len(H2) - 1)} {divider1}{' ' *spacerh3}{total_str.rjust(hi_type)}")
 
         print()
-        net_balance = format(result.get("Net Balance", 0), "money")
-        padding = max(total_length - len("Net Balance: "), 0)
-        print(f"Net Balance: {net_balance.rjust(padding)}")
+        net_balance = format(result.get(net_balance_label, 0), "money")
+        padding = max(total_length - len(f"{net_balance_label}: "), 0)
+        print(f"{net_balance_label}: {net_balance.rjust(padding)}")
 
     elif "Special2" in result:
         pp.highlight(result["Special2"])
         print()
-        print(f"Transactions analyzed: {format(result.get('Transactions Analyzed', 0), 'int')}")
+        print(f"{pr.TRANSACTIONS_ANALYZED_LABEL}: {format(result.get(transactions_key, 0), 'int')}")
         print()
+
+        count_label = pr.SPECIAL_H2
+        total_label = pr.SPECIAL_H3
 
         for section in (pr.INCOME, pr.EXPENSE):
             section_data = result.get(section)
@@ -180,11 +193,11 @@ def display_summary(result):
             print(f"{section}:")
             count_value = section_data.get("count", 0)
             total_value = section_data.get("total", 0)
-            print(f"{' ' * pr.spacer3}Count: {format(count_value, 'int')}")
-            print(f"{' ' * pr.spacer3}Total: {format(total_value, 'money')}")
+            print(f"{' ' * pr.spacer3}{count_label}: {format(count_value, 'int')}")
+            print(f"{' ' * pr.spacer3}{total_label}: {format(total_value, 'money')}")
             print()
 
-        print(f"Net Balance: {format(result.get('Net Balance', 0), 'money')}")
+        print(f"{net_balance_label}: {format(result.get(net_balance_label, 0), 'money')}")
 
     else:
         pass

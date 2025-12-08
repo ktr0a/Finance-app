@@ -56,12 +56,12 @@ def hub(save):
             edited_save = edit_hub(save)
 
             if edited_save is None:
-                print('1')
+                print(pr.EDIT_HUB_NO_RESULT)
                 pp.pinput(pr.INPUT_ANY)
                 continue
 
             if edited_save == old_save:
-                pp.highlight("No changes made.")
+                pp.highlight(pr.NO_CHANGES_MADE)
                 pp.pinput(pr.INPUT_ANY)
                 continue
 
@@ -73,15 +73,15 @@ def hub(save):
             
             status = s.cr_backup_lst(old_save, mode='undo', delbackup=False) # backup current save to undo stack
             if status is not True:
-                pp.highlight("Undo Backup failed")
-                if not h.ask_yes_no(f"Continue without undo backup? {pr.YN}"):
+                pp.highlight(pr.UNDO_BACKUP_FAILED)
+                if not h.ask_yes_no(f"{pr.CONTINUE_WITHOUT_UNDO_BACKUP} {pr.YN}"):
                     continue
 
             save_status = s.save(edited_save)
             s.clear_redo_stack()
 
             if save_status is not True:
-                pp.highlight("Failed to save changes to disk.")
+                pp.highlight(pr.FAILED_SAVE_CHANGES)
                 continue
 
             save = edited_save
@@ -89,7 +89,7 @@ def hub(save):
         elif choice == 4:
             status = s.cr_backup_lst(save)
             if status is True:
-                pp.highlight("Backup created.")
+                pp.highlight(pr.BACKUP_CREATED)
                 session_backup_done = True
             else:
                 pp.highlight(pr.BACKUP_FAILED)
@@ -107,7 +107,7 @@ def hub(save):
 
 
         else:
-            raise SystemExit("hub: invalid choice")
+            raise SystemExit(pr.MAIN_HUB_INVALID_CHOICE)
 
 
 def _restore_backup_flow():
@@ -119,9 +119,9 @@ def _restore_backup_flow():
 
     while True:
         pp.clearterminal()
-        pp.highlight("Restore backup")
+        pp.highlight(pr.RESTORE_BACKUP_TITLE)
         print()
-        print("Select a backup to restore:")
+        print(pr.SELECT_BACKUP_TO_RESTORE)
         print()
         for idx, backup in enumerate(backups, start=1):
             print(f"{idx}. {backup.name}")
@@ -140,7 +140,7 @@ def _restore_backup_flow():
         restore_status = s.restore_backup_file(target)
 
         if restore_status is None:
-            pp.highlight("Selected backup is unreadable.")
+            pp.highlight(pr.SELECTED_BACKUP_UNREADABLE)
             pp.pinput(pr.INPUT_ANY)
             continue
 
@@ -153,12 +153,12 @@ def _restore_backup_flow():
         status, new_save = s.load()
 
         if status is not True:
-            pp.highlight("Backup restored but failed to reload save from disk.")
+            pp.highlight(pr.BACKUP_RELOAD_FAILED)
             return None
 
         pp.highlight(pr.BACKUP_REINSTATED)
         if cleanup_error:
-            pp.highlight("Warning: Failed to delete one or more backups.")
+            pp.highlight(pr.WARNING_BACKUP_DELETE)
 
         pp.pinput(pr.INPUT_ANY)
         return new_save

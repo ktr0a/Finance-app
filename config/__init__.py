@@ -1,0 +1,41 @@
+# Central configuration package for shared constants.
+
+from config.schema import (
+    DEFINERS,
+    TRANSACTION_TYPES,
+    DATE_FORMAT,
+    DATE_FORMAT_HUMAN,
+    DATE_EXAMPLE,
+    AMOUNT_OF_BACKUPS,
+    AMOUNT_OF_CONSECUTIVE_PREHUB_FAILS,
+)
+from config.storage import (
+    STORAGE_DIR_NAME,
+    SAVE_FILENAME,
+    BACKUP_DIR_NAME,
+    UNDO_DIR_NAME,
+    REDO_DIR_NAME,
+    BACKUP_FILE_PREFIX,
+    BACKUP_TIMESTAMP_FORMAT,
+    DEFAULT_DATE,
+)
+from config.calc_summary import (
+    MONEY_FORMAT_MODE,
+    INT_FORMAT_MODE,
+    CURRENCY_SYMBOL,
+    CALC_CONFIG,
+    KEY_VALUE_PAIR_LABEL,
+    TRANSACTIONS_ANALYZED_KEY,
+    TOTAL_INCOME_LABEL,
+    TOTAL_EXPENSE_LABEL,
+    NET_BALANCE_LABEL,
+    NUMBER_OF_TRANSACTIONS_LABEL,
+    REQUIRED_CALCS,
+    SUMMARY_TEMPLATE,
+    SUMMARY_KEY_MAP,
+    SUMMARY_DISPLAY_KEYS,
+    CATEGORY_OVERVIEW_TITLE,
+    INCOME_EXPENSE_OVERVIEW_TITLE,
+)
+from config.text import *
+from config.style import *

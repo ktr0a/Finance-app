@@ -1,23 +1,31 @@
 # take cli.py and save to json. take json and turn into output for util.py
 
 import json
-import os
 import shutil
 
 from pathlib import Path
 from datetime import datetime as dt
-import core.config as config
+
+import core.core_config as core_config
+from config.storage import (
+    STORAGE_DIR_NAME,
+    SAVE_FILENAME,
+    BACKUP_DIR_NAME,
+    UNDO_DIR_NAME,
+    REDO_DIR_NAME,
+    BACKUP_FILE_PREFIX,
+    BACKUP_TIMESTAMP_FORMAT,
+    DEFAULT_DATE,
+)
 
 
-STORAGE_DIR = Path("storage")
-MAIN_DATA_FILE = STORAGE_DIR / "save.json"
+STORAGE_DIR = Path(STORAGE_DIR_NAME)
+MAIN_DATA_FILE = STORAGE_DIR / SAVE_FILENAME
 
-BACKUP_DIR = STORAGE_DIR / "backups/"
-BACKUP_DATA_FILE_NAME = "save_backup_"
-UNDO_DIR = STORAGE_DIR / "undo_stack/"
-REDO_DIR = STORAGE_DIR / "redo_stack/"
-
-DEFAULT_DATE = "01.01.2001"
+BACKUP_DIR = STORAGE_DIR / BACKUP_DIR_NAME
+BACKUP_DATA_FILE_NAME = BACKUP_FILE_PREFIX
+UNDO_DIR = STORAGE_DIR / UNDO_DIR_NAME
+REDO_DIR = STORAGE_DIR / REDO_DIR_NAME
 
 def save(lst, *args): # save list: None, True
     try:
@@ -53,7 +61,7 @@ def cr_backup_json(): # Back up the current save from save json: False, True
     if not MAIN_DATA_FILE.exists():
         return False  # nothing to back up
 
-    time_now = dt.now().strftime("%Y%m%d_%H%M%S_%f")
+    time_now = dt.now().strftime(BACKUP_TIMESTAMP_FORMAT)
     backup_file = BACKUP_DIR / f"{BACKUP_DATA_FILE_NAME}{time_now}.json"
     backup_file.parent.mkdir(parents=True, exist_ok=True)
 
@@ -66,7 +74,7 @@ def cr_backup_json(): # Back up the current save from save json: False, True
     return True
 
 def cr_backup_lst(lst, mode=None, delbackup=True): #  Back up the current save with passed list & additional args: None, True
-    time_now = dt.now().strftime("%Y%m%d_%H%M%S_%f")
+    time_now = dt.now().strftime(BACKUP_TIMESTAMP_FORMAT)
 
     if not mode:
         backup_file = BACKUP_DIR / f"{BACKUP_DATA_FILE_NAME}{time_now}.json"
@@ -137,7 +145,7 @@ def del_backup(): # Delete backup based on creation time: None, True
 
     backup_deleted = False
 
-    while len(backups) > config.AMOUNT_OF_BACKUPS:
+    while len(backups) > core_config.AMOUNT_OF_BACKUPS:
         oldest = backups.pop(0)  # oldest is always at index 0
         oldest.unlink()
         backup_deleted = True
