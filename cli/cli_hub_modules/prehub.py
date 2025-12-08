@@ -20,7 +20,7 @@ def prehub(choice):
             status, save = s.load()
 
             s.clear_redo_stack()
-            s.clear_undo_stack
+            s.clear_undo_stack()
 
             if status is True:  # success
                 load_failures = 0
