@@ -86,6 +86,31 @@ class UndoRedoTests(unittest.TestCase):
         self.assertEqual(data, updated)
 
 
+def main():
+    try:
+        import pdf_handeling.rawdata as pdf_rawdata
+        import pdf_handeling.format as pdf_format
+    except ImportError:
+        import rawdata as pdf_rawdata
+        import format as pdf_format
+
+    total_wordlst = pdf_rawdata.raw_extraction()
+    markers = pdf_format.extract_markers(total_wordlst, pdf_rawdata.MARKER_STR)
+    valid_lst = pdf_format.extract_words_in_markers(
+        total_wordlst,
+        markers if markers != None else exit("Markers is empty"),
+    )
+
+    print(pdf_format._flatten_lst(valid_lst))
+
+    transactions_lst = pdf_format.sort_to_transactions(valid_lst, markers)
+    print(transactions_lst)
+
+    newtransactions_lst = pdf_format.delete_blacklist(transactions_lst)
+
+    pdf_format.pretty_print_transactions(newtransactions_lst)
+
+
 if __name__ == "__main__":
     # Manual undo/redo check using the sample dataset from config.testin()
     sample_save = core_config.testin()

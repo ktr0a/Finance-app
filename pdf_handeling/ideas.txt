@@ -1,0 +1,7 @@
+bank specific parsers
+pymupdf pdfplumber
+
+above + vision llm comparison + probability tracking
+
+general statement chcker vision + text llm + small algo
+
