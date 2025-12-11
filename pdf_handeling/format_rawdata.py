@@ -3,7 +3,8 @@ try:
 except ImportError:
     import parameter
 
-
+from config.schema import DATE_FORMAT
+from datetime import datetime
 
 
 
@@ -83,13 +84,30 @@ def _flatten_lst(valid_lst: list) -> list:
     return newvalid_lst
 
 
-def delete_blacklist(transactions_lst: list) -> list:
+def delete_blacklist(transactions_lst: list) -> tuple[list, list]:
     cleaned = []
+    blacklst = []
     for transaction in transactions_lst:
         has_blacklisted_word = any(word[4] in parameter.BLACKLIST for word in transaction)
         if not has_blacklisted_word:
             cleaned.append(transaction)
-    return cleaned
+        else:
+            blacklst.append(transaction)
+    return (cleaned, blacklst)
+
+
+def find_dateformat_in_blacklst(blacklst: list) -> str | None:
+    for transaction in blacklst:
+        for word in transaction:
+            text = word[4]
+
+            try:
+                dt = datetime.strptime(text, DATE_FORMAT)
+                return text[-4:]  # extract the year
+            except ValueError:
+                pass  # not a valid date, continue
+    
+    return None
 
 
 def pretty_print_transactions(transactions: list) -> None:

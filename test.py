@@ -112,8 +112,11 @@ def main():
 
     pdf_format.pretty_print_transactions(newtransactions_lst)
 
+def asdfsd():
+    total_wordlst = rd.raw_extraction()
+    
+    markers = f.extract_markers(total_wordlst, p.MARKER_STR)
 
-def asdfaf():
     valid_lst = f.extract_words_in_markers(
         total_wordlst,
         markers if markers is not None else exit("Markers is empty"),
@@ -122,9 +125,39 @@ def asdfaf():
     transactions_lst = f.sort_to_transactions(valid_lst, markers)
     print(transactions_lst)
 
-    newtransactions_lst = f.delete_blacklist(transactions_lst)
+    newtransactions_lst, blacklst = f.delete_blacklist(transactions_lst)
 
-    f.pretty_print_transactions(newtransactions_lst)
+    print()
+    print()
+    print()
+    print(newtransactions_lst)
+    print()
+    print()
+    print()
+    print(blacklst)
+
+    date = f.find_dateformat_in_blacklst(blacklst)
+
+    print("sigma")
+    print()
+    print(date)
+    print()
+
+    item = e_item()
+    variance = p.VARIANCE
+
+    status, a_value, t_value = mdm.amount_type_per_item(item[3], markers if markers is not None else exit())
+    dstatus, d_value = mdm.date_per_item(dateword=item[2], amountword=item[2+1], yr=date)
+
+    print()
+    print(status)
+    print()
+    print(a_value)
+    print(t_value)
+    print("---")
+    print(dstatus)
+    print()
+    print(d_value)
 
 
 if __name__ == "__main__":
@@ -134,28 +167,9 @@ if __name__ == "__main__":
     import pdf_handeling.parameter as p
     from pdf_handeling.pdf_test import example_item as e_item
 
-    total_wordlst = rd.raw_extraction()
-    
-    markers = f.extract_markers(total_wordlst, p.MARKER_STR)
+    print(mdm.name_main(e_item()))
 
 
-    
-    item = e_item()
-    variance = p.VARIANCE
-
-
-
-    status, a_value, t_value = mdm.amount_type_per_item(item[3], markers if markers is not None else exit())
-    dstatus, d_value = mdm.date_per_item(dateword=item[2], amountword=item[2+1])
-
-    print()
-    print(status)
-    print()
-    print(a_value)
-    print("---")
-    print(dstatus)
-    print()
-    print(d_value)
 
 
 

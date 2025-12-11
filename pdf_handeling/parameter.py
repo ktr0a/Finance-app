@@ -22,3 +22,10 @@ BLACKLIST = (
 )
 
 VARIANCE = 3.0
+
+NAME_MAPPING_BLACKLIST = (
+    "MDID:",
+    "NDT:",
+    "E-COMM",
+    "SPESEN:",
+)
