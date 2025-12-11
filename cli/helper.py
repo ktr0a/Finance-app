@@ -40,7 +40,7 @@ def validate_numberinput(choice_str, max_index, allow_zero = False):
     return num
 
 
-def validate_entry(key, raw_input):
+def validate_entry(key, raw_input) -> str | float | None:
     _, definers, _, _ = core_config.initvars()
     raw = raw_input.strip()
     
