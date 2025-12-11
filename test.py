@@ -88,14 +88,16 @@ class UndoRedoTests(unittest.TestCase):
 
 def main():
     try:
-        import pdf_handeling.rawdata as pdf_rawdata
-        import pdf_handeling.format as pdf_format
+        import pdf_handeling.extract_rawdata as pdf_rawdata
+        import pdf_handeling.format_rawdata as pdf_format
+        import pdf_handeling.parameter as pdf_parameter
     except ImportError:
         import rawdata as pdf_rawdata
         import format as pdf_format
+        import parameter as pdf_parameter
 
     total_wordlst = pdf_rawdata.raw_extraction()
-    markers = pdf_format.extract_markers(total_wordlst, pdf_rawdata.MARKER_STR)
+    markers = pdf_format.extract_markers(total_wordlst, pdf_parameter.MARKER_STR)
     valid_lst = pdf_format.extract_words_in_markers(
         total_wordlst,
         markers if markers != None else exit("Markers is empty"),
@@ -111,27 +113,50 @@ def main():
     pdf_format.pretty_print_transactions(newtransactions_lst)
 
 
+def asdfaf():
+    valid_lst = f.extract_words_in_markers(
+        total_wordlst,
+        markers if markers is not None else exit("Markers is empty"),
+    )
+
+    transactions_lst = f.sort_to_transactions(valid_lst, markers)
+    print(transactions_lst)
+
+    newtransactions_lst = f.delete_blacklist(transactions_lst)
+
+    f.pretty_print_transactions(newtransactions_lst)
+
+
 if __name__ == "__main__":
-    # Manual undo/redo check using the sample dataset from config.testin()
-    sample_save = core_config.testin()
+    import pdf_handeling.manual_data_mapper as mdm
+    import pdf_handeling.extract_rawdata as rd
+    import pdf_handeling.format_rawdata as f
+    import pdf_handeling.parameter as p
+    from pdf_handeling.pdf_test import example_item as e_item
 
-    with tempfile.TemporaryDirectory() as tmp:
-        base = Path(tmp)
-        with mock.patch.object(storage, "MAIN_DATA_FILE", base / "storage/save.json"), \
-             mock.patch.object(storage, "BACKUP_DIR", base / "storage/backups/"), \
-             mock.patch.object(storage, "UNDO_DIR", base / "storage/undo_stack/"), \
-             mock.patch.object(storage, "REDO_DIR", base / "storage/redo_stack/"):
+    total_wordlst = rd.raw_extraction()
+    
+    markers = f.extract_markers(total_wordlst, p.MARKER_STR)
 
-            storage.save(sample_save)
-            storage.cr_backup_lst(sample_save, mode="undo", delbackup=False)
 
-            updated_save = [dict(txn) for txn in sample_save]
-            if updated_save:
-                updated_save[0]["amount"] = updated_save[0].get("amount", 0) + 1
-            storage.save(updated_save)
+    
+    item = e_item()
+    variance = p.VARIANCE
 
-            undo_status, undo_data = storage.undo_action()
-            redo_status, redo_data = storage.redo_action()
 
-            print("Undo status/data:", undo_status, len(undo_data) if undo_data else None)
-            print("Redo status/data:", redo_status, len(redo_data) if redo_data else None)
+
+    status, a_value, t_value = mdm.amount_type_per_item(item[3], markers if markers is not None else exit())
+    dstatus, d_value = mdm.date_per_item(dateword=item[2], amountword=item[2+1])
+
+    print()
+    print(status)
+    print()
+    print(a_value)
+    print("---")
+    print(dstatus)
+    print()
+    print(d_value)
+
+
+
+
