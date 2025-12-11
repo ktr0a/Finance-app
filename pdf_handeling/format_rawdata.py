@@ -1,26 +1,10 @@
-from pathlib import Path
-
 try:
-    import pdf_handeling.rawdata as rawdata
+    import pdf_handeling.parameter as parameter
 except ImportError:
-    import rawdata
+    import parameter
 
 
-ROUNDING_INT = rawdata.ROUNDING_INT
-MARKER_STR = rawdata.MARKER_STR
-BLACKLIST = rawdata.BLACKLIST
-CATEGORY_VARIANCE = rawdata.CATEGORY_VARIANCE
-RAWDATA_DIR = rawdata.RAWDATA_DIR
-FINAL_DIR = rawdata.FINAL_DIR
 
-
-def _rounding_values(word: tuple) -> list:
-    x0, y0, x1, y1, text, block_no, line_no, word_no = word
-    return [
-        round(x0, ROUNDING_INT), round(y0, ROUNDING_INT),
-        round(x1, ROUNDING_INT), round(y1, ROUNDING_INT),
-        text, block_no, line_no, word_no
-    ]
 
 
 def extract_markers(total_wordlst: list, MARKER_STR) -> tuple | None:
@@ -72,7 +56,7 @@ def sort_to_transactions(valid_lst: list, markers: tuple) -> list:
     for idx, word in enumerate(valid_lst):
         x0, y0, x1, y1, text, block_no, line_no, word_no = word
 
-        if _is_between(x0, validx0, CATEGORY_VARIANCE):
+        if _is_between(x0, validx0, parameter.VARIANCE):
             if first_item is True:
                 item.append(word)
                 first_item = False
@@ -102,7 +86,7 @@ def _flatten_lst(valid_lst: list) -> list:
 def delete_blacklist(transactions_lst: list) -> list:
     cleaned = []
     for transaction in transactions_lst:
-        has_blacklisted_word = any(word[4] in BLACKLIST for word in transaction)
+        has_blacklisted_word = any(word[4] in parameter.BLACKLIST for word in transaction)
         if not has_blacklisted_word:
             cleaned.append(transaction)
     return cleaned
@@ -133,31 +117,7 @@ def pretty_print_transactions(transactions: list) -> None:
         #     print("   ", w)
 
 
-def initpath() -> tuple:
-    if RAWDATA_DIR.parent.mkdir(parents=True, exist_ok=True) and FINAL_DIR.parent.mkdir(parents=True, exist_ok=True) is True:
-        return (RAWDATA_DIR, FINAL_DIR)
-
-
-def hastext() -> (bool | None):
-    pass
-
-    for page_number, total_words_on_page in enumerate(total_wordlst, start=1):
-        print(f"Page: {page_number}")
-        for word in total_words_on_page:
-            print(f"{word}")
-
-    print()
-    markers = extract_markers(total_wordlst, MARKER_STR)
-    print(markers)
-    print()
-
-    for page_number, total_words_on_page in enumerate(valid_lst, start=1):
-        print(f"Page: {page_number}")
-        for word in total_words_on_page:
-            print(f"{word}")
-
-    print()
-    print()
-    print()
-    print()
-    print()
+def initpath() -> tuple | None:
+    if parameter.RAWDATA_DIR.parent.mkdir(parents=True, exist_ok=True) and parameter.FINAL_DIR.parent.mkdir(parents=True, exist_ok=True) is True:
+        return (parameter.RAWDATA_DIR, parameter.FINAL_DIR)
+    else: return None
