@@ -108,7 +108,7 @@ def main():
     transactions_lst = pdf_format.sort_to_transactions(valid_lst, markers)
     print(transactions_lst)
 
-    newtransactions_lst = pdf_format.delete_blacklist(transactions_lst)
+    newtransactions_lst, blacklst = pdf_format.delete_blacklist(transactions_lst)
 
     pdf_format.pretty_print_transactions(newtransactions_lst)
 
@@ -169,6 +169,13 @@ if __name__ == "__main__":
 
     print(mdm.name_main(e_item()))
 
+    cleaned = mdm.name_main(e_item())
+    print("CLEANED (per-line tokens):")
+    print(cleaned)
+
+    best = mdm.name_scoring_main(cleaned if cleaned is not None else [])
+    print("BEST NAME:")
+    print(best)
 
 
 

@@ -21,7 +21,7 @@ def run_extraction_demo() -> None:
     transactions_lst = f.sort_to_transactions(valid_lst, markers)
     print(transactions_lst)
 
-    newtransactions_lst = f.delete_blacklist(transactions_lst)
+    newtransactions_lst, blacklst = f.delete_blacklist(transactions_lst)
 
     f.pretty_print_transactions(newtransactions_lst)
 
