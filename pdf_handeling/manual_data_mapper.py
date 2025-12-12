@@ -419,6 +419,225 @@ def name_scoring_main(cleaned: list[list[str]]) -> str | None:
     return None
 
 
+def _word_key(word: list[Any]) -> tuple[int, int, int]:
+    """
+    Stable identifier for a word row from PyMuPDF 'words' output.
+    """
+    block_no = int(word[5])
+    line_no = int(word[6])
+    word_no = int(word[7])
+    return (block_no, line_no, word_no)
+
+
+def _remove_words(transaction_words: list[list[Any]], remove_words: list[list[Any] | None]) -> list[list[Any]]:
+    """
+    Return a new list where the chosen words (amount/date) are removed.
+    Removal uses (block_no, line_no, word_no) keys for safety.
+    """
+    remove_keys: set[tuple[int, int, int]] = set()
+    for w in remove_words:
+        if w is None:
+            continue
+        remove_keys.add(_word_key(w))
+
+    if not remove_keys:
+        return transaction_words[:]  # no changes
+
+    out: list[list[Any]] = []
+    for w in transaction_words:
+        if _word_key(w) in remove_keys:
+            continue
+        out.append(w)
+    return out
+
+
+def _is_right_side_word(word: list[Any], markers: tuple[float, float, float, float], extra_margin: float = 0.0) -> bool:
+    """
+    True if the word's right edge (x1) is near the marker right boundary (validx1),
+    within p.VARIANCE (+ optional extra margin).
+    """
+    x1 = float(word[2])
+    validx1 = float(markers[2])
+    return (validx1 - (p.VARIANCE + extra_margin)) < x1 < (validx1 + (p.VARIANCE + extra_margin))
+
+
+def _pick_amount_word(
+    transaction_words: list[list[Any]],
+    markers: tuple[float, float, float, float],
+) -> tuple[Status, float | str, str | None, list[Any] | None]:
+    """
+    Choose the best amount candidate on the right side of the transaction.
+
+    Returns:
+        (status, amount_value, ttype, chosen_word)
+    """
+    validx1 = float(markers[2])
+
+    best_word: list[Any] | None = None
+    best_status: Status = Status.NONE
+    best_amount: float | str = "0"
+    best_type: str | None = None
+    best_dist: float = 10**9
+
+    for w in transaction_words:
+        # Only consider right-side-ish words (amount is on the right)
+        if not _is_right_side_word(w, markers, extra_margin=2.0):
+            continue
+
+        st, val, ttype = amount_type_per_item(w, markers)
+
+        # We only care about TRUE candidates here (your amount validator is strict)
+        if st != Status.TRUE:
+            continue
+
+        # choose closest x1 to right boundary
+        x1 = float(w[2])
+        dist = abs(x1 - validx1)
+
+        if dist < best_dist:
+            best_dist = dist
+            best_word = w
+            best_status = st
+            best_amount = val
+            best_type = ttype
+
+    return best_status, best_amount, best_type, best_word
+
+
+def _pick_date_word(
+    transaction_words: list[list[Any]],
+    amount_word: list[Any] | None,
+    markers: tuple[float, float, float, float],
+    yr: str | None,
+) -> tuple[Status, str, list[Any] | None]:
+    """
+    Choose the best date candidate (DDMM).
+
+    New logic:
+    - Prefer same line as amount (then neighbor lines)
+    - Date is typically LEFT of the amount
+    - Choose the DDMM token closest to the amount in x-distance
+    """
+    if amount_word is None:
+        return Status.NONE, "0", None
+
+    amount_line = int(amount_word[6])
+    amount_x0 = float(amount_word[0])  # left edge of amount token
+
+    preferred_lines = (amount_line, amount_line - 1, amount_line + 1)
+
+    best_word: list[Any] | None = None
+    best_status: Status = Status.NONE
+    best_date: str = "0"
+    best_dist: float = 10**9
+
+    for ln in preferred_lines:
+        for w in transaction_words:
+            if int(w[6]) != ln:
+                continue
+
+            txt = str(w[4]).strip()
+
+            # quick filter: date token is usually 4 digits DDMM
+            if not (txt.isdigit() and len(txt) == 4):
+                continue
+
+            # date should be left of the amount (allow tiny overlap margin)
+            w_x1 = float(w[2])
+            if w_x1 > amount_x0 + 2.0:
+                continue
+
+            st, date_val = date_per_item(w, amount_word, yr)
+
+            # Score by closeness to amount in x-direction
+            dist = abs(amount_x0 - w_x1)
+
+            if st == Status.TRUE:
+                # pick closest TRUE
+                if dist < best_dist or best_status != Status.TRUE:
+                    best_status = st
+                    best_date = date_val
+                    best_word = w
+                    best_dist = dist
+
+            elif st == Status.PARTIAL and best_status != Status.TRUE:
+                if dist < best_dist or best_status != Status.PARTIAL:
+                    best_status = st
+                    best_date = date_val
+                    best_word = w
+                    best_dist = dist
+
+        # If we already found a TRUE date on the same line (ln == amount_line),
+        # we can stop early.
+        if best_status == Status.TRUE and ln == amount_line:
+            return best_status, best_date, best_word
+
+    return best_status, best_date, best_word
+
+
+def _pick_name_from_words(transaction_words: list[list[Any]]) -> tuple[Status, str]:
+    """
+    Use your existing name pipeline on the provided word list.
+    """
+    cleaned = name_main(transaction_words)
+    if not cleaned:
+        return Status.FALSE, "unknown"
+
+    best = name_scoring_main(cleaned)
+    if not best:
+        return Status.FALSE, "unknown"
+
+    return Status.TRUE, best
+
+
+def map_transaction(
+    transaction_words: list[list[Any]],
+    markers: tuple[float, float, float, float],
+    yr: str | None = None,
+) -> tuple[dict[str, Any], dict[str, Status]]:
+    """
+    Map ONE transaction (list of word rows) into your schema dict + field statuses.
+
+    Returns:
+        (tx_dict, status_dict)
+    """
+    # 1) Amount + type
+    amount_status, amount_val, ttype, amount_word = _pick_amount_word(transaction_words, markers)
+
+    # 2) Date
+    date_status, date_val, date_word = _pick_date_word(transaction_words, amount_word, markers, yr)
+
+    # 3) Remove amount/date words from the input before name detection
+    remaining = _remove_words(transaction_words, [amount_word, date_word])
+
+    # 4) Name on remaining
+    name_status, name_val = _pick_name_from_words(remaining)
+
+    # 5) Build transaction dict (category placeholder for now)
+    try:
+        amount_numeric = float(amount_val)
+    except (TypeError, ValueError):
+        amount_numeric = 0.0
+
+    tx: dict[str, Any] = {
+        "name": name_val,
+        "category": "unknown",
+        "type": ttype if ttype else TRANSACTION_TYPES[0],
+        "amount": amount_numeric,
+        "date": date_val if date_status in (Status.TRUE, Status.PARTIAL) else DEFAULT_DATE,
+    }
+
+    # 6) Field statuses
+    status: dict[str, Status] = {
+        "name": name_status,
+        "amount": amount_status,
+        "type": amount_status if ttype else Status.FALSE,
+        "date": date_status,
+    }
+
+    return tx, status
+
+
 
 def name_main(transaction):
     per_line_list = _name_item_formatter(transaction)

@@ -108,5 +108,5 @@ NAME_OUTPUT_MAX_TOKENS = 2
 # Safety net: remove a line like ["2509"] (DDMM) if it appears in name candidates
 NAME_DROP_DATE_LIKE_LINES = True
 
-
+# Flag for: Write print() debugs within mdm.py
 DEBUG_FLAG = False

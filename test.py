@@ -177,6 +177,16 @@ if __name__ == "__main__":
     print("BEST NAME:")
     print(best)
 
+    item = e_item()
+    validx1 = max(w[2] for w in item)  # rightmost x1 in this transaction
+    markers = (0.0, 0.0, float(validx1), 0.0)
+
+    mapped, st = mdm.map_transaction(item, markers=markers, yr="2025")
+
+    print("MAPPED:")
+    print(mapped)
+    print("STATUS:")
+    print(st)
 
 
 
