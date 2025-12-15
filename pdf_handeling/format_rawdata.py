@@ -1,11 +1,7 @@
-try:
-    import pdf_handeling.parameter as parameter
-except ImportError:
-    import parameter
 
 from config.schema import DATE_FORMAT
 from datetime import datetime
-
+import pdf_handeling.parameter as p
 
 
 def extract_markers(total_wordlst: list, MARKER_STR) -> tuple | None:
@@ -13,7 +9,7 @@ def extract_markers(total_wordlst: list, MARKER_STR) -> tuple | None:
     for word in page1:
         x0, y0, x1, y1, text, block_no, line_no, word_no = word
         if text == MARKER_STR:
-            return (x0, y0, page1[-1][2], page1[-1][3])
+            return (x0, y0, page1[-1][2], page1[-1][3] + p.VARIANCE)
         else:
             continue
 
@@ -57,7 +53,7 @@ def sort_to_transactions(valid_lst: list, markers: tuple) -> list:
     for idx, word in enumerate(valid_lst):
         x0, y0, x1, y1, text, block_no, line_no, word_no = word
 
-        if _is_between(x0, validx0, parameter.VARIANCE):
+        if _is_between(x0, validx0, p.VARIANCE):
             if first_item is True:
                 item.append(word)
                 first_item = False
@@ -88,7 +84,8 @@ def delete_blacklist(transactions_lst: list) -> tuple[list, list]:
     cleaned = []
     blacklst = []
     for transaction in transactions_lst:
-        has_blacklisted_word = any(word[4] in parameter.BLACKLIST for word in transaction)
+        has_blacklisted_word = any(word[4] in p.BLACKLIST for word in transaction)
+
         if not has_blacklisted_word:
             cleaned.append(transaction)
         else:
@@ -136,6 +133,6 @@ def pretty_print_transactions(transactions: list) -> None:
 
 
 def initpath() -> tuple | None:
-    if parameter.RAWDATA_DIR.parent.mkdir(parents=True, exist_ok=True) and parameter.FINAL_DIR.parent.mkdir(parents=True, exist_ok=True) is True:
-        return (parameter.RAWDATA_DIR, parameter.FINAL_DIR)
+    if p.RAWDATA_DIR.parent.mkdir(parents=True, exist_ok=True) and p.FINAL_DIR.parent.mkdir(parents=True, exist_ok=True) is True:
+        return (p.RAWDATA_DIR, p.FINAL_DIR)
     else: return None

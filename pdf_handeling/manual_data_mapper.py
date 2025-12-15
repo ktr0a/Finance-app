@@ -50,7 +50,7 @@ def amount_type_per_item(word: list, markers: tuple[float, float, float, float])
     if value is None: # is amount valid
         return (Status.FALSE, "1", None)
     
-    elif "-" in text:
+    elif "-" in text: # type: ignore
         ttype = TRANSACTION_TYPES[1]
     else: ttype = TRANSACTION_TYPES[0]
 
@@ -67,7 +67,7 @@ def date_per_item(dateword: list, amountword: list, yr: str | None = None) -> tu
     if p.DEBUG_FLAG is True: print(text)
 
     # Item doesnt quality
-    if not _is_between(y0, validy0, p.VARIANCE) and _is_between(y1, validy1, p.VARIANCE):
+    if not _is_between(y0, validy0, p.VARIANCE + p.EXTRA_MARGIN) and _is_between(y1, validy1, p.VARIANCE + p.EXTRA_MARGIN):
         return (Status.NONE, "0")
 
     # Numeric
@@ -130,30 +130,28 @@ def _name_filter(transaction: list[list[str]]) -> list | None:
     seen_lines: set[tuple[str, ...]] = set()
 
     for line in transaction:
+
+
+
         newline: list[str] = []
 
         for word in line:
             w = word.strip().lower()
 
-            # Blacklist 
-            if any(w.startswith(prefix.lower().strip()) for prefix in p.NAME_MAPPING_BLACKLIST):
+            # existing per-word blacklist (can stay)
+            if any(w.startswith(prefix.lower().strip())
+                   for prefix in p.NAME_MAPPING_BLACKLIST):
                 continue
 
             newline.append(w)
 
-        if newline: # Dedupe (perline and overall)
-            newline = _name_dedupe_words_in_line(newline) 
+        if newline:
+            newline = _name_dedupe_words_in_line(newline)
             line_key = tuple(newline)
 
             if line_key not in seen_lines:
                 seen_lines.add(line_key)
                 cleaned.append(newline)
-
-    cleaned = _name_remove_subset_lines(cleaned)
-    cleaned = _name_drop_date_lines(cleaned)
-
-    if cleaned is None:
-        return None
 
     return cleaned
 
