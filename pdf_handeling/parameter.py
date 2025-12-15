@@ -1,4 +1,5 @@
 from pathlib import Path
+import re
 
 PARENT_DIR_NAME = "pdf_handeling"
 PARENT_DIR = Path(PARENT_DIR_NAME)
@@ -6,12 +7,15 @@ PARENT_DIR = Path(PARENT_DIR_NAME)
 RAWDATA_DIR_NAME = "rawdata"
 FINAL_DIR_NAME = "final"
 
-FILE_NAME = "1.pdf"
+FILE_NAME = "bank2.pdf"
 
 RAWDATA_DIR = PARENT_DIR / RAWDATA_DIR_NAME
 FINAL_DIR = PARENT_DIR / FINAL_DIR_NAME
 
 ROUNDING_INT = 2
+
+_THOUSANDS_EU = re.compile(r"^\s*\d{1,3}(\.\d{3})+(,\d{2})\s*[-+]?\s*$")
+_MONEY_EU     = re.compile(r"^\s*[-+]?\d+([.,]\d{2})\s*[-+]?\s*$")
 
 MARKER_STR = "Kontostand"
 SPECIFIC_STR = "Kontostand"
@@ -110,4 +114,4 @@ NAME_OUTPUT_MAX_TOKENS = 3
 NAME_DROP_DATE_LIKE_LINES = True
 
 # Flag for: Write print() debugs within mdm.py
-DEBUG_FLAG = True
+DEBUG_FLAG = False

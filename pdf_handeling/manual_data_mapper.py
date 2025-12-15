@@ -36,6 +36,8 @@ def amount_type_per_item(word: list, markers: tuple[float, float, float, float])
     validx0, validy0, validx1, validy1 = markers
 
     text = text.strip()
+
+    text = _normalize_money_token(text)
     
     # if not _is_between(x1, validx1, p.VARIANCE + p.EXTRA_MARGIN):
     #    return (Status.NONE, "0", None)
@@ -48,7 +50,7 @@ def amount_type_per_item(word: list, markers: tuple[float, float, float, float])
     if value is None: # is amount valid
         return (Status.FALSE, "1", None)
     
-    if text.strip()[-1:] == "-":
+    elif "-" in text:
         ttype = TRANSACTION_TYPES[1]
     else: ttype = TRANSACTION_TYPES[0]
 
@@ -503,6 +505,40 @@ def _pick_amount_word(
 
     return best_status, best_amount, best_type, best_word
 
+def _normalize_money_token(raw: str) -> str | None:
+    """
+    Normalize common bank-statement money formats to a python-float-friendly string.
+
+    Returns normalized string (e.g. "-2211.46") or None if it doesn't look like money.
+    """
+    if raw is None:
+        return None
+
+    s = str(raw).strip().replace(" ", "")
+
+    # Trailing minus (common in statements): "415,10-" -> "-415,10" (optional, but doesnt hurt)
+    if s.endswith("-") and not s.startswith("-"):
+        s = "-" + s[:-1]
+
+    # Failsafe: leading plus handling like "123,45+" (rare)
+    if s.endswith("+") and not s.startswith("+"):
+        s = "+" + s[:-1]
+
+    # EU thousands format: 1.234,56
+    if p._THOUSANDS_EU.match(s):
+        s = s.replace(".", "").replace(",", ".")
+        return s
+
+    # Plain EU decimal: 1234,56 or -1234,56
+    if p._MONEY_EU.match(s):
+        s = s.replace(",", ".")
+        return s
+
+    # Already float-friendly? allow "2211.46" too
+    if re.match(r"^\s*[-+]?\d+(\.\d+)?\s*$", s):
+        return s
+
+    return None
 
 def _pick_date_word(
     transaction_words: list[list[Any]],
@@ -544,7 +580,7 @@ def _pick_date_word(
 
             # date should be left of the amount (allow tiny overlap margin)
             w_x1 = float(w[2])
-            if w_x1 > amount_x0 + 2.0:
+            if w_x1 > amount_x0 + p.VARIANCE:
                 continue
 
             st, date_val = date_per_item(w, amount_word, yr)
@@ -569,7 +605,7 @@ def _pick_date_word(
 
         # If we already found a TRUE date on the same line (ln == amount_line),
         # we can stop early.
-        if best_status == Status.TRUE and ln == amount_line:
+        if best_status == Status.TRUE: #and ln == amount_line:
             return best_status, best_date, best_word
 
     return best_status, best_date, best_word
@@ -603,9 +639,16 @@ def map_transaction(
     """
     # 1) Amount + type
     amount_status, amount_val, ttype, amount_word = _pick_amount_word(transaction_words, markers)
+    print("amount")
+    print(amount_val)
+    print()
 
     # 2) Date
     date_status, date_val, date_word = _pick_date_word(transaction_words, amount_word, markers, yr)
+    print("date")
+    print(date_val)
+    print()
+    
 
     # 3) Remove amount/date words from the input before name detection
     remaining = _remove_words(transaction_words, [amount_word, date_word])

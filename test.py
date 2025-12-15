@@ -219,6 +219,9 @@ if __name__ == "__main__":
     for item in word_transactionlst:
 
         mappeditem = mdm.map_transaction(item, markers, datestr)
+        print(item)
+        print()
+        print()
         mapped.append(mappeditem)
 
     print()
@@ -227,8 +230,7 @@ if __name__ == "__main__":
     print()
     print()
 
-    if p.DEBUG_FLAG == True:
-        print(mapped)
+    print(mapped)
 
 
 
