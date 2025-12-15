@@ -132,7 +132,3 @@ def pretty_print_transactions(transactions: list) -> None:
         #     print("   ", w)
 
 
-def initpath() -> tuple | None:
-    if p.RAWDATA_DIR.parent.mkdir(parents=True, exist_ok=True) and p.FINAL_DIR.parent.mkdir(parents=True, exist_ok=True) is True:
-        return (p.RAWDATA_DIR, p.FINAL_DIR)
-    else: return None

@@ -88,8 +88,8 @@ class UndoRedoTests(unittest.TestCase):
 
 def main():
     try:
-        import pdf_handeling.extract_rawdata as pdf_rawdata
-        import pdf_handeling.format_rawdata as pdf_format
+        import pdf_handeling.general_extract_rawdata as pdf_rawdata
+        import pdf_handeling.erste_bank.erste_format_rawdata as pdf_format
         import pdf_handeling.parameter as pdf_parameter
     except ImportError:
         import rawdata as pdf_rawdata
@@ -184,11 +184,10 @@ def mdm_on_eitem():
 
 
 if __name__ == "__main__":
-    import pdf_handeling.manual_data_mapper as mdm
-    import pdf_handeling.extract_rawdata as rd
-    import pdf_handeling.format_rawdata as f
+    import pdf_handeling.erste_bank.erste_manual_data_mapper as mdm
+    import pdf_handeling.general_extract_rawdata as rd
+    import pdf_handeling.erste_bank.erste_format_rawdata as f
     import pdf_handeling.parameter as p
-    from pdf_handeling.pdf_test import example_item as e_item
 
     total_wordlst = rd.raw_extraction()
     
