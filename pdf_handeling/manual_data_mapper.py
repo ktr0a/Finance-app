@@ -637,15 +637,18 @@ def map_transaction(
     """
     # 1) Amount + type
     amount_status, amount_val, ttype, amount_word = _pick_amount_word(transaction_words, markers)
-    print("amount")
-    print(amount_val)
-    print()
 
     # 2) Date
     date_status, date_val, date_word = _pick_date_word(transaction_words, amount_word, markers, yr)
-    print("date")
-    print(date_val)
-    print()
+
+    if p.DEBUG_FLAG is True:
+        print("amount")
+        print(amount_val)
+        print()
+
+        print("date")
+        print(date_val)
+        print()
     
 
     # 3) Remove amount/date words from the input before name detection
