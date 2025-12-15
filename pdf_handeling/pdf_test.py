@@ -1,10 +1,10 @@
 try:
-    import pdf_handeling.extract_rawdata as rd
-    import pdf_handeling.format_rawdata as f
+    import pdf_handeling.general_extract_rawdata as rd
+    import pdf_handeling.erste_bank.erste_format_rawdata as f
     import pdf_handeling.parameter as p
 except ImportError:
-    import extract_rawdata as rd
-    import format_rawdata as f
+    import pdf_handeling.general_extract_rawdata as rd
+    import pdf_handeling.erste_bank.erste_format_rawdata as f
     import parameter as p
 
 

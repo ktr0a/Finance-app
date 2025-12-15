@@ -87,14 +87,9 @@ class UndoRedoTests(unittest.TestCase):
 
 
 def main():
-    try:
-        import pdf_handeling.general_extract_rawdata as pdf_rawdata
-        import pdf_handeling.erste_bank.erste_format_rawdata as pdf_format
-        import pdf_handeling.parameter as pdf_parameter
-    except ImportError:
-        import rawdata as pdf_rawdata
-        import format as pdf_format
-        import parameter as pdf_parameter
+    import pdf_handeling.general_extract_rawdata as pdf_rawdata
+    import pdf_handeling.erste_bank.erste_format_rawdata as pdf_format
+    import pdf_handeling.parameter as pdf_parameter
 
     total_wordlst = pdf_rawdata.raw_extraction()
     markers = pdf_format.extract_markers(total_wordlst, pdf_parameter.MARKER_STR)
@@ -113,6 +108,8 @@ def main():
     pdf_format.pretty_print_transactions(newtransactions_lst)
 
 def asdfsd():
+    from pdf_handeling.pdf_test import example_item as e_item
+
     total_wordlst = rd.raw_extraction()
     
     markers = f.extract_markers(total_wordlst, p.MARKER_STR)
@@ -161,6 +158,7 @@ def asdfsd():
 
 
 def mdm_on_eitem():
+    from pdf_handeling.pdf_test import example_item as e_item
     print(mdm.name_main(e_item()))
 
     cleaned = mdm.name_main(e_item())
