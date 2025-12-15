@@ -22,6 +22,7 @@ BLACKLIST = (
 )
 
 VARIANCE = 3.0
+EXTRA_MARGIN = 15.0 # is right side function
 
 NAME_MAPPING_BLACKLIST = (
     "MDID:",
@@ -103,10 +104,10 @@ NAME_SCORING_WEIGHTS = {
 }
 
 # Output shaping: 1 => "paypal"; 2 => "paypal europe"; 3 => allow "paypal europe services", etc.
-NAME_OUTPUT_MAX_TOKENS = 2
+NAME_OUTPUT_MAX_TOKENS = 3
 
 # Safety net: remove a line like ["2509"] (DDMM) if it appears in name candidates
 NAME_DROP_DATE_LIKE_LINES = True
 
 # Flag for: Write print() debugs within mdm.py
-DEBUG_FLAG = False
+DEBUG_FLAG = True

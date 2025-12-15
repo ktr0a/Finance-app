@@ -160,13 +160,7 @@ def asdfsd():
     print(d_value)
 
 
-if __name__ == "__main__":
-    import pdf_handeling.manual_data_mapper as mdm
-    import pdf_handeling.extract_rawdata as rd
-    import pdf_handeling.format_rawdata as f
-    import pdf_handeling.parameter as p
-    from pdf_handeling.pdf_test import example_item as e_item
-
+def mdm_on_eitem():
     print(mdm.name_main(e_item()))
 
     cleaned = mdm.name_main(e_item())
@@ -188,6 +182,53 @@ if __name__ == "__main__":
     print("STATUS:")
     print(st)
 
+
+if __name__ == "__main__":
+    import pdf_handeling.manual_data_mapper as mdm
+    import pdf_handeling.extract_rawdata as rd
+    import pdf_handeling.format_rawdata as f
+    import pdf_handeling.parameter as p
+    from pdf_handeling.pdf_test import example_item as e_item
+
+    total_wordlst = rd.raw_extraction()
+    
+    markers = f.extract_markers(total_wordlst, p.MARKER_STR)
+
+    valid_lst = f.extract_words_in_markers(
+        total_wordlst,
+        markers if markers is not None else exit("Markers is empty"),
+    )
+
+    transactions_lst = f.sort_to_transactions(valid_lst, markers)
+
+    word_transactionlst, blacklst = f.delete_blacklist(transactions_lst)
+
+    datestr = f.find_dateformat_in_blacklst(blacklst)
+
+
+    if p.DEBUG_FLAG == True:
+        print("P1:")
+        print(word_transactionlst)
+        print()
+        print()
+        print(datestr)
+        print("P1: END")
+
+    mapped = []
+
+    for item in word_transactionlst:
+
+        mappeditem = mdm.map_transaction(item, markers, datestr)
+        mapped.append(mappeditem)
+
+    print()
+    print()
+    print()
+    print()
+    print()
+
+    if p.DEBUG_FLAG == True:
+        print(mapped)
 
 
 

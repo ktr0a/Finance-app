@@ -37,8 +37,8 @@ def amount_type_per_item(word: list, markers: tuple[float, float, float, float])
 
     text = text.strip()
     
-    if not _is_between(x1, validx1, p.VARIANCE):
-        return (Status.NONE, "0", None)
+    # if not _is_between(x1, validx1, p.VARIANCE + p.EXTRA_MARGIN):
+    #    return (Status.NONE, "0", None)
     
     definers = _initdefiners()
     akey = definers[3][0]
@@ -451,7 +451,7 @@ def _remove_words(transaction_words: list[list[Any]], remove_words: list[list[An
     return out
 
 
-def _is_right_side_word(word: list[Any], markers: tuple[float, float, float, float], extra_margin: float = 0.0) -> bool:
+def _is_right_side_word(word: list[Any], markers: tuple[float, float, float, float], extra_margin) -> bool:
     """
     True if the word's right edge (x1) is near the marker right boundary (validx1),
     within p.VARIANCE (+ optional extra margin).
@@ -481,7 +481,7 @@ def _pick_amount_word(
 
     for w in transaction_words:
         # Only consider right-side-ish words (amount is on the right)
-        if not _is_right_side_word(w, markers, extra_margin=2.0):
+        if not _is_right_side_word(w, markers, extra_margin=p.EXTRA_MARGIN):
             continue
 
         st, val, ttype = amount_type_per_item(w, markers)
@@ -645,10 +645,6 @@ def name_main(transaction):
     cleaned = _name_filter(per_line_list)
 
     return cleaned
-
-
-
-
 
 
 def _is_between(x, validx, variance) -> bool:
