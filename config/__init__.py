@@ -38,4 +38,5 @@ from config.calc_summary import (
     INCOME_EXPENSE_OVERVIEW_TITLE,
 )
 from config.text import *
+from config.params import *
 from config.style import *

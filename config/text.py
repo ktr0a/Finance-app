@@ -9,8 +9,6 @@ EXIT = "Exit"
 WOULDYOU_PROMPT = "What would you like to do?"
 WOULDYOU_PROCEED_PROMPT = "Would you like to proceed?"
 WOULDYOU_INSTEAD_PROMPT = "Would you like to instead: "
-YES_VALUES = ("Y", "YES")
-NO_VALUES = ("N", "NO")
 ENTER_NUMBER_PROMPT = "Please enter a number"
 INVALID_CHOICE = "Invalid choice. Try again."
 
@@ -118,13 +116,8 @@ INVALID_MONTH_MESSAGE = "Invalid month. Please enter a number between 1 and 12."
 INVALID_YEAR_MESSAGE = "Invalid year. Please enter a four-digit year (e.g., 2025)."
 DISPLAY_SUMMARY_PROMPT = "Press any character to return to the Summary hub."
 SPECIAL_H1, SPECIAL_H2, SPECIAL_H3 = "Category", "Count", "Total"
-spacer1 = 5
-spacer2 = 4
-vertical_divider = " | "
-horizontal_divider = "-"
 INCOME = "Income"
 EXPENSE = "Expense"
-spacer3 = 6
 SUMMARY_FALLBACK_TITLE = "Summary"
 TRANSACTIONS_ANALYZED_LABEL = "Transactions analyzed"
 
