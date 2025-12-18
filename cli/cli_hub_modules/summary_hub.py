@@ -10,17 +10,18 @@ from config.calc_summary import (
     TRANSACTIONS_ANALYZED_KEY,
     KEY_VALUE_PAIR_LABEL,
 )
-from core.calc_utils import format
-from core.sum_utils import SUMMARY_TEMPLATE as sumtemp
-from core.sum_utils import sum_util_func as sum_util
 
 import cli.helper as h
 import cli.prettyprint as pp
 import cli.prompts as pr
 
 
-def summary_hub(save):
+def summary_hub(save, engine):
     _, definers, _, _ = core_config.initvars()
+    menu_res = engine.summary_menu()
+    sum_util = menu_res.data if menu_res.ok else []
+    template_res = engine.summary_template()
+    sumtemp = template_res.data if template_res.ok else {}
 
     while True:
         pp.clearterminal()
@@ -97,8 +98,15 @@ def summary_hub(save):
         else:
             raise SystemExit(pr.SUMMARY_HUB_INVALID_CHOICE)
 
-        _, func = sum_util[choice - 1]
-        result = func(filterby_key, filterby_value, save)
+        summary_res = engine.summary(
+            filterby_key,
+            filterby_value,
+            save,
+            index=choice - 1,
+        )
+        if not summary_res.ok or not isinstance(summary_res.data, dict):
+            raise SystemExit(pr.SUMMARY_HUB_INVALID_CHOICE)
+        result = summary_res.data
         transactions_key = SUMMARY_KEY_MAP.get(NUMBER_OF_TRANSACTIONS_LABEL, TRANSACTIONS_ANALYZED_KEY)
         transactions_found = result.get(transactions_key, 0)
 
@@ -110,7 +118,7 @@ def summary_hub(save):
                 continue
             return None
 
-        display_summary(result)
+        display_summary(result, sumtemp, engine)
 
         print()
         if h.ask_yes_no(f"{pr.REDO_SORT_PROMPT} {pr.YN}"):
@@ -120,7 +128,7 @@ def summary_hub(save):
     return None
 
 
-def display_summary(result):
+def display_summary(result, sumtemp, engine):
     pp.clearterminal()
     transactions_key = SUMMARY_KEY_MAP.get(NUMBER_OF_TRANSACTIONS_LABEL, TRANSACTIONS_ANALYZED_KEY)
     net_balance_label = SUMMARY_DISPLAY_KEYS[-1]
@@ -132,12 +140,12 @@ def display_summary(result):
         print()
 
         transactions = result.get(transactions_key, 0)
-        print(f"{pr.TRANSACTIONS_ANALYZED_LABEL}: {format(transactions, 'int')}")
+        print(f"{pr.TRANSACTIONS_ANALYZED_LABEL}: {engine.format_value(transactions, 'int').data}")
         print()
 
         for key in SUMMARY_DISPLAY_KEYS:
             value = result.get(key, 0)
-            formatted_value = format(value, "money")
+            formatted_value = engine.format_value(value, "money").data
             if key == "Total Expense" and not formatted_value.startswith("-"):
                 formatted_value = f"-{formatted_value}"
             print(f"{key}: {formatted_value}")
@@ -145,11 +153,11 @@ def display_summary(result):
     elif "Special1" in result:
         pp.highlight(result["Special1"])
         print()
-        print(f"{pr.TRANSACTIONS_ANALYZED_LABEL}: {format(result.get(transactions_key, 0), 'int')}")
+        print(f"{pr.TRANSACTIONS_ANALYZED_LABEL}: {engine.format_value(result.get(transactions_key, 0), 'int').data}")
         print()
 
         categories = result.get("Categories", [])
-        totals_formatted = [format(cat["total"], "money") for cat in categories]
+        totals_formatted = [engine.format_value(cat["total"], "money").data for cat in categories]
         hi_categoryname = max((len(str(cat["category_name"])) for cat in categories), default=len(pr.SPECIAL_H1))
         hi_type = len(max(totals_formatted, key=len)) if totals_formatted else len(pr.SPECIAL_H3)
 
@@ -168,18 +176,18 @@ def display_summary(result):
 
         for cat, total_str in zip(categories, totals_formatted):
             cat_name = str(cat["category_name"])
-            cat_count = format(cat["count"], "int")
+            cat_count = engine.format_value(cat["count"], "int").data
             print(f"{cat_name.ljust(hi_categoryname).capitalize()}{' ' * spacerh1}{divider1}{cat_count.center(len(H2) - 1)} {divider1}{' ' *spacerh3}{total_str.rjust(hi_type)}")
 
         print()
-        net_balance = format(result.get(net_balance_label, 0), "money")
+        net_balance = engine.format_value(result.get(net_balance_label, 0), "money").data
         padding = max(total_length - len(f"{net_balance_label}: "), 0)
         print(f"{net_balance_label}: {net_balance.rjust(padding)}")
 
     elif "Special2" in result:
         pp.highlight(result["Special2"])
         print()
-        print(f"{pr.TRANSACTIONS_ANALYZED_LABEL}: {format(result.get(transactions_key, 0), 'int')}")
+        print(f"{pr.TRANSACTIONS_ANALYZED_LABEL}: {engine.format_value(result.get(transactions_key, 0), 'int').data}")
         print()
 
         count_label = pr.SPECIAL_H2
@@ -193,11 +201,11 @@ def display_summary(result):
             print(f"{section}:")
             count_value = section_data.get("count", 0)
             total_value = section_data.get("total", 0)
-            print(f"{' ' * pr.spacer3}{count_label}: {format(count_value, 'int')}")
-            print(f"{' ' * pr.spacer3}{total_label}: {format(total_value, 'money')}")
+            print(f"{' ' * pr.spacer3}{count_label}: {engine.format_value(count_value, 'int').data}")
+            print(f"{' ' * pr.spacer3}{total_label}: {engine.format_value(total_value, 'money').data}")
             print()
 
-        print(f"{net_balance_label}: {format(result.get(net_balance_label, 0), 'money')}")
+        print(f"{net_balance_label}: {engine.format_value(result.get(net_balance_label, 0), 'money').data}")
 
     else:
         pass

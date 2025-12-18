@@ -1,13 +1,12 @@
 """Hub for creating or loading saves."""
 import core.core_config as core_config
-import core.storage as s
 
 import cli.helper as h
 import cli.prettyprint as pp
 import cli.prompts as pr
 
 
-def prehub(choice):
+def prehub(choice, engine):
     pp.clearterminal()
     pp.highlight(pr.PREHUB_NAME)
 
@@ -17,10 +16,14 @@ def prehub(choice):
     while True:
         if choice == 1:  # Load save
             print(pr.LOADING_SAVE)
-            status, save = s.load()
+            load_res = engine.load_state()
+            if not load_res.ok or not isinstance(load_res.data, tuple) or len(load_res.data) != 2:
+                status, save = None, None
+            else:
+                status, save = load_res.data
 
-            s.clear_redo_stack()
-            s.clear_undo_stack()
+            engine.clear_redo_stack()
+            engine.clear_undo_stack()
 
             if status is True:  # success
                 load_failures = 0
@@ -63,12 +66,17 @@ def prehub(choice):
             if not h.ask_yes_no(pr.WOULDYOU_PROCEED_PROMPT):
                 return None
 
-            status = s.restore_latest_backup()
+            status_res = engine.restore_latest_backup()
+            status = status_res.data if status_res.ok else None
 
             if status is True:
                 pp.highlight(pr.BACKUP_REINSTATED)
                 # Load the restored save now and return
-                status2, save2 = s.load()
+                load_res = engine.load_state()
+                if not load_res.ok or not isinstance(load_res.data, tuple) or len(load_res.data) != 2:
+                    status2, save2 = None, None
+                else:
+                    status2, save2 = load_res.data
                 if status2 is True:
                     load_failures = 0
                     return save2
@@ -91,7 +99,7 @@ def prehub(choice):
             continue
 
         elif choice == 3:  # Create new save
-            save = cr_new_save()
+            save = cr_new_save(engine)
             if save is None:
                 return None
             load_failures = 0
@@ -100,16 +108,16 @@ def prehub(choice):
         else:
             raise SystemExit(pr.PREHUB_INVALID_INITIAL_CHOICE)
 
-def cr_new_save():
+def cr_new_save(engine):
     print()
     print(f"{pr.CR_SAVE}")
     save = cr_save_loop(pr.CR_SAVE_NAME)
     if save is None:
         return None
     
-    save_result = s.save(save)
+    save_result = engine.save_state(save)
 
-    if save_result is not True:
+    if not save_result.ok or save_result.data is not True:
         pp.highlight(pr.FAILED_TO_WRITE_SAVE)
         return None
     print()

@@ -2,8 +2,6 @@
 import time
 import copy
 
-import core.storage as s
-
 import cli.helper as h
 import cli.prettyprint as pp
 import cli.prompts as pr
@@ -15,7 +13,7 @@ from cli.cli_hub_modules.undoredo_hub import undoredo_hub
 
 
 
-def hub(save):
+def hub(save, engine):
     print(pr.SAVE_LOADED)
     time.sleep(1)
 
@@ -41,10 +39,10 @@ def hub(save):
             return None
 
         if choice == 1:
-            new_save = analyze_hub(save)
+            new_save = analyze_hub(save, engine)
             if new_save is None:
                 continue
-            calc_hub(new_save)
+            calc_hub(new_save, engine)
 
         elif choice == 2:
             pp.listnesteddict(save)
@@ -53,7 +51,7 @@ def hub(save):
         elif choice == 3:
             old_save = copy.deepcopy(save)
 
-            edited_save = edit_hub(save)
+            edited_save = edit_hub(save, engine)
 
             if edited_save is None:
                 print(pr.EDIT_HUB_NO_RESULT)
@@ -66,29 +64,29 @@ def hub(save):
                 continue
 
             if not session_backup_done:
-                save_status = s.edit_and_backup_save(old_save) # backup current save
-                if save_status is True:
+                save_status = engine.session_backup(old_save)  # backup current save
+                if save_status.ok and save_status.data is True:
                     session_backup_done = True
 
             
-            status = s.cr_backup_lst(old_save, mode='undo', delbackup=False) # backup current save to undo stack
-            if status is not True:
+            status_res = engine.push_undo_snapshot(old_save)  # backup current save to undo stack
+            if not status_res.ok or status_res.data is not True:
                 pp.highlight(pr.UNDO_BACKUP_FAILED)
                 if not h.ask_yes_no(f"{pr.CONTINUE_WITHOUT_UNDO_BACKUP} {pr.YN}"):
                     continue
 
-            save_status = s.save(edited_save)
-            s.clear_redo_stack()
+            save_status = engine.save_state(edited_save)
+            engine.clear_redo_stack()
 
-            if save_status is not True:
+            if not save_status.ok or save_status.data is not True:
                 pp.highlight(pr.FAILED_SAVE_CHANGES)
                 continue
 
             save = edited_save
 
         elif choice == 4:
-            status = s.cr_backup_lst(save)
-            if status is True:
+            status_res = engine.create_backup(save)
+            if status_res.ok and status_res.data is True:
                 pp.highlight(pr.BACKUP_CREATED)
                 session_backup_done = True
             else:
@@ -96,13 +94,13 @@ def hub(save):
             pp.pinput(pr.INPUT_ANY)
 
         elif choice == 5:
-            restored_save = _restore_backup_flow()
+            restored_save = _restore_backup_flow(engine)
             if restored_save is not None:
                 save = restored_save
                 session_backup_done = False
 
         elif choice == 6:
-            save = undoredo_hub(save)
+            save = undoredo_hub(save, engine)
 
 
 
@@ -110,8 +108,9 @@ def hub(save):
             raise SystemExit(pr.MAIN_HUB_INVALID_CHOICE)
 
 
-def _restore_backup_flow():
-    backups = s.list_backups()
+def _restore_backup_flow(engine):
+    backups_res = engine.list_backups()
+    backups = backups_res.data if backups_res.ok else []
     if not backups:
         pp.highlight(pr.NO_BACKUPS_FOUND)
         pp.pinput(pr.INPUT_ANY)
@@ -137,7 +136,8 @@ def _restore_backup_flow():
             return None
 
         target = backups[choice - 1]
-        restore_status = s.restore_backup_file(target)
+        restore_res = engine.restore_backup_file(target)
+        restore_status = restore_res.data if restore_res.ok else None
 
         if restore_status is None:
             pp.highlight(pr.SELECTED_BACKUP_UNREADABLE)
@@ -149,8 +149,14 @@ def _restore_backup_flow():
             pp.pinput(pr.INPUT_ANY)
             return None
 
-        cleanup_error = _delete_all_backups(backups)
-        status, new_save = s.load()
+        cleanup_res = engine.delete_backup_files(backups)
+        cleanup_error = cleanup_res.data if cleanup_res.ok else True
+
+        load_res = engine.load_state()
+        if not load_res.ok or not isinstance(load_res.data, tuple) or len(load_res.data) != 2:
+            status, new_save = None, None
+        else:
+            status, new_save = load_res.data
 
         if status is not True:
             pp.highlight(pr.BACKUP_RELOAD_FAILED)
@@ -162,15 +168,3 @@ def _restore_backup_flow():
 
         pp.pinput(pr.INPUT_ANY)
         return new_save
-
-
-def _delete_all_backups(backups):
-    cleanup_error = False
-    for backup in backups:
-        if not backup.exists():
-            continue
-        try:
-            backup.unlink()
-        except OSError:
-            cleanup_error = True
-    return cleanup_error

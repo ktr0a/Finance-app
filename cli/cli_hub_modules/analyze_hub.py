@@ -1,14 +1,12 @@
 """Hub for filtering data before calculations."""
 import core.core_config as core_config
 
-from core.sort_utils import sort_util_func as s_util
-
 import cli.helper as h
 import cli.prettyprint as pp
 import cli.prompts as pr
 
 
-def analyze_hub(save):
+def analyze_hub(save, engine):
     _, definers, _, _ = core_config.initvars()
 
     pp.clearterminal()
@@ -33,12 +31,12 @@ def analyze_hub(save):
         return save
 
     if choice == 2:
-        return filter_save(save, definers)
+        return filter_save(save, definers, engine)
 
     raise SystemExit(pr.ANALYZE_HUB_INVALID_CHOICE)
 
 
-def filter_save(save, definers):
+def filter_save(save, definers, engine):
     if not save:
         print(pr.SAVE_IS_EMPTY)
         return None
@@ -80,8 +78,10 @@ def filter_save(save, definers):
         print(f"\n{pr.FILTERING_BY_VALUE_LABEL.format(field=filterby_key.capitalize(), value=filterby_value)}")
         print()
 
-        _, func = s_util[0]
-        filtered_save = func(filterby_key, filterby_value, save)
+        filtered_res = engine.filter_transactions(filterby_key, filterby_value, save)
+        if not filtered_res.ok:
+            return None
+        filtered_save = filtered_res.data
 
         if not filtered_save:
             print(pr.SELECTION_NOT_FOUND.format(key=filterby_key, value=filterby_value))

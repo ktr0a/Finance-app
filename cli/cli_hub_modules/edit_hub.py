@@ -10,7 +10,7 @@ import cli.prompts as pr
 from cli.cli_hub_modules.prehub import cr_save_loop
 
 
-def edit_hub(save):
+def edit_hub(save, engine):
     while True:
         pp.clearterminal()
         _, definers, _, _ = core_config.initvars()
@@ -32,13 +32,13 @@ def edit_hub(save):
             return None
 
         if choice == 1:
-            return edit_transaction(save, definers)
+            return edit_transaction(save, definers, engine)
 
         if choice == 2:
-            return delete_transaction(save)
+            return delete_transaction(save, engine)
 
         if choice == 3:
-            return add_transaction(save)
+            return add_transaction(save, engine)
 
         if choice == 4:
             pp.listnesteddict(save)
@@ -48,7 +48,7 @@ def edit_hub(save):
         raise SystemExit(pr.EDIT_HUB_INVALID_CHOICE)
 
 
-def edit_transaction(save, definers):
+def edit_transaction(save, definers, engine):
     pp.listnesteddict(save)
     print()
     print(pr.EDIT_TRANSACTION_PROMPT)
@@ -106,13 +106,15 @@ def edit_transaction(save, definers):
             continue
 
         if h.ask_yes_no(f"{pr.ADD_ITEM_TO_SAVE} {pr.YN}"):
-            save[item_index - 1] = item
-            return save
+            edit_res = engine.edit_transaction(save, item_index, item)
+            if not edit_res.ok:
+                return None
+            return edit_res.data
 
         return None
 
 
-def delete_transaction(save):
+def delete_transaction(save, engine):
     deleted_any = False
 
     while True:
@@ -140,7 +142,10 @@ def delete_transaction(save):
                 continue
             return save if deleted_any else None
 
-        save.pop(choice - 1)
+        del_res = engine.delete_transaction(save, choice)
+        if not del_res.ok:
+            return None
+        save = del_res.data
         deleted_any = True
 
         if not save:
@@ -151,12 +156,12 @@ def delete_transaction(save):
             return save
 
 
-def add_transaction(save):
+def add_transaction(save, engine):
     addition = cr_save_loop(pr.ADD_TRANSACTION_PROMPT)
     if addition is None:
         return None
 
-    for item in addition:
-        save.append(item)
-
-    return save
+    add_res = engine.add_transaction(save, addition)
+    if not add_res.ok:
+        return None
+    return add_res.data

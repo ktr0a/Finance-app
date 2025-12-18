@@ -9,7 +9,7 @@ from cli.cli_hub_modules.prehub import prehub
 __all__ = ["start", "hub"]
 
 
-def start():
+def start(engine):
     pp.clearterminal()
     pp.highlight(pr.PROGRAM_ON)
     """Run the initial start flow and return a loaded save when successful."""
@@ -32,7 +32,7 @@ def start():
         if choice == 0:
             return None
 
-        save = prehub(choice)
+        save = prehub(choice, engine)
 
         if save is None:
             # User backed out, so keep looping in the start menu.

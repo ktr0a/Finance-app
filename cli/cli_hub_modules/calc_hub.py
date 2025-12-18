@@ -1,7 +1,4 @@
 """Hub for calculations and summaries."""
-from core.calc_utils import calc_util_func as c_util
-from core.calc_utils import format
-
 import cli.helper as h
 import cli.prettyprint as pp
 import cli.prompts as pr
@@ -9,7 +6,10 @@ import cli.prompts as pr
 from cli.cli_hub_modules.summary_hub import summary_hub
 
 
-def calc_hub(save):
+def calc_hub(save, engine):
+    menu_res = engine.calc_menu()
+    c_util = menu_res.data if menu_res.ok else []
+
     result_list = []
     while True:
         pp.clearterminal()
@@ -37,10 +37,13 @@ def calc_hub(save):
             return None
 
         if choice2 == len(c_util) + 1:
-            summary_hub(save)
+            summary_hub(save, engine)
             continue
 
-        result = calc_loop(choice2, save)
+        result_res = calc_loop(choice2, save, engine)
+        if not result_res.ok:
+            return None
+        result = result_res.data
         print(f"\n{result}\n")
         result_list.append(result)
 
@@ -49,11 +52,5 @@ def calc_hub(save):
             return
 
 
-def calc_loop(choice, save):
-    label, func, mode = c_util[choice - 1]
-    result = func(save)
-    output = format(result, mode)
-    if "expense" in label.lower() and not output.startswith("-"):
-        output = f"-{output}"
-
-    return f"{label}: {output}"
+def calc_loop(choice, save, engine):
+    return engine.run_calc(choice, save)

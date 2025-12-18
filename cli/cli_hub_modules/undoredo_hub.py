@@ -2,7 +2,6 @@
 import copy
 
 import core.core_config as core_config
-import core.storage as s
 
 import cli.helper as h
 import cli.prettyprint as pp
@@ -11,7 +10,7 @@ import cli.prompts as pr
 
 
 
-def undoredo_hub(save):
+def undoredo_hub(save, engine):
     while True:
         pp.clearterminal()
         pp.highlight(pr.UNDOREDO_HUB_NAME)
@@ -32,7 +31,11 @@ def undoredo_hub(save):
             return save
         
         if choice == 1:  # undo
-            ok, new_save = s.undo_action()
+            undo_res = engine.undo()
+            if not undo_res.ok or not isinstance(undo_res.data, tuple) or len(undo_res.data) != 2:
+                ok, new_save = None, None
+            else:
+                ok, new_save = undo_res.data
             if not ok or new_save is None:
                 pp.highlight(pr.NOTHING_TO_UNDO)
                 pp.pinput(pr.INPUT_ANY)
@@ -43,7 +46,11 @@ def undoredo_hub(save):
             pp.pinput(pr.INPUT_ANY)
 
         elif choice == 2:  # redo
-            ok, new_save = s.redo_action()
+            redo_res = engine.redo()
+            if not redo_res.ok or not isinstance(redo_res.data, tuple) or len(redo_res.data) != 2:
+                ok, new_save = None, None
+            else:
+                ok, new_save = redo_res.data
             if not ok or new_save is None:
                 pp.highlight(pr.NOTHING_TO_REDO)
                 pp.pinput(pr.INPUT_ANY)

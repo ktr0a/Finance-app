@@ -284,21 +284,69 @@ class Engine:
     def save_state(self, state) -> Result:
         try:
             self.repo.save(state)
-            return Result(ok=True)
+            return Result(ok=True, data=True)
+        except Exception as exc:
+            return Result(ok=False, data=None, error=exc)
+
+    def list_transactions(self, *args, **kwargs) -> Result:
+        state = kwargs.get("state")
+        if args:
+            state = args[0]
+        return Result(ok=True, data=state)
+
+    def add_transaction(self, *args, **kwargs) -> Result:
+        if len(args) >= 2:
+            state = args[0]
+            additions = args[1]
+        else:
+            state = kwargs.get("state")
+            additions = kwargs.get("additions")
+
+        if state is None or additions is None:
+            return Result(ok=False, error=TypeError("add_transaction requires state and additions"))
+
+        try:
+            for item in additions:
+                state.append(item)
+            return Result(ok=True, data=state)
         except Exception as exc:
             return Result(ok=False, error=exc)
 
-    def list_transactions(self, *args, **kwargs) -> Result:
-        return Result(ok=False, error=NotImplementedError("Phase 1: not wired yet"))
-
-    def add_transaction(self, *args, **kwargs) -> Result:
-        return Result(ok=False, error=NotImplementedError("Phase 1: not wired yet"))
-
     def edit_transaction(self, *args, **kwargs) -> Result:
-        return Result(ok=False, error=NotImplementedError("Phase 1: not wired yet"))
+        if len(args) >= 3:
+            state = args[0]
+            index = args[1]
+            item = args[2]
+        else:
+            state = kwargs.get("state")
+            index = kwargs.get("index")
+            item = kwargs.get("item")
+
+        if state is None or index is None or item is None:
+            return Result(ok=False, error=TypeError("edit_transaction requires state, index, item"))
+
+        try:
+            state[index - 1] = item
+            return Result(ok=True, data=state)
+        except Exception as exc:
+            return Result(ok=False, error=exc)
 
     def delete_transaction(self, *args, **kwargs) -> Result:
-        return Result(ok=False, error=NotImplementedError("Phase 1: not wired yet"))
+        if len(args) >= 2:
+            state = args[0]
+            index = args[1]
+        else:
+            state = kwargs.get("state")
+            index = kwargs.get("index")
+
+        if state is None or index is None:
+            return Result(ok=False, error=TypeError("delete_transaction requires state and index"))
+
+        try:
+            state.pop(index - 1)
+            return Result(ok=True, data=state)
+        except Exception as exc:
+            return Result(ok=False, error=exc)
 
     def summary(self, *args, **kwargs) -> Result:
         try:
@@ -344,6 +392,193 @@ class Engine:
         try:
             state = self.history.redo()
             return Result(ok=True, data=state)
+        except Exception as exc:
+            return Result(ok=False, error=exc)
+
+    def filter_transactions(self, filterby_key, filterby_value, transactions) -> Result:
+        try:
+            return Result(ok=True, data=filter_save(filterby_key, filterby_value, transactions))
+        except Exception as exc:
+            return Result(ok=False, error=exc)
+
+    def calc_menu(self) -> Result:
+        menu = [(label, None, mode) for (label, _func, mode) in calc_util_func]
+        return Result(ok=True, data=menu)
+
+    def run_calc(self, choice: int, transactions) -> Result:
+        try:
+            label, func, mode = calc_util_func[choice - 1]
+            result = func(transactions)
+            output = format(result, mode)
+            if "expense" in label.lower() and not output.startswith("-"):
+                output = f"-{output}"
+            return Result(ok=True, data=f"{label}: {output}")
+        except Exception as exc:
+            return Result(ok=False, error=exc)
+
+    def format_value(self, value, mode: str) -> Result:
+        try:
+            return Result(ok=True, data=format(value, mode))
+        except Exception as exc:
+            return Result(ok=False, error=exc)
+
+    def summary_menu(self) -> Result:
+        menu = [(label, None) for (label, _func) in sum_util_func]
+        return Result(ok=True, data=menu)
+
+    def summary_template(self) -> Result:
+        return Result(ok=True, data=SUMMARY_TEMPLATE)
+
+    def create_backup(self, state) -> Result:
+        try:
+            if hasattr(self.repo, "_cr_backup_lst_like_core"):
+                status = self.repo._cr_backup_lst_like_core(state)  # type: ignore[attr-defined]
+                return Result(ok=True, data=status)
+
+            from . import storage as st
+
+            status = st.cr_backup_lst(state)
+            return Result(ok=True, data=status)
+        except Exception as exc:
+            return Result(ok=False, error=exc)
+
+    def list_backups(self) -> Result:
+        try:
+            if hasattr(self.repo, "_sort_backups_like_core"):
+                backups = self.repo._sort_backups_like_core(ascending=False)  # type: ignore[attr-defined]
+                return Result(ok=True, data=backups)
+
+            from . import storage as st
+
+            return Result(ok=True, data=st.list_backups())
+        except Exception as exc:
+            return Result(ok=False, error=exc)
+
+    def restore_backup_file(self, path) -> Result:
+        try:
+            from pathlib import Path
+            import json as _json
+
+            file_path = Path(path)
+            try:
+                with file_path.open("r", encoding="utf-8") as f:
+                    data = _json.load(f)
+            except (OSError, _json.JSONDecodeError, TypeError, ValueError):
+                return Result(ok=True, data=None)
+
+            try:
+                self.repo.save(data)
+            except Exception:
+                return Result(ok=True, data=False)
+
+            return Result(ok=True, data=True)
+        except Exception as exc:
+            return Result(ok=False, error=exc)
+
+    def restore_latest_backup(self) -> Result:
+        try:
+            backups_res = self.list_backups()
+            if not backups_res.ok:
+                return backups_res
+
+            backups = backups_res.data or []
+            if not backups:
+                return Result(ok=True, data=None)
+
+            newest = backups[0]
+            restore_res = self.restore_backup_file(newest)
+            if not restore_res.ok:
+                return restore_res
+
+            if restore_res.data is None:
+                return Result(ok=True, data=None)
+            if restore_res.data is False:
+                return Result(ok=True, data=False)
+
+            try:
+                newest.unlink()
+            except OSError:
+                return Result(ok=True, data=False)
+
+            return Result(ok=True, data=True)
+        except Exception as exc:
+            return Result(ok=False, error=exc)
+
+    def delete_backup_files(self, backups) -> Result:
+        try:
+            cleanup_error = False
+            for backup in backups:
+                try:
+                    if not backup.exists():
+                        continue
+                    backup.unlink()
+                except OSError:
+                    cleanup_error = True
+            return Result(ok=True, data=cleanup_error)
+        except Exception as exc:
+            return Result(ok=False, error=exc)
+
+    def push_undo_snapshot(self, state) -> Result:
+        try:
+            if hasattr(self.repo, "_cr_backup_lst_like_core"):
+                status = self.repo._cr_backup_lst_like_core(  # type: ignore[attr-defined]
+                    state, mode="undo", delbackup=False
+                )
+                return Result(ok=True, data=status)
+
+            from . import storage as st
+
+            status = st.cr_backup_lst(state, mode="undo", delbackup=False)
+            return Result(ok=True, data=status)
+        except Exception as exc:
+            return Result(ok=False, error=exc)
+
+    def clear_undo_stack(self) -> Result:
+        try:
+            if hasattr(self.repo, "undo_dir"):
+                undo_dir = self.repo.undo_dir  # type: ignore[attr-defined]
+                for f in undo_dir.glob("*.json"):
+                    try:
+                        f.unlink()
+                    except OSError:
+                        pass
+                return Result(ok=True, data=True)
+
+            from . import storage as st
+
+            st.clear_undo_stack()
+            return Result(ok=True, data=True)
+        except Exception as exc:
+            return Result(ok=False, error=exc)
+
+    def clear_redo_stack(self) -> Result:
+        try:
+            if hasattr(self.repo, "redo_dir"):
+                redo_dir = self.repo.redo_dir  # type: ignore[attr-defined]
+                for f in redo_dir.glob("*.json"):
+                    try:
+                        f.unlink()
+                    except OSError:
+                        pass
+                return Result(ok=True, data=True)
+
+            from . import storage as st
+
+            st.clear_redo_stack()
+            return Result(ok=True, data=True)
+        except Exception as exc:
+            return Result(ok=False, error=exc)
+
+    def session_backup(self, state) -> Result:
+        try:
+            if hasattr(self.repo, "_cr_backup_json_like_core"):
+                self.repo._cr_backup_json_like_core()  # type: ignore[attr-defined]
+            else:
+                from . import storage as st
+
+                st.cr_backup_json()
+
+            return self.save_state(state)
         except Exception as exc:
             return Result(ok=False, error=exc)
 
