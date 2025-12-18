@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from .models import Result
+
 # Calculations with list of items & parameters (dicts). Returns
 from config.calc_summary import (
     MONEY_FORMAT_MODE,
@@ -123,12 +125,6 @@ def filter_save(filterby_key, filterby_value, old_save) -> list:
 sort_util_func = [
     (FILTER_BY_KEY_VALUE_LABEL, filter_save),
 ]
-
-if __name__ == "__main__":
-    _, save_data = load()
-    sortby_key = "category"
-    sortby_value = "Food"
-    print(filter_save(sortby_key, sortby_value, save_data or []))
 
 
 # summarize with input from user
@@ -269,3 +265,77 @@ sum_util_func = [  # DO NOT CHANGE ORDER - ORDER CRITICAL FOR SUMMARY OPTIONS
     (SUMMARY_OPTIONS[6], summary_by_daterange),
     (SUMMARY_OPTIONS[7], summary_by_daterange),
 ]
+
+
+# ===== Engine Facade (Phase 1) =====
+
+
+class Engine:
+    def load_state(self) -> Result:
+        try:
+            from . import storage as st
+
+            status, state = st.load()
+            return Result(ok=status is not None, data=(status, state))
+        except Exception as exc:
+            return Result(ok=False, error=exc)
+
+    def save_state(self, state) -> Result:
+        try:
+            from . import storage as st
+
+            status = st.save(state)
+            return Result(ok=status is True, data=status)
+        except Exception as exc:
+            return Result(ok=False, error=exc)
+
+    def list_transactions(self, *args, **kwargs) -> Result:
+        return Result(ok=False, error=NotImplementedError("Phase 1: not wired yet"))
+
+    def add_transaction(self, *args, **kwargs) -> Result:
+        return Result(ok=False, error=NotImplementedError("Phase 1: not wired yet"))
+
+    def edit_transaction(self, *args, **kwargs) -> Result:
+        return Result(ok=False, error=NotImplementedError("Phase 1: not wired yet"))
+
+    def delete_transaction(self, *args, **kwargs) -> Result:
+        return Result(ok=False, error=NotImplementedError("Phase 1: not wired yet"))
+
+    def summary(self, *args, **kwargs) -> Result:
+        try:
+            summary_func = kwargs.pop("summary_func", None) or kwargs.pop("func", None)
+            if summary_func is None:
+                option = kwargs.pop("option", None)
+                index = kwargs.pop("index", None)
+                if option is not None:
+                    for label, func in sum_util_func:
+                        if label == option:
+                            summary_func = func
+                            break
+                elif index is not None:
+                    summary_func = sum_util_func[index][1]
+
+            if summary_func is None:
+                raise NotImplementedError("Phase 1: not wired yet")
+
+            return Result(ok=True, data=summary_func(*args, **kwargs))
+        except Exception as exc:
+            return Result(ok=False, error=exc)
+
+    def undo(self, *args, **kwargs) -> Result:
+        try:
+            from . import storage as st
+
+            status, state = st.undo_action()
+            return Result(ok=status is True, data=(status, state))
+        except Exception as exc:
+            return Result(ok=False, error=exc)
+
+    def redo(self, *args, **kwargs) -> Result:
+        try:
+            from . import storage as st
+
+            status, state = st.redo_action()
+            return Result(ok=status is True, data=(status, state))
+        except Exception as exc:
+            return Result(ok=False, error=exc)
