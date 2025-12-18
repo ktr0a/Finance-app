@@ -378,3 +378,16 @@ def build_engine_legacy() -> Engine:
     repo = LegacyRepository()
     history = LegacyHistory()
     return Engine(repo=repo, history=history)
+
+
+def build_engine_json() -> Engine:
+    from config.storage import REDO_DIR_NAME, UNDO_DIR_NAME
+    from infra.storage_json import JsonHistory, JsonRepository
+
+    repo = JsonRepository(save_path="storage/save.json")
+    history = JsonHistory(
+        repo=repo,
+        undo_dir=str(repo.storage_dir / UNDO_DIR_NAME),
+        redo_dir=str(repo.storage_dir / REDO_DIR_NAME),
+    )
+    return Engine(repo=repo, history=history)
