@@ -1,5 +1,3 @@
-"""Minimal core types (Phase 1)."""
-
 from __future__ import annotations
 
 from dataclasses import dataclass

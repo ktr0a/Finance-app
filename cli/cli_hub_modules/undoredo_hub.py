@@ -1,4 +1,4 @@
-""""""
+"""Hub for undo/redos"""
 import copy
 
 import core.core_config as core_config

@@ -1,6 +1,4 @@
-"""JSON storage implementation (Phase 3).
-
-This module is a faithful port of `core/storage.py` into `infra/`, exposing
+"""This module is a faithful port of `core/storage.py` into `infra/`, exposing
 `Repository` + `History` implementations without changing formats or layout.
 """
 

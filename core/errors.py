@@ -1,4 +1,4 @@
-"""Core exceptions (Phase 1)."""
+# Core exceptions
 
 
 class CoreError(Exception):

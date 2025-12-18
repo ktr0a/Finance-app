@@ -1,4 +1,3 @@
-# Take userinput & give it to storage.py (& utils.py, if applicable).
 import cli.helper as h
 import cli.prettyprint as pp
 import cli.prompts as pr

@@ -1,5 +1,3 @@
-"""Core ports (Phase 2)."""
-
 from typing import Protocol
 
 

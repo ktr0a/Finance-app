@@ -1,4 +1,5 @@
 # Domain and data model constants.
+# Used by core/core_config & many logic operations. Changing things will most likely break things.
 
 DEFINERS = (
     ("name", str),

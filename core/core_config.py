@@ -1,7 +1,5 @@
-# Config
-# ***WARNING: The config is used for alot of logic operations. Adjusting it might break parts of the system. 
-
-# Goal: link up all options from cli to the config. 
+# core_config
+# initvars is the backbone of many logic operations. Changing this will lead to systems breaking
 
 from config.schema import DEFINERS, AMOUNT_OF_BACKUPS, AMOUNT_OF_CONSECUTIVE_PREHUB_FAILS
 

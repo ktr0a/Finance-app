@@ -1,2 +1,3 @@
-"""Compatibility shim. Step 1 only."""
 from .engine import *
+
+# kept due to legacy & better readability

@@ -2,7 +2,7 @@
 
 MONEY_FORMAT_MODE = "money"
 INT_FORMAT_MODE = "int"
-CURRENCY_SYMBOL = "\u20ac"
+CURRENCY_SYMBOL = "\u20ac" # eur sign
 
 CALC_CONFIG = [
     ("Total Income", MONEY_FORMAT_MODE),
