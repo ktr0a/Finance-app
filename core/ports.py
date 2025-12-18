@@ -1,1 +1,15 @@
-"""Scaffold for Step 1."""
+"""Core ports (Phase 2)."""
+
+from typing import Protocol
+
+
+class Repository(Protocol):
+    def load(self) -> object: ...
+
+    def save(self, state: object) -> None: ...
+
+
+class History(Protocol):
+    def undo(self) -> object: ...
+
+    def redo(self) -> object: ...

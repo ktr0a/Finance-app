@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from .models import Result
+from .ports import History, Repository
 
 # Calculations with list of items & parameters (dicts). Returns
 from config.calc_summary import (
@@ -96,8 +97,6 @@ calc_util_func = [(label, CALC_FUNCTIONS[label], mode) for label, mode in CALC_C
 
 # Sorting utilities
 from config.text import FILTER_BY_KEY_VALUE_LABEL
-
-from core.storage import load
 
 
 def filter_save(filterby_key, filterby_value, old_save) -> list:
@@ -271,21 +270,21 @@ sum_util_func = [  # DO NOT CHANGE ORDER - ORDER CRITICAL FOR SUMMARY OPTIONS
 
 
 class Engine:
+    def __init__(self, repo: Repository, history: History | None = None) -> None:
+        self.repo = repo
+        self.history = history
+
     def load_state(self) -> Result:
         try:
-            from . import storage as st
-
-            status, state = st.load()
-            return Result(ok=status is not None, data=(status, state))
+            state = self.repo.load()
+            return Result(ok=True, data=state)
         except Exception as exc:
             return Result(ok=False, error=exc)
 
     def save_state(self, state) -> Result:
         try:
-            from . import storage as st
-
-            status = st.save(state)
-            return Result(ok=status is True, data=status)
+            self.repo.save(state)
+            return Result(ok=True)
         except Exception as exc:
             return Result(ok=False, error=exc)
 
@@ -323,19 +322,59 @@ class Engine:
             return Result(ok=False, error=exc)
 
     def undo(self, *args, **kwargs) -> Result:
-        try:
-            from . import storage as st
+        if self.history is None:
+            return Result(
+                ok=False,
+                error=NotImplementedError("Phase 2: history not configured"),
+            )
 
-            status, state = st.undo_action()
-            return Result(ok=status is True, data=(status, state))
+        try:
+            state = self.history.undo()
+            return Result(ok=True, data=state)
         except Exception as exc:
             return Result(ok=False, error=exc)
 
     def redo(self, *args, **kwargs) -> Result:
-        try:
-            from . import storage as st
+        if self.history is None:
+            return Result(
+                ok=False,
+                error=NotImplementedError("Phase 2: history not configured"),
+            )
 
-            status, state = st.redo_action()
-            return Result(ok=status is True, data=(status, state))
+        try:
+            state = self.history.redo()
+            return Result(ok=True, data=state)
         except Exception as exc:
             return Result(ok=False, error=exc)
+
+
+class LegacyRepository:
+    def load(self) -> object:
+        from . import storage as st
+
+        return st.load()
+
+    def save(self, state: object) -> None:
+        from . import storage as st
+
+        status = st.save(state)
+        if status is not True:
+            raise RuntimeError("LegacyRepository.save failed")
+
+
+class LegacyHistory:
+    def undo(self) -> object:
+        from . import storage as st
+
+        return st.undo_action()
+
+    def redo(self) -> object:
+        from . import storage as st
+
+        return st.redo_action()
+
+
+def build_engine_legacy() -> Engine:
+    repo = LegacyRepository()
+    history = LegacyHistory()
+    return Engine(repo=repo, history=history)
