@@ -1,0 +1,10 @@
+[
+    {
+        "name": "Test Income",
+        "category": "income",
+        "type": "I",
+        "amount": 100.0,
+        "date": "01.01.2025",
+        "id": "c663f74a-d60f-498d-8315-c531bdb9a7f7"
+    }
+]
