@@ -45,13 +45,23 @@ def hub(save, engine):
             calc_hub(new_save, engine)
 
         elif choice == 2:
+            list_res = engine.list_transactions()
+            if list_res.ok and list_res.data is not None:
+                save = list_res.data
             pp.listnesteddict(save)
             pp.pinput(pr.INPUT_ANY)
 
         elif choice == 3:
             old_save = copy.deepcopy(save)
 
-            edited_save = edit_hub(save, engine)
+            edited_save, session_backup_done, aborted = edit_hub(
+                save,
+                engine,
+                session_backup_done,
+            )
+
+            if aborted:
+                continue
 
             if edited_save is None:
                 print(pr.EDIT_HUB_NO_RESULT)
@@ -61,25 +71,6 @@ def hub(save, engine):
             if edited_save == old_save:
                 pp.highlight(pr.NO_CHANGES_MADE)
                 pp.pinput(pr.INPUT_ANY)
-                continue
-
-            if not session_backup_done:
-                save_status = engine.session_backup(old_save)  # backup current save
-                if save_status.ok and save_status.data is True:
-                    session_backup_done = True
-
-            
-            status_res = engine.push_undo_snapshot(old_save)  # backup current save to undo stack
-            if not status_res.ok or status_res.data is not True:
-                pp.highlight(pr.UNDO_BACKUP_FAILED)
-                if not h.ask_yes_no(f"{pr.CONTINUE_WITHOUT_UNDO_BACKUP} {pr.YN}"):
-                    continue
-
-            save_status = engine.save_state(edited_save)
-            engine.clear_redo_stack()
-
-            if not save_status.ok or save_status.data is not True:
-                pp.highlight(pr.FAILED_SAVE_CHANGES)
                 continue
 
             save = edited_save

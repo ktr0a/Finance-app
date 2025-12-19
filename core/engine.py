@@ -274,6 +274,17 @@ class Engine:
         self.repo = repo
         self.history = history
 
+    def _load_state_raw(self):
+        return self.repo.load()
+
+    def _extract_save(self, state):
+        if isinstance(state, tuple) and len(state) == 2:
+            return state[1]
+        return state
+
+    def _rebuild_state(self, old_state, new_save):
+        return new_save
+
     def load_state(self) -> Result:
         try:
             state = self.repo.load()
@@ -288,63 +299,97 @@ class Engine:
         except Exception as exc:
             return Result(ok=False, data=None, error=exc)
 
-    def list_transactions(self, *args, **kwargs) -> Result:
-        state = kwargs.get("state")
-        if args:
-            state = args[0]
-        return Result(ok=True, data=state)
+    def _prepare_mutation(self, save) -> Result:
+        snap_res = self.push_undo_snapshot(save)
+        if not snap_res.ok or snap_res.data is not True:
+            return Result(ok=False, error=RuntimeError("undo snapshot failed"))
 
-    def add_transaction(self, *args, **kwargs) -> Result:
-        if len(args) >= 2:
-            state = args[0]
-            additions = args[1]
-        else:
-            state = kwargs.get("state")
-            additions = kwargs.get("additions")
+        self.clear_redo_stack()
+        return Result(ok=True, data=True)
 
-        if state is None or additions is None:
-            return Result(ok=False, error=TypeError("add_transaction requires state and additions"))
-
+    def list_transactions(self) -> Result:
         try:
-            for item in additions:
-                state.append(item)
-            return Result(ok=True, data=state)
+            state = self._load_state_raw()
+            save = self._extract_save(state)
+            if save is None:
+                return Result(ok=False, error=ValueError("no save loaded"))
+            return Result(ok=True, data=save)
         except Exception as exc:
             return Result(ok=False, error=exc)
 
-    def edit_transaction(self, *args, **kwargs) -> Result:
-        if len(args) >= 3:
-            state = args[0]
-            index = args[1]
-            item = args[2]
-        else:
-            state = kwargs.get("state")
-            index = kwargs.get("index")
-            item = kwargs.get("item")
-
-        if state is None or index is None or item is None:
-            return Result(ok=False, error=TypeError("edit_transaction requires state, index, item"))
-
+    def add_transaction(self, tx: dict, *, snapshot: bool = True) -> Result:
         try:
-            state[index - 1] = item
-            return Result(ok=True, data=state)
+            state = self._load_state_raw()
+            save = self._extract_save(state)
+            if save is None:
+                return Result(ok=False, error=ValueError("no save loaded"))
+
+            if snapshot:
+                prep_res = self._prepare_mutation(save)
+                if not prep_res.ok:
+                    return prep_res
+
+            save.append(tx)
+            new_state = self._rebuild_state(state, save)
+            self.repo.save(new_state)
+            return Result(ok=True, data=save)
         except Exception as exc:
             return Result(ok=False, error=exc)
 
-    def delete_transaction(self, *args, **kwargs) -> Result:
-        if len(args) >= 2:
-            state = args[0]
-            index = args[1]
-        else:
-            state = kwargs.get("state")
-            index = kwargs.get("index")
-
-        if state is None or index is None:
-            return Result(ok=False, error=TypeError("delete_transaction requires state and index"))
-
+    def edit_transaction(
+        self,
+        index: int,
+        patch: dict | None = None,
+        new_tx: dict | None = None,
+        *,
+        snapshot: bool = True,
+    ) -> Result:
         try:
-            state.pop(index - 1)
-            return Result(ok=True, data=state)
+            state = self._load_state_raw()
+            save = self._extract_save(state)
+            if save is None:
+                return Result(ok=False, error=ValueError("no save loaded"))
+
+            if not 0 <= index < len(save):
+                return Result(ok=False, error=IndexError("transaction index out of range"))
+
+            if snapshot:
+                prep_res = self._prepare_mutation(save)
+                if not prep_res.ok:
+                    return prep_res
+
+            if new_tx is not None:
+                save[index] = new_tx
+            elif patch is not None:
+                save[index].update(patch)
+            else:
+                return Result(ok=False, error=TypeError("edit_transaction requires patch or new_tx"))
+
+            new_state = self._rebuild_state(state, save)
+            self.repo.save(new_state)
+            return Result(ok=True, data=save)
+        except Exception as exc:
+            return Result(ok=False, error=exc)
+
+    def delete_transaction(self, index: int, *, snapshot: bool = True) -> Result:
+        try:
+            state = self._load_state_raw()
+            save = self._extract_save(state)
+            if save is None:
+                return Result(ok=False, error=ValueError("no save loaded"))
+
+            if not 0 <= index < len(save):
+                return Result(ok=False, error=IndexError("transaction index out of range"))
+
+            if snapshot:
+                prep_res = self._prepare_mutation(save)
+                if not prep_res.ok:
+                    return prep_res
+
+            save.pop(index)
+            new_state = self._rebuild_state(state, save)
+            self.repo.save(new_state)
+            return Result(ok=True, data=save)
         except Exception as exc:
             return Result(ok=False, error=exc)
 
