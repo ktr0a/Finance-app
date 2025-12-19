@@ -1,3 +1,6 @@
+# testing files - not important for actual workflow
+
+
 try:
     import pdf_handeling.general_extract_rawdata as rd
     import pdf_handeling.erste_bank.erste_format_rawdata as f

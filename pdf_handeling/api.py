@@ -20,7 +20,7 @@ def _ensure_registry() -> None:
 
     from pdf_handeling.erste_bank.parser import parse as erste_parse
 
-    register_parser("erste", "Erste Bank (MVP)", erste_parse)
+    register_parser("erste", "Erste Bank", erste_parse)
 
 
 def list_parsers() -> list[tuple[str, str]]:
