@@ -4,7 +4,7 @@ from pathlib import Path
 
 from finance_app.config.storage import SAVE_FILENAME, STORAGE_DIR_NAME
 
-API_PORT = 8787
+API_PORT = 8000
 
 SAVE_DIR = Path(STORAGE_DIR_NAME)
 SAVE_FILE_NAME = SAVE_FILENAME
@@ -17,4 +17,4 @@ CORS_ORIGINS: list[str] = [
     "http://127.0.0.1:5173",
 ]
 ALLOWED_ORIGINS = CORS_ORIGINS
-ENABLE_CORS = False
+ENABLE_CORS = True
