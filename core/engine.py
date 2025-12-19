@@ -485,7 +485,7 @@ class Engine:
             if not backups:
                 return Result(ok=True, data=None)
 
-            newest = backups[0]
+            newest = backups[0] # type: ignore
             restore_res = self.restore_backup_file(newest)
             if not restore_res.ok:
                 return restore_res
