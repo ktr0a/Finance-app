@@ -1,4 +1,4 @@
-import fitz
+import pymupdf
 
 try:
     import pdf_handeling.parameter as parameter
@@ -8,7 +8,7 @@ except ImportError:
 # (x0, y0, x1, y1, text, block_no, line_no, word_no)
 
 def raw_extraction() -> list: # Extract text from pdf; round & nest by page
-    document = fitz.open(f"{parameter.RAWDATA_DIR}\\{parameter.FILE_NAME}")
+    document = pymupdf.open(f"{parameter.RAWDATA_DIR}\\{parameter.FILE_NAME}")
     total_wordlst = []
 
     for page_number, page in enumerate(document, start=1): #type: ignore
