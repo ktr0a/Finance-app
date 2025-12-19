@@ -393,6 +393,28 @@ class Engine:
         except Exception as exc:
             return Result(ok=False, error=exc)
 
+    def import_transactions(self, txs: list[dict], *, snapshot: bool = True) -> Result:
+        try:
+            state = self._load_state_raw()
+            save = self._extract_save(state)
+            if save is None:
+                return Result(ok=False, error=ValueError("no save loaded"))
+
+            if not txs:
+                return Result(ok=True, data=save)
+
+            if snapshot:
+                prep_res = self._prepare_mutation(save)
+                if not prep_res.ok:
+                    return prep_res
+
+            save.extend(txs)
+            new_state = self._rebuild_state(state, save)
+            self.repo.save(new_state)
+            return Result(ok=True, data=save)
+        except Exception as exc:
+            return Result(ok=False, error=exc)
+
     def summary(self, *args, **kwargs) -> Result:
         try:
             summary_func = kwargs.pop("summary_func", None) or kwargs.pop("func", None)

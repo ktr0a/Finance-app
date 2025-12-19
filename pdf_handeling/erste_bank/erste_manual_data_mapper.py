@@ -1,10 +1,10 @@
 import re
+from datetime import datetime
 from typing import Any
 
 import pdf_handeling.parameter as p
-import cli.helper as h
 from config.storage import DEFAULT_DATE
-from config.schema import TRANSACTION_TYPES
+from config.schema import DATE_FORMAT, TRANSACTION_TYPES
 
 from enum import IntEnum
 
@@ -20,6 +20,41 @@ def _initdefiners():
 
     _, definers, _, _ = initvars()
     return definers
+
+
+def _validate_entry_local(key: str, raw_input: str) -> str | float | None:
+    definers = _initdefiners()
+    raw = str(raw_input).strip()
+
+    dtype_list = [t for dkey, t in definers if dkey == key]
+    if not dtype_list:
+        return None
+    dtype = dtype_list[0]
+
+    if key == "category":
+        raw = raw.lower()
+
+    if key == "type":
+        raw = raw.upper()
+        if raw not in TRANSACTION_TYPES:
+            return None
+        return raw
+
+    if key == "date":
+        try:
+            parsed = datetime.strptime(raw, DATE_FORMAT)
+        except ValueError:
+            return None
+        return parsed.strftime(DATE_FORMAT)
+
+    if key == "amount":
+        raw = raw.replace("-", " ")
+        raw = raw.replace(",", ".")
+
+    try:
+        return dtype(raw)
+    except ValueError:
+        return None
 
 
 """Pseudocode:
@@ -45,7 +80,7 @@ def amount_type_per_item(word: list, markers: tuple[float, float, float, float])
     definers = _initdefiners()
     akey = definers[3][0]
 
-    value = h.validate_entry(akey, text)
+    value = _validate_entry_local(akey, text)
 
     if value is None: # is amount valid
         return (Status.FALSE, "1", None)
@@ -92,7 +127,7 @@ def date_per_item(dateword: list, amountword: list, yr: str | None = None) -> tu
         definers = _initdefiners()
         key = definers[4][0]
 
-        value = h.validate_entry(key, raw)
+        value = _validate_entry_local(key, raw)
 
         if value is None:
             return (Status.FALSE, "1.1")

@@ -1,3 +1,5 @@
+from pathlib import Path
+
 import pymupdf
 
 try:
@@ -7,8 +9,13 @@ except ImportError:
 
 # (x0, y0, x1, y1, text, block_no, line_no, word_no)
 
-def raw_extraction() -> list: # Extract text from pdf; round & nest by page
-    document = pymupdf.open(f"{parameter.RAWDATA_DIR}\\{parameter.FILE_NAME}")
+def raw_extraction(pdf_path: str | None = None) -> list: # Extract text from pdf; round & nest by page
+    if pdf_path is None:
+        path = parameter.RAWDATA_DIR / parameter.FILE_NAME
+    else:
+        path = Path(pdf_path)
+
+    document = pymupdf.open(str(path))
     total_wordlst = []
 
     for page_number, page in enumerate(document, start=1): #type: ignore

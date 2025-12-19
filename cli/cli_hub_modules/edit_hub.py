@@ -231,27 +231,76 @@ def delete_transaction(save, engine, session_backup_done, snapshot_done):
 
 
 def add_transaction(save, engine, session_backup_done, snapshot_done):
-    addition = cr_save_loop(pr.ADD_TRANSACTION_PROMPT)
-    if addition is None:
-        return None, session_backup_done, snapshot_done, False
+    while True:
+        pp.clearterminal()
+        pp.highlight(pr.ADD_TRANSACTION_PROMPT)
+        print()
+        print(pr.PDF_METHOD_PROMPT_ADD)
+        print()
+        pp.listoptions(pr.PDF_METHOD_OPTIONS)
+        print(f"0. {pr.EXIT}")
+        print()
 
-    for idx, item in enumerate(addition):
-        if not snapshot_done:
-            session_backup_done = _maybe_session_backup(engine, save, session_backup_done)
+        choice_str = pp.pinput(pr.ENTER_ACC_NUMBER)
+        choice = h.validate_numberinput(choice_str, len(pr.PDF_METHOD_OPTIONS), allow_zero=True)
+        if choice is None:
+            continue
 
-        add_res = engine.add_transaction(item, snapshot=not snapshot_done)
-        if not add_res.ok:
-            if _is_snapshot_error(add_res):
-                pp.highlight(pr.UNDO_BACKUP_FAILED)
-                if not h.ask_yes_no(f"{pr.CONTINUE_WITHOUT_UNDO_BACKUP} {pr.YN}"):
+        if choice == 0:
+            return None, session_backup_done, snapshot_done, False
+
+        if choice == 1:
+            addition = cr_save_loop(pr.ADD_TRANSACTION_PROMPT)
+            if addition is None:
+                return None, session_backup_done, snapshot_done, False
+
+            for item in addition:
+                if not snapshot_done:
+                    session_backup_done = _maybe_session_backup(engine, save, session_backup_done)
+
+                add_res = engine.add_transaction(item, snapshot=not snapshot_done)
+                if not add_res.ok:
+                    if _is_snapshot_error(add_res):
+                        pp.highlight(pr.UNDO_BACKUP_FAILED)
+                        if not h.ask_yes_no(f"{pr.CONTINUE_WITHOUT_UNDO_BACKUP} {pr.YN}"):
+                            return save, session_backup_done, snapshot_done, True
+                        add_res = engine.add_transaction(item, snapshot=False)
+
+                    if not add_res.ok:
+                        pp.highlight(pr.FAILED_SAVE_CHANGES)
+                        return save, session_backup_done, snapshot_done, True
+
+                save = add_res.data
+                snapshot_done = True
+
+            return save, session_backup_done, snapshot_done, False
+
+        if choice == 2:
+            from cli.cli_hub_modules.pdf_import_hub import import_pdf_transactions
+
+            txs = import_pdf_transactions(engine, purpose="add")
+            if txs is None:
+                return None, session_backup_done, snapshot_done, False
+            if not txs:
+                return save, session_backup_done, snapshot_done, False
+
+            if not snapshot_done:
+                session_backup_done = _maybe_session_backup(engine, save, session_backup_done)
+
+            imp_res = engine.import_transactions(txs, snapshot=not snapshot_done)
+            if not imp_res.ok:
+                if _is_snapshot_error(imp_res):
+                    pp.highlight(pr.UNDO_BACKUP_FAILED)
+                    if not h.ask_yes_no(f"{pr.CONTINUE_WITHOUT_UNDO_BACKUP} {pr.YN}"):
+                        return save, session_backup_done, snapshot_done, True
+                    imp_res = engine.import_transactions(txs, snapshot=False)
+
+                if not imp_res.ok:
+                    pp.highlight(pr.FAILED_SAVE_CHANGES)
                     return save, session_backup_done, snapshot_done, True
-                add_res = engine.add_transaction(item, snapshot=False)
 
-            if not add_res.ok:
-                pp.highlight(pr.FAILED_SAVE_CHANGES)
-                return save, session_backup_done, snapshot_done, True
+            save = imp_res.data
+            snapshot_done = True
+            return save, session_backup_done, snapshot_done, False
 
-        save = add_res.data
-        snapshot_done = True
-
-    return save, session_backup_done, snapshot_done, False
+        raise SystemExit(pr.EDIT_HUB_INVALID_CHOICE)

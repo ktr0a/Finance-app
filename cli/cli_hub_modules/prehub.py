@@ -111,9 +111,39 @@ def prehub(choice, engine):
 def cr_new_save(engine):
     print()
     print(f"{pr.CR_SAVE}")
-    save = cr_save_loop(pr.CR_SAVE_NAME)
-    if save is None:
-        return None
+    while True:
+        pp.clearterminal()
+        pp.highlight(pr.CR_SAVE_NAME)
+        print()
+        print(pr.PDF_METHOD_PROMPT_NEW_SAVE)
+        print()
+        pp.listoptions(pr.PDF_METHOD_OPTIONS)
+        print(f"0. {pr.EXIT}")
+        print()
+
+        choice_str = pp.pinput(pr.ENTER_ACC_NUMBER)
+        choice = h.validate_numberinput(choice_str, len(pr.PDF_METHOD_OPTIONS), allow_zero=True)
+        if choice is None:
+            continue
+
+        if choice == 0:
+            return None
+
+        if choice == 1:
+            save = cr_save_loop(pr.CR_SAVE_NAME)
+            if save is None:
+                return None
+            break
+
+        if choice == 2:
+            from cli.cli_hub_modules.pdf_import_hub import import_pdf_transactions
+
+            save = import_pdf_transactions(engine, purpose="new_save")
+            if save is None:
+                return None
+            break
+
+        raise SystemExit(pr.PREHUB_INVALID_INITIAL_CHOICE)
     
     save_result = engine.save_state(save)
 

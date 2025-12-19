@@ -145,6 +145,32 @@ RETRY_DEL_PROMPT = "Would you like to select a different transaction?"
 DEL_ANOTHER_PROMPT = "Would you like to delete another transaction?"
 NO_MORE_TRANSACTIONS = "No more transactions."
 
+# PDF import
+PDF_IMPORT_HUB = "PDF Import"
+PDF_METHOD_PROMPT_NEW_SAVE = "How would you like to create transactions?"
+PDF_METHOD_PROMPT_ADD = "How would you like to add transactions?"
+PDF_METHOD_OPTIONS = (
+    "Manual entry",
+    "Import from PDF statement",
+)
+PDF_SELECT_FILE = "Select a PDF file to import:"
+PDF_CUSTOM_PATH = "Enter custom PDF path"
+PDF_SELECT_PARSER = "Select a parser:"
+PDF_PARSE_FAILED = "PDF parsing failed."
+PDF_NO_TRANSACTIONS = "No transactions found in this PDF."
+PDF_REVIEW_ITEM_LABEL = "Item {index}/{total}"
+PDF_REVIEW_ACTIONS = "What would you like to do with this item?"
+PDF_EDIT_FIELD = "Edit {field}"
+PDF_EDIT_PROMPT = "Enter new value: "
+PDF_SKIP_ITEM = "Skip this transaction"
+PDF_ACCEPT_ITEM = "Accept and continue"
+PDF_CANCEL_IMPORT = "Cancel import"
+PDF_REVIEW_SUMMARY = "Accepted: {accepted} | Skipped: {skipped}"
+PDF_CONFIRM_NEW_SAVE = "Create save with imported transactions?"
+PDF_CONFIRM_ADD = "Add imported transactions to current save?"
+PDF_IMPORT_CANCELED = "PDF import canceled."
+PDF_FILE_NOT_FOUND = "File not found. Please try again."
+
 # Undo/Redo hub
 UNDOREDO_HUB_NAME = "Undo / Redo Menu"
 UNDOREDO_HUB_OPTIONS = (
