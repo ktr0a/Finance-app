@@ -6,6 +6,7 @@ import pandas as pd
 import streamlit as st
 
 from finance_ui.state import keys
+from finance_ui.utils.category import canon_category
 
 
 def render(items: list[dict[str, Any]]) -> None:
@@ -20,6 +21,8 @@ def render(items: list[dict[str, Any]]) -> None:
         return
 
     df = pd.DataFrame(items)
+    if "category" in df.columns:
+        df["category"] = df["category"].apply(canon_category)
 
     # Ensure consistent column order for display
     display_cols = [c for c in ["date", "name", "category", "type", "amount", "id"] if c in df.columns]

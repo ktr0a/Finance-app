@@ -8,6 +8,7 @@ from finance_ui.api import endpoints
 from finance_ui.components import tx_filters, tx_forms, tx_table
 from finance_ui.state import keys
 from finance_ui.ui.messages import show_api_error
+from finance_ui.utils.category import canon_category
 from finance_ui.utils.filtering import clean_summary_filters
 
 
@@ -60,9 +61,9 @@ def render() -> None:
     offset = first.get("offset", 0) if isinstance(first, dict) else 0
 
     # Derive categories from current list (spec)
-    categories_set = {str(x.get("category") or "").strip() for x in items if x.get("category") is not None}
+    categories_set = {canon_category(x.get("category")) for x in items}
     categories_set.add("unknown")
-    categories = sorted({c for c in categories_set if c})
+    categories = sorted(categories_set)
 
     # Filters
     filters = tx_filters.render(categories=categories)

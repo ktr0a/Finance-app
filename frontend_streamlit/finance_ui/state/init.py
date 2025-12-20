@@ -21,6 +21,8 @@ def ensure_defaults() -> None:
     ss.setdefault(keys.ACTIVE_PAGE, "Summary")
     ss.setdefault(keys.ACTIVE_PAGE_WIDGET, ss.get(keys.ACTIVE_PAGE, "Summary"))
     ss.setdefault(keys.NAV_REQUESTED_PAGE, None)
+    ss.setdefault(keys.TX_TYPE_WIDGET, "All")
+    ss.setdefault(keys.TX_CATEGORY_WIDGET, "All")
 
     ss.setdefault(
         keys.TX_FILTERS,

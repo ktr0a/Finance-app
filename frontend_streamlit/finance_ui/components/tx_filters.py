@@ -6,6 +6,7 @@ from typing import Any
 import streamlit as st
 
 from finance_ui.state import keys
+from finance_ui.utils.category import canon_category
 from finance_ui.utils.dates import from_api_date, to_api_date
 
 
@@ -14,6 +15,22 @@ def _normalize_none(s: str | None) -> str | None:
         return None
     s = s.strip()
     return s or None
+
+
+def _type_to_label(t: str | None) -> str:
+    if t == "I":
+        return "Income"
+    if t == "E":
+        return "Expense"
+    return "All"
+
+
+def _label_to_type(label: str) -> str | None:
+    if label == "Income":
+        return "I"
+    if label == "Expense":
+        return "E"
+    return None
 
 
 def render(categories: list[str]) -> dict[str, Any]:
@@ -32,16 +49,40 @@ def render(categories: list[str]) -> dict[str, Any]:
     q = st.text_input("Search", value=f.get("q") or "")
     q = _normalize_none(q)
 
-    type_label = st.selectbox("Type", ["All", "Income", "Expense"], index=0)
-    t: str | None = None
-    if type_label == "Income":
-        t = "I"
-    elif type_label == "Expense":
-        t = "E"
+    type_options = ["All", "Income", "Expense"]
+    desired_type_label = _type_to_label(f.get("type"))
 
-    cat_options = ["All"] + sorted([c for c in categories if c])
-    cat_label = st.selectbox("Category", cat_options, index=0)
-    category = None if cat_label == "All" else cat_label
+    # Sync widget value BEFORE instantiation
+    if ss.get(keys.TX_TYPE_WIDGET) not in type_options:
+        ss[keys.TX_TYPE_WIDGET] = "All"
+    if ss.get(keys.TX_TYPE_WIDGET) != desired_type_label:
+        ss[keys.TX_TYPE_WIDGET] = desired_type_label
+
+    type_label = st.selectbox("Type", type_options, key=keys.TX_TYPE_WIDGET)
+    t = _label_to_type(type_label)
+
+    # Build canonical category options (stable, no duplicates from casing/whitespace)
+    canon_set = {canon_category(c) for c in categories if c}
+    canon_set.add("unknown")
+
+    # Keep currently stored category visible even if categories list is incomplete
+    stored_cat = f.get("category")
+    stored_cat_canon = canon_category(stored_cat) if stored_cat is not None else None
+    if stored_cat_canon:
+        canon_set.add(stored_cat_canon)
+
+    cat_options = ["All"] + sorted(canon_set)
+
+    desired_cat_label = "All" if stored_cat_canon is None else stored_cat_canon
+
+    # Sync widget value BEFORE instantiation
+    if ss.get(keys.TX_CATEGORY_WIDGET) not in cat_options:
+        ss[keys.TX_CATEGORY_WIDGET] = "All"
+    if ss.get(keys.TX_CATEGORY_WIDGET) != desired_cat_label:
+        ss[keys.TX_CATEGORY_WIDGET] = desired_cat_label
+
+    cat_label = st.selectbox("Category", cat_options, key=keys.TX_CATEGORY_WIDGET)
+    category = None if cat_label == "All" else cat_label  # already canonical
 
     # Optional date range: Streamlit date_input cannot be empty, so we gate with a checkbox.
     existing_from = f.get("date_from")

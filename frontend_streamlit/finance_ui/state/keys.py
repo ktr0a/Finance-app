@@ -5,6 +5,8 @@ SELECTED_SAVE_ID = "selected_save_id"
 ACTIVE_PAGE = "active_page"
 ACTIVE_PAGE_WIDGET = "active_page_widget"
 NAV_REQUESTED_PAGE = "nav_requested_page"
+TX_TYPE_WIDGET = "tx_type_widget"
+TX_CATEGORY_WIDGET = "tx_category_widget"
 
 TX_FILTERS = "tx_filters"
 SUMMARY_FILTERS = "summary_filters"
