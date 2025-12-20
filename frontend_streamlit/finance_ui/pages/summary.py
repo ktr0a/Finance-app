@@ -65,11 +65,25 @@ def render() -> None:
     else:
         st.plotly_chart(fig2, width="stretch")
 
-    fig3 = charts.expense_by_category(by_category)
-    if fig3 is None:
-        st.info("No expense category breakdown available.")
+    mode = st.radio(
+        "Breakdown view",
+        ["Expense", "Income"],
+        horizontal=True,
+        key="summary_breakdown_mode",
+    )
+
+    if mode == "Expense":
+        fig3 = charts.expense_by_category(by_category)
+        if fig3 is None:
+            st.info("No expense category breakdown available.")
+        else:
+            st.plotly_chart(fig3, width="stretch")
     else:
-        st.plotly_chart(fig3, width="stretch")
+        fig3 = charts.income_by_category(by_category)
+        if fig3 is None:
+            st.info("No income category breakdown available.")
+        else:
+            st.plotly_chart(fig3, width="stretch")
 
     # Top merchants requires transactions list (derived plot)
     try:
@@ -80,8 +94,12 @@ def render() -> None:
         show_api_error(e)
         return
 
-    fig4 = charts.top_merchants(items, top_n=10)
+    tx_type = "E" if mode == "Expense" else "I"
+    fig4 = charts.top_merchants(items, top_n=10, tx_type=tx_type)
     if fig4 is None:
-        st.info("No expense transactions available for Top merchants.")
+        if mode == "Expense":
+            st.info("No expense transactions available for Top merchants.")
+        else:
+            st.info("No income transactions available for Top merchants.")
     else:
         st.plotly_chart(fig4, width="stretch")

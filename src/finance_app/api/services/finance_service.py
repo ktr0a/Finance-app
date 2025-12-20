@@ -319,7 +319,15 @@ class FinanceService:
                 continue
 
             tx_type = tx.get("type")
-            category = str(tx.get("category", "unknown"))
+            raw_cat = tx.get("category")
+            category = ""
+            if raw_cat is not None:
+                try:
+                    category = str(raw_cat).strip()
+                except Exception:
+                    category = ""
+            if not category or category.lower() == "none":
+                category = "unknown"
 
             if tx_type == "I":
                 income_total += amount
