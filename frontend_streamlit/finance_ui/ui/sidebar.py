@@ -78,13 +78,28 @@ def render() -> None:
         st.divider()
 
         st.markdown("### Navigation")
-        current = st.session_state.get(keys.ACTIVE_PAGE, "Summary")
+        ss = st.session_state
+
+        # App-level source of truth (safe to set from anywhere)
+        desired = ss.get(keys.ACTIVE_PAGE, "Summary")
+        if desired not in PAGES:
+            desired = PAGES[0]
+
+        # Ensure the radio widget is aligned BEFORE it is instantiated
+        if ss.get(keys.ACTIVE_PAGE_WIDGET) != desired:
+            ss[keys.ACTIVE_PAGE_WIDGET] = desired
+
         st.radio(
             "Go to",
             PAGES,
-            index=PAGES.index(current) if current in PAGES else 0,
-            key=keys.ACTIVE_PAGE,  # stable widget key prevents “double click” / state drift
+            index=PAGES.index(desired),
+            key=keys.ACTIVE_PAGE_WIDGET,  # stable widget key (prevents double-click/state drift)
         )
+
+        # After widget renders, mirror selection back to app state
+        picked = ss.get(keys.ACTIVE_PAGE_WIDGET, desired)
+        if picked in PAGES:
+            ss[keys.ACTIVE_PAGE] = picked
 
         st.divider()
 
