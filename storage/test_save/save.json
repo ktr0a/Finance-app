@@ -1,1 +1,4002 @@
-[]
+[
+    {
+        "name": "Adobe",
+        "category": "health",
+        "type": "E",
+        "amount": 111.16,
+        "date": "01.07.2025",
+        "id": "b829a372-2098-46f3-a3c0-e3b5ea4a84e4"
+    },
+    {
+        "name": "Steam",
+        "category": "clothing",
+        "type": "E",
+        "amount": 98.77,
+        "date": "01.07.2025",
+        "id": "bed9a215-2e57-4a98-a219-e5726f0d81a7"
+    },
+    {
+        "name": "Caf\u00e9 Central",
+        "category": "household",
+        "type": "E",
+        "amount": 94.09,
+        "date": "02.07.2025",
+        "id": "7d083ca2-274a-483d-89e3-dc22be2b9a8e"
+    },
+    {
+        "name": "Uniqlo",
+        "category": "hobbies",
+        "type": "E",
+        "amount": 87.11,
+        "date": "02.07.2025",
+        "id": "cec2e3af-3ded-4092-ba20-378880eba30f"
+    },
+    {
+        "name": "IKEA",
+        "category": "fitness",
+        "type": "E",
+        "amount": 2.46,
+        "date": "03.07.2025",
+        "id": "cc50048c-5d3d-47d0-a6a5-3d5f5b236dee"
+    },
+    {
+        "name": "Conrad",
+        "category": "entertainment",
+        "type": "E",
+        "amount": 44.15,
+        "date": "04.07.2025",
+        "id": "faefa278-c86e-481e-a176-5e4052a11710"
+    },
+    {
+        "name": "Str\u00f6ck",
+        "category": "eating_out",
+        "type": "E",
+        "amount": 3.45,
+        "date": "07.07.2025",
+        "id": "886e8205-e668-4734-86f8-ebd327513d64"
+    },
+    {
+        "name": "Zara",
+        "category": "subscriptions",
+        "type": "E",
+        "amount": 74.32,
+        "date": "08.07.2025",
+        "id": "a0677ad5-cef3-4349-85f0-e35e274b0bb1"
+    },
+    {
+        "name": "Cashback",
+        "category": "salary",
+        "type": "I",
+        "amount": 2925.26,
+        "date": "09.07.2025",
+        "id": "c0b92a0a-4307-49d0-ac06-2ca6e5a1af47"
+    },
+    {
+        "name": "Gym Membership",
+        "category": "education",
+        "type": "E",
+        "amount": 38.95,
+        "date": "09.07.2025",
+        "id": "0323c7eb-b041-438c-9a50-31b1f9e83b2a"
+    },
+    {
+        "name": "SPAR",
+        "category": "rent",
+        "type": "E",
+        "amount": 185.62,
+        "date": "09.07.2025",
+        "id": "ab06aee5-d443-425d-b646-05fa96623e64"
+    },
+    {
+        "name": "Gym Membership",
+        "category": "coffee",
+        "type": "E",
+        "amount": 26.03,
+        "date": "11.07.2025",
+        "id": "19f36961-c850-4e99-9c25-bdf1890c7fd2"
+    },
+    {
+        "name": "Interest Credit",
+        "category": "salary",
+        "type": "I",
+        "amount": 3573.21,
+        "date": "11.07.2025",
+        "id": "d8dc8e4b-8e28-4501-bb31-a9d07c22a3e4"
+    },
+    {
+        "name": "KFC",
+        "category": "rent",
+        "type": "E",
+        "amount": 31.26,
+        "date": "11.07.2025",
+        "id": "fba9711c-4d89-4338-8eca-1a6449c6d63b"
+    },
+    {
+        "name": "Netflix",
+        "category": "clothing",
+        "type": "E",
+        "amount": 11.98,
+        "date": "11.07.2025",
+        "id": "4c7b78fb-5fb1-420b-b0f1-e351d3cdf143"
+    },
+    {
+        "name": "Apple iCloud",
+        "category": "phone",
+        "type": "E",
+        "amount": 109.78,
+        "date": "12.07.2025",
+        "id": "50dc9af2-5c18-456f-82fb-f5468d020a9d"
+    },
+    {
+        "name": "Decathlon",
+        "category": "fitness",
+        "type": "E",
+        "amount": 3.52,
+        "date": "12.07.2025",
+        "id": "c961019a-1e57-451a-8302-5382ba865525"
+    },
+    {
+        "name": "Google Play",
+        "category": "gifts",
+        "type": "E",
+        "amount": 214.03,
+        "date": "12.07.2025",
+        "id": "2de8e7ba-ee2d-4160-a2dd-7ab5dc9d8582"
+    },
+    {
+        "name": "Starbucks",
+        "category": "internet",
+        "type": "E",
+        "amount": 37.36,
+        "date": "12.07.2025",
+        "id": "ed9f1ab5-8f83-4799-9eb6-6558e72afc32"
+    },
+    {
+        "name": "Wiener Linien",
+        "category": "internet",
+        "type": "E",
+        "amount": 35.66,
+        "date": "12.07.2025",
+        "id": "283c0af6-e958-46dd-bb1a-91b5c971bba6"
+    },
+    {
+        "name": "Buchhandlung",
+        "category": "fitness",
+        "type": "E",
+        "amount": 27.94,
+        "date": "13.07.2025",
+        "id": "ab7a1c0a-97aa-4c35-ae3e-91ffaeca1217"
+    },
+    {
+        "name": "HOFER",
+        "category": "utilities",
+        "type": "E",
+        "amount": 39.61,
+        "date": "13.07.2025",
+        "id": "c4417f65-fc27-495f-af51-9266f474194a"
+    },
+    {
+        "name": "IKEA",
+        "category": "electronics",
+        "type": "E",
+        "amount": 10.2,
+        "date": "13.07.2025",
+        "id": "82621ac7-9996-4f63-a596-3e10adb13d06"
+    },
+    {
+        "name": "IKEA",
+        "category": "subscriptions",
+        "type": "E",
+        "amount": 343.33,
+        "date": "13.07.2025",
+        "id": "f2d0a17a-18fb-4221-9917-0626e1d7e855"
+    },
+    {
+        "name": "YouTube Premium",
+        "category": "phone",
+        "type": "E",
+        "amount": 282.72,
+        "date": "13.07.2025",
+        "id": "5ea39bbf-2e08-47b8-89e5-fafbe9872bcd"
+    },
+    {
+        "name": "BIPA",
+        "category": "electronics",
+        "type": "E",
+        "amount": 45.27,
+        "date": "14.07.2025",
+        "id": "dc2b7e34-671f-475f-937c-6364e2f3f9cb"
+    },
+    {
+        "name": "B\u00e4ckerei",
+        "category": "internet",
+        "type": "E",
+        "amount": 10.61,
+        "date": "14.07.2025",
+        "id": "3c00f227-3105-465c-ba22-9e4f5d445a5d"
+    },
+    {
+        "name": "IKEA",
+        "category": "fitness",
+        "type": "E",
+        "amount": 27.59,
+        "date": "14.07.2025",
+        "id": "02fe1740-e3a0-4bbc-9d55-acbc624045d7"
+    },
+    {
+        "name": "Sushi Bar",
+        "category": "electronics",
+        "type": "E",
+        "amount": 86.85,
+        "date": "14.07.2025",
+        "id": "a5b1ff7d-5034-42cd-8c47-2d3f1c499024"
+    },
+    {
+        "name": "Burger King",
+        "category": "transport",
+        "type": "E",
+        "amount": 49.96,
+        "date": "15.07.2025",
+        "id": "da9283b4-92c4-4526-8b14-b24e3f14929b"
+    },
+    {
+        "name": "LIDL",
+        "category": "bank_fees",
+        "type": "E",
+        "amount": 6.24,
+        "date": "15.07.2025",
+        "id": "b39d89ea-9042-435c-afe1-2ca0dd8a44e9"
+    },
+    {
+        "name": "Wiener Linien",
+        "category": "insurance",
+        "type": "E",
+        "amount": 114.49,
+        "date": "16.07.2025",
+        "id": "3dceb4fe-0add-4b4b-b798-21ac4b1dfffc"
+    },
+    {
+        "name": "Conrad",
+        "category": "transport",
+        "type": "E",
+        "amount": 130.47,
+        "date": "17.07.2025",
+        "id": "80666ef4-57b2-4c27-be6e-a0b26eb394e9"
+    },
+    {
+        "name": "Wiener Linien",
+        "category": "fitness",
+        "type": "E",
+        "amount": 21.89,
+        "date": "17.07.2025",
+        "id": "00feb7f8-6708-4935-8b51-977ac30fee4c"
+    },
+    {
+        "name": "Anker",
+        "category": "utilities",
+        "type": "E",
+        "amount": 31.16,
+        "date": "18.07.2025",
+        "id": "e51257f0-f1db-4c44-b543-3fdb2debafe0"
+    },
+    {
+        "name": "HOFER",
+        "category": "hobbies",
+        "type": "E",
+        "amount": 3.5,
+        "date": "18.07.2025",
+        "id": "47c49891-0751-44ba-8231-33fae9635d10"
+    },
+    {
+        "name": "Pizzeria Napoli",
+        "category": "rent",
+        "type": "E",
+        "amount": 19.76,
+        "date": "18.07.2025",
+        "id": "606d5561-56b8-481f-931b-8b57ece30a81"
+    },
+    {
+        "name": "Refund",
+        "category": "interest",
+        "type": "I",
+        "amount": 485.4,
+        "date": "18.07.2025",
+        "id": "20a82481-4003-4851-b633-de995afeb81e"
+    },
+    {
+        "name": "Salary Payment",
+        "category": "refund",
+        "type": "I",
+        "amount": 2417.89,
+        "date": "18.07.2025",
+        "id": "9b1278d6-7caf-4aaa-ab9f-f94525b4094a"
+    },
+    {
+        "name": "Steam",
+        "category": "clothing",
+        "type": "E",
+        "amount": 98.98,
+        "date": "18.07.2025",
+        "id": "4b9a5f1c-9e82-4ec6-a92d-9d9f2d1e5933"
+    },
+    {
+        "name": "Str\u00f6ck",
+        "category": "gifts",
+        "type": "E",
+        "amount": 8.05,
+        "date": "18.07.2025",
+        "id": "3ff89d6d-f321-4e99-ba11-5331bad71699"
+    },
+    {
+        "name": "Uniqlo",
+        "category": "eating_out",
+        "type": "E",
+        "amount": 358.71,
+        "date": "19.07.2025",
+        "id": "0122e21f-353b-4e70-a33a-e803751d52f6"
+    },
+    {
+        "name": "Buchhandlung",
+        "category": "rent",
+        "type": "E",
+        "amount": 352.49,
+        "date": "20.07.2025",
+        "id": "a0992ae8-4c01-472d-a5da-f7baa0698170"
+    },
+    {
+        "name": "Gift Received",
+        "category": "freelance",
+        "type": "I",
+        "amount": 244.86,
+        "date": "21.07.2025",
+        "id": "9c7734d9-a082-480c-87aa-e7dff75112bb"
+    },
+    {
+        "name": "Netflix",
+        "category": "phone",
+        "type": "E",
+        "amount": 61.05,
+        "date": "21.07.2025",
+        "id": "414ea680-298e-419c-a57b-78a74b113552"
+    },
+    {
+        "name": "Pizzeria Napoli",
+        "category": "transport",
+        "type": "E",
+        "amount": 75.05,
+        "date": "21.07.2025",
+        "id": "3899b8c3-93f3-4bb5-8374-4375b02e8338"
+    },
+    {
+        "name": "Uber",
+        "category": "hobbies",
+        "type": "E",
+        "amount": 174.99,
+        "date": "21.07.2025",
+        "id": "eedfb427-e82f-4ff8-803a-8c8b7174e6f2"
+    },
+    {
+        "name": "Uniqlo",
+        "category": "gifts",
+        "type": "E",
+        "amount": 232.4,
+        "date": "21.07.2025",
+        "id": "f1ea13da-b607-4c69-bb20-cd60a9ae86dc"
+    },
+    {
+        "name": "Zara",
+        "category": "utilities",
+        "type": "E",
+        "amount": 4.38,
+        "date": "21.07.2025",
+        "id": "ccf20d08-06d3-4cc0-807b-9c1eaa841427"
+    },
+    {
+        "name": "Bolt",
+        "category": "coffee",
+        "type": "E",
+        "amount": 5.14,
+        "date": "22.07.2025",
+        "id": "31171f93-9cfe-4767-ba26-df4fc674e214"
+    },
+    {
+        "name": "Caf\u00e9 Central",
+        "category": "groceries",
+        "type": "E",
+        "amount": 47.45,
+        "date": "22.07.2025",
+        "id": "180ef50c-3a5f-455b-b0cc-2d826e956c87"
+    },
+    {
+        "name": "MediaMarkt",
+        "category": "entertainment",
+        "type": "E",
+        "amount": 103.82,
+        "date": "22.07.2025",
+        "id": "05c48f9d-922f-445e-a7fc-d03084c0dc60"
+    },
+    {
+        "name": "Cashback",
+        "category": "interest",
+        "type": "I",
+        "amount": 640.14,
+        "date": "23.07.2025",
+        "id": "e138981d-f214-49cd-a0a3-d42f5433ceac"
+    },
+    {
+        "name": "OMV",
+        "category": "phone",
+        "type": "E",
+        "amount": 100.57,
+        "date": "23.07.2025",
+        "id": "e3b7a99b-ae09-476e-8ccc-1d24e336ef1d"
+    },
+    {
+        "name": "Str\u00f6ck",
+        "category": "insurance",
+        "type": "E",
+        "amount": 4.88,
+        "date": "23.07.2025",
+        "id": "010bf7e8-e12e-4b95-9976-bdd2cddb7bd6"
+    },
+    {
+        "name": "Uniqlo",
+        "category": "rent",
+        "type": "E",
+        "amount": 64.19,
+        "date": "24.07.2025",
+        "id": "fc7d38cc-99f1-43f0-95a0-ea9cc427788d"
+    },
+    {
+        "name": "Gift Received",
+        "category": "freelance",
+        "type": "I",
+        "amount": 3386.1,
+        "date": "25.07.2025",
+        "id": "0b71eec6-1e5f-43ed-a306-63cd5b2d5859"
+    },
+    {
+        "name": "HOFER",
+        "category": "groceries",
+        "type": "E",
+        "amount": 237.98,
+        "date": "25.07.2025",
+        "id": "3a93073b-7c32-4c9d-90b3-0848fbde6bca"
+    },
+    {
+        "name": "Burger King",
+        "category": "entertainment",
+        "type": "E",
+        "amount": 225.89,
+        "date": "26.07.2025",
+        "id": "dd7c4b0b-f8a3-4940-9501-0f71ef465fc9"
+    },
+    {
+        "name": "Cashback",
+        "category": "freelance",
+        "type": "I",
+        "amount": 3938.09,
+        "date": "26.07.2025",
+        "id": "9721f252-9ad9-40d1-9932-6039ed7e4772"
+    },
+    {
+        "name": "McDonald's",
+        "category": "electronics",
+        "type": "E",
+        "amount": 3.31,
+        "date": "26.07.2025",
+        "id": "0db12250-61c7-4e27-a369-528b09e4a942"
+    },
+    {
+        "name": "Amazon",
+        "category": "rent",
+        "type": "E",
+        "amount": 3.05,
+        "date": "27.07.2025",
+        "id": "b99f187d-a15b-47b6-bd77-279a1c6b331e"
+    },
+    {
+        "name": "YouTube Premium",
+        "category": "household",
+        "type": "E",
+        "amount": 106.79,
+        "date": "27.07.2025",
+        "id": "83e79097-a890-46fb-8e0c-b9b17f5049b9"
+    },
+    {
+        "name": "Netflix",
+        "category": "coffee",
+        "type": "E",
+        "amount": 5.04,
+        "date": "28.07.2025",
+        "id": "297523df-9f7c-4e2d-ba17-106a975145c1"
+    },
+    {
+        "name": "Shell",
+        "category": "electronics",
+        "type": "E",
+        "amount": 39.78,
+        "date": "28.07.2025",
+        "id": "6c8307a9-95b0-4b35-8824-93f28cca0780"
+    },
+    {
+        "name": "Sushi Bar",
+        "category": "shopping",
+        "type": "E",
+        "amount": 28.75,
+        "date": "28.07.2025",
+        "id": "aa2b5314-212b-4bb7-baad-24bb4b4119d7"
+    },
+    {
+        "name": "Uber",
+        "category": "eating_out",
+        "type": "E",
+        "amount": 63.59,
+        "date": "28.07.2025",
+        "id": "d2d3a0b0-9841-4e2c-a94e-e63d1afe349b"
+    },
+    {
+        "name": "Zara",
+        "category": "rent",
+        "type": "E",
+        "amount": 69.39,
+        "date": "28.07.2025",
+        "id": "5bc1b9b4-7268-4019-82ef-cec25d73676e"
+    },
+    {
+        "name": "\u00d6BB",
+        "category": "fitness",
+        "type": "E",
+        "amount": 109.12,
+        "date": "28.07.2025",
+        "id": "5d1fe32f-0b2c-4cd0-b566-7a94f91eabda"
+    },
+    {
+        "name": "Starbucks",
+        "category": "internet",
+        "type": "E",
+        "amount": 111.65,
+        "date": "29.07.2025",
+        "id": "c95853fb-92eb-427e-b6e1-599714b64739"
+    },
+    {
+        "name": "Amazon",
+        "category": "transport",
+        "type": "E",
+        "amount": 22.04,
+        "date": "30.07.2025",
+        "id": "652cc475-9fd2-427e-90cc-ad71f5efd98b"
+    },
+    {
+        "name": "Caf\u00e9 Central",
+        "category": "health",
+        "type": "E",
+        "amount": 6.11,
+        "date": "30.07.2025",
+        "id": "f3bf1244-3752-4af6-ba62-0c6e5a6ccf19"
+    },
+    {
+        "name": "SPAR",
+        "category": "subscriptions",
+        "type": "E",
+        "amount": 87.13,
+        "date": "30.07.2025",
+        "id": "0c9969c4-b510-4e5a-8fd5-c3a9741bd85e"
+    },
+    {
+        "name": "YouTube Premium",
+        "category": "education",
+        "type": "E",
+        "amount": 113.35,
+        "date": "30.07.2025",
+        "id": "09491931-26e7-492c-bf9e-d692e6ab4532"
+    },
+    {
+        "name": "BILLA",
+        "category": "internet",
+        "type": "E",
+        "amount": 73.52,
+        "date": "31.07.2025",
+        "id": "fcefd9e2-d9ee-483b-a021-2c8c64423421"
+    },
+    {
+        "name": "B\u00e4ckerei",
+        "category": "entertainment",
+        "type": "E",
+        "amount": 210.23,
+        "date": "31.07.2025",
+        "id": "09911a7a-610c-4e2b-be02-6c83f9426ee3"
+    },
+    {
+        "name": "OMV",
+        "category": "travel",
+        "type": "E",
+        "amount": 29.68,
+        "date": "31.07.2025",
+        "id": "17fa1dc9-d96b-46c6-b095-5e8aa1ba7fd7"
+    },
+    {
+        "name": "Kebabhaus",
+        "category": "insurance",
+        "type": "E",
+        "amount": 4.86,
+        "date": "01.08.2025",
+        "id": "5776d116-7be1-4335-931d-300480242619"
+    },
+    {
+        "name": "Str\u00f6ck",
+        "category": "utilities",
+        "type": "E",
+        "amount": 9.48,
+        "date": "02.08.2025",
+        "id": "4e48237d-c4c0-45cb-a394-eb4ae819c5a8"
+    },
+    {
+        "name": "Adobe",
+        "category": "household",
+        "type": "E",
+        "amount": 13.83,
+        "date": "03.08.2025",
+        "id": "309bf23f-6063-48d3-a9c6-fa924353d720"
+    },
+    {
+        "name": "Pizzeria Napoli",
+        "category": "coffee",
+        "type": "E",
+        "amount": 334.25,
+        "date": "03.08.2025",
+        "id": "6b35b377-37c4-4f55-b008-f3404c03acc9"
+    },
+    {
+        "name": "Starbucks",
+        "category": "entertainment",
+        "type": "E",
+        "amount": 343.16,
+        "date": "03.08.2025",
+        "id": "34a86efa-e8c8-4a26-8a04-125a28e41b36"
+    },
+    {
+        "name": "YouTube Premium",
+        "category": "bank_fees",
+        "type": "E",
+        "amount": 5.62,
+        "date": "03.08.2025",
+        "id": "c2f371dd-bae2-4359-aad5-9512ffcc0202"
+    },
+    {
+        "name": "Zara",
+        "category": "internet",
+        "type": "E",
+        "amount": 48.45,
+        "date": "03.08.2025",
+        "id": "74d79d0a-69d9-490f-8b13-358fff83e2fb"
+    },
+    {
+        "name": "Apotheke",
+        "category": "subscriptions",
+        "type": "E",
+        "amount": 227.86,
+        "date": "04.08.2025",
+        "id": "65bebdb4-be21-4c59-a5f0-7ba393265ed5"
+    },
+    {
+        "name": "B\u00e4ckerei",
+        "category": "electronics",
+        "type": "E",
+        "amount": 268.02,
+        "date": "04.08.2025",
+        "id": "bb962af6-a987-42cc-a2d9-8173069c156b"
+    },
+    {
+        "name": "B\u00e4ckerei",
+        "category": "hobbies",
+        "type": "E",
+        "amount": 334.51,
+        "date": "04.08.2025",
+        "id": "56973a05-03c1-4bf3-9fcd-b9e5187f0555"
+    },
+    {
+        "name": "Adobe",
+        "category": "subscriptions",
+        "type": "E",
+        "amount": 4.06,
+        "date": "05.08.2025",
+        "id": "8a80e728-a2d8-4d4c-8275-7131433aa30b"
+    },
+    {
+        "name": "Google Play",
+        "category": "utilities",
+        "type": "E",
+        "amount": 378.97,
+        "date": "05.08.2025",
+        "id": "57fe579e-aeaf-485e-acfc-12af4b8e8b3b"
+    },
+    {
+        "name": "MediaMarkt",
+        "category": "groceries",
+        "type": "E",
+        "amount": 185.38,
+        "date": "05.08.2025",
+        "id": "3127dc0b-ffb6-4952-8f71-c0abd6ff1d28"
+    },
+    {
+        "name": "Zara",
+        "category": "phone",
+        "type": "E",
+        "amount": 41.89,
+        "date": "05.08.2025",
+        "id": "b6e99fc2-de82-4a9e-9ce0-ff7037744f93"
+    },
+    {
+        "name": "\u00d6BB",
+        "category": "rent",
+        "type": "E",
+        "amount": 4.25,
+        "date": "05.08.2025",
+        "id": "3d12c428-5c58-414f-b365-de8ed1d2bbe9"
+    },
+    {
+        "name": "Apotheke",
+        "category": "transport",
+        "type": "E",
+        "amount": 43.94,
+        "date": "06.08.2025",
+        "id": "587f6387-b64b-4883-a791-790d1a9337da"
+    },
+    {
+        "name": "Bolt",
+        "category": "hobbies",
+        "type": "E",
+        "amount": 10.76,
+        "date": "06.08.2025",
+        "id": "6340d420-79bf-4d8e-8e83-1fec6034a65a"
+    },
+    {
+        "name": "Burger King",
+        "category": "phone",
+        "type": "E",
+        "amount": 416.64,
+        "date": "06.08.2025",
+        "id": "26261215-385d-41b6-8c9c-36bcc24defd5"
+    },
+    {
+        "name": "KFC",
+        "category": "clothing",
+        "type": "E",
+        "amount": 25.26,
+        "date": "06.08.2025",
+        "id": "76f36354-fdf5-4725-8fd4-c55a0a71a494"
+    },
+    {
+        "name": "Steam",
+        "category": "rent",
+        "type": "E",
+        "amount": 3.61,
+        "date": "06.08.2025",
+        "id": "315ae017-4000-4dcd-a981-051161bcde15"
+    },
+    {
+        "name": "Uber",
+        "category": "unknown",
+        "type": "E",
+        "amount": 70.9,
+        "date": "06.08.2025",
+        "id": "4f7d7783-7593-4cf8-9963-dc3222553ce9"
+    },
+    {
+        "name": "Amazon",
+        "category": "coffee",
+        "type": "E",
+        "amount": 3.75,
+        "date": "07.08.2025",
+        "id": "f3f6fcb8-5379-4531-91a3-c56f032545fb"
+    },
+    {
+        "name": "YouTube Revenue",
+        "category": "bonus",
+        "type": "I",
+        "amount": 233.44,
+        "date": "07.08.2025",
+        "id": "0d4b1372-de14-4087-abbb-962be895346a"
+    },
+    {
+        "name": "Client Payout",
+        "category": "gift",
+        "type": "I",
+        "amount": 167.59,
+        "date": "08.08.2025",
+        "id": "87ee5ffd-2e22-4c2f-8942-b821d19fdb92"
+    },
+    {
+        "name": "Pizzeria Napoli",
+        "category": "household",
+        "type": "E",
+        "amount": 68.89,
+        "date": "08.08.2025",
+        "id": "8dc1f6f5-00a9-4e4a-8048-8dd78d2b8886"
+    },
+    {
+        "name": "Wiener Linien",
+        "category": "travel",
+        "type": "E",
+        "amount": 356.58,
+        "date": "08.08.2025",
+        "id": "22e5f02d-6f65-476c-ab90-e92814901992"
+    },
+    {
+        "name": "SPAR",
+        "category": "phone",
+        "type": "E",
+        "amount": 50.49,
+        "date": "09.08.2025",
+        "id": "81c0485a-af5d-4181-a287-b77361029a66"
+    },
+    {
+        "name": "Sushi Bar",
+        "category": "subscriptions",
+        "type": "E",
+        "amount": 245.93,
+        "date": "09.08.2025",
+        "id": "bc3bb86d-310e-4a30-b3ed-9144ee3cc627"
+    },
+    {
+        "name": "Wiener Linien",
+        "category": "clothing",
+        "type": "E",
+        "amount": 259.92,
+        "date": "09.08.2025",
+        "id": "56a6b5fc-fb82-43fa-8e28-069304f176ba"
+    },
+    {
+        "name": "Gift Received",
+        "category": "interest",
+        "type": "I",
+        "amount": 1164.65,
+        "date": "10.08.2025",
+        "id": "7fe28157-c241-4369-99df-4866b0a672ae"
+    },
+    {
+        "name": "Google Play",
+        "category": "coffee",
+        "type": "E",
+        "amount": 61.59,
+        "date": "10.08.2025",
+        "id": "004718b8-913f-4153-8de0-9a67c47c7af0"
+    },
+    {
+        "name": "H&M",
+        "category": "household",
+        "type": "E",
+        "amount": 149.72,
+        "date": "10.08.2025",
+        "id": "2d6db4d6-850e-4576-a640-c80152f3cb9c"
+    },
+    {
+        "name": "Sushi Bar",
+        "category": "subscriptions",
+        "type": "E",
+        "amount": 28.79,
+        "date": "10.08.2025",
+        "id": "6ce16971-b39c-48d7-b67b-1847f050d2ca"
+    },
+    {
+        "name": "Bolt",
+        "category": "utilities",
+        "type": "E",
+        "amount": 419.65,
+        "date": "11.08.2025",
+        "id": "10bcf41f-61fa-47c9-bcf1-d0ccc4e8bafd"
+    },
+    {
+        "name": "Lieferando",
+        "category": "hobbies",
+        "type": "E",
+        "amount": 3.75,
+        "date": "11.08.2025",
+        "id": "21550d8c-c71c-4ee5-893c-bcdeb36444fc"
+    },
+    {
+        "name": "Steam",
+        "category": "fitness",
+        "type": "E",
+        "amount": 8.63,
+        "date": "11.08.2025",
+        "id": "b43193b3-ef05-4358-bc17-199352311e2c"
+    },
+    {
+        "name": "Str\u00f6ck",
+        "category": "phone",
+        "type": "E",
+        "amount": 16.86,
+        "date": "11.08.2025",
+        "id": "a33f3fc9-28b2-4480-98b0-75c0125b8cc7"
+    },
+    {
+        "name": "Gym Membership",
+        "category": "phone",
+        "type": "E",
+        "amount": 374.21,
+        "date": "12.08.2025",
+        "id": "6e1b36bf-1a48-4a7b-bcf8-9b1546c99a60"
+    },
+    {
+        "name": "Pizzeria Napoli",
+        "category": "fitness",
+        "type": "E",
+        "amount": 60.42,
+        "date": "12.08.2025",
+        "id": "d35bcac7-4124-451a-9d5f-4adb3b3c60a2"
+    },
+    {
+        "name": "Starbucks",
+        "category": "household",
+        "type": "E",
+        "amount": 17.28,
+        "date": "12.08.2025",
+        "id": "8b4030e1-fe41-4674-9173-31efff9328c4"
+    },
+    {
+        "name": "Caf\u00e9 Central",
+        "category": "subscriptions",
+        "type": "E",
+        "amount": 322.78,
+        "date": "13.08.2025",
+        "id": "11d15aa8-b569-4480-985a-d57f35e21468"
+    },
+    {
+        "name": "Conrad",
+        "category": "eating_out",
+        "type": "E",
+        "amount": 24.52,
+        "date": "13.08.2025",
+        "id": "8eaaa576-e719-4c49-b579-fbd6361c6552"
+    },
+    {
+        "name": "MediaMarkt",
+        "category": "gifts",
+        "type": "E",
+        "amount": 8.82,
+        "date": "13.08.2025",
+        "id": "24e0b5dc-99ae-4334-bb43-02e3a034bc71"
+    },
+    {
+        "name": "Amazon",
+        "category": "utilities",
+        "type": "E",
+        "amount": 286.36,
+        "date": "14.08.2025",
+        "id": "3c383d2a-4d0c-4441-8192-5ab7ce295852"
+    },
+    {
+        "name": "MediaMarkt",
+        "category": "groceries",
+        "type": "E",
+        "amount": 57.29,
+        "date": "14.08.2025",
+        "id": "be610a6b-5ba3-446e-bac8-3cc23ff4def0"
+    },
+    {
+        "name": "SPAR",
+        "category": "insurance",
+        "type": "E",
+        "amount": 10.4,
+        "date": "14.08.2025",
+        "id": "58bfda7b-7db4-4618-993d-345b4020e122"
+    },
+    {
+        "name": "Uniqlo",
+        "category": "utilities",
+        "type": "E",
+        "amount": 86.74,
+        "date": "14.08.2025",
+        "id": "76604b75-e30f-4024-bf60-18658644407a"
+    },
+    {
+        "name": "Zara",
+        "category": "clothing",
+        "type": "E",
+        "amount": 7.59,
+        "date": "15.08.2025",
+        "id": "e33f4ac4-a2a0-4cdd-ac89-70b9823459f6"
+    },
+    {
+        "name": "Caf\u00e9 Central",
+        "category": "transport",
+        "type": "E",
+        "amount": 10.36,
+        "date": "16.08.2025",
+        "id": "2b6bf797-ace1-41d4-adf8-bc2d3bf36407"
+    },
+    {
+        "name": "KFC",
+        "category": "hobbies",
+        "type": "E",
+        "amount": 6.61,
+        "date": "16.08.2025",
+        "id": "e5366ec7-6926-4533-9dcb-606fddca7162"
+    },
+    {
+        "name": "SPAR",
+        "category": "travel",
+        "type": "E",
+        "amount": 212.71,
+        "date": "16.08.2025",
+        "id": "dfb32342-b494-493e-9fec-a82e9f0ab42f"
+    },
+    {
+        "name": "Str\u00f6ck",
+        "category": "education",
+        "type": "E",
+        "amount": 91.06,
+        "date": "17.08.2025",
+        "id": "e2f6bfa8-d4c6-4637-b986-8f39c34d67e5"
+    },
+    {
+        "name": "Wiener Linien",
+        "category": "gifts",
+        "type": "E",
+        "amount": 94.58,
+        "date": "17.08.2025",
+        "id": "be74026f-a6b7-48c3-92ca-c41319eddc18"
+    },
+    {
+        "name": "Wiener Linien",
+        "category": "insurance",
+        "type": "E",
+        "amount": 1.2,
+        "date": "18.08.2025",
+        "id": "287e0b27-5642-47a0-83d4-84387392a32e"
+    },
+    {
+        "name": "Starbucks",
+        "category": "education",
+        "type": "E",
+        "amount": 117.97,
+        "date": "19.08.2025",
+        "id": "b93583b5-df4d-44ee-ad59-c04826e0e37c"
+    },
+    {
+        "name": "Uniqlo",
+        "category": "utilities",
+        "type": "E",
+        "amount": 24.6,
+        "date": "19.08.2025",
+        "id": "1747c3bc-f5bb-47cb-a2fe-c5d09a8e7d19"
+    },
+    {
+        "name": "YouTube Premium",
+        "category": "coffee",
+        "type": "E",
+        "amount": 257.16,
+        "date": "19.08.2025",
+        "id": "7e3f4883-3d6c-400b-b863-b463c2e1d12d"
+    },
+    {
+        "name": "DM",
+        "category": "bank_fees",
+        "type": "E",
+        "amount": 8.59,
+        "date": "20.08.2025",
+        "id": "d5777628-f81d-4c7c-9729-ede8fd32fdc9"
+    },
+    {
+        "name": "Pizzeria Napoli",
+        "category": "household",
+        "type": "E",
+        "amount": 355.49,
+        "date": "20.08.2025",
+        "id": "b15bd80f-77a6-40d4-aac1-3977f29f8ddb"
+    },
+    {
+        "name": "Steam",
+        "category": "eating_out",
+        "type": "E",
+        "amount": 82.45,
+        "date": "20.08.2025",
+        "id": "6bda84bc-1da8-4f5e-bd91-97d84f746941"
+    },
+    {
+        "name": "Anker",
+        "category": "household",
+        "type": "E",
+        "amount": 172.92,
+        "date": "21.08.2025",
+        "id": "0a067beb-88c7-41bb-ab3c-ddaa8aea0ffc"
+    },
+    {
+        "name": "HOFER",
+        "category": "travel",
+        "type": "E",
+        "amount": 119.18,
+        "date": "21.08.2025",
+        "id": "a7d6de20-48de-41cd-8f8a-cb48bd59d20e"
+    },
+    {
+        "name": "LIDL",
+        "category": "eating_out",
+        "type": "E",
+        "amount": 72.03,
+        "date": "21.08.2025",
+        "id": "bf8a0de7-8115-4aea-bd1a-e080905aeea4"
+    },
+    {
+        "name": "Steam",
+        "category": "fitness",
+        "type": "E",
+        "amount": 41.46,
+        "date": "21.08.2025",
+        "id": "e516edcc-cb3f-409d-9a25-56c519fa7dcb"
+    },
+    {
+        "name": "Conrad",
+        "category": "unknown",
+        "type": "E",
+        "amount": 10.66,
+        "date": "22.08.2025",
+        "id": "c2e08a19-8227-40a8-ad6b-6b83d277768a"
+    },
+    {
+        "name": "Google Play",
+        "category": "household",
+        "type": "E",
+        "amount": 9.52,
+        "date": "22.08.2025",
+        "id": "ba241321-f777-4110-ab65-6f44c3831a08"
+    },
+    {
+        "name": "Str\u00f6ck",
+        "category": "coffee",
+        "type": "E",
+        "amount": 2.43,
+        "date": "22.08.2025",
+        "id": "41353a6f-4e86-47ae-b1b4-546f758f4613"
+    },
+    {
+        "name": "Starbucks",
+        "category": "hobbies",
+        "type": "E",
+        "amount": 37.74,
+        "date": "23.08.2025",
+        "id": "f62c17b2-574c-4b95-9c8a-e2bdbf0e4d3c"
+    },
+    {
+        "name": "HOFER",
+        "category": "coffee",
+        "type": "E",
+        "amount": 41.5,
+        "date": "24.08.2025",
+        "id": "c579c95b-5177-4564-9f3f-6be6f35564e7"
+    },
+    {
+        "name": "KFC",
+        "category": "shopping",
+        "type": "E",
+        "amount": 8.63,
+        "date": "24.08.2025",
+        "id": "ea86d87b-6573-45d8-baab-c9c9794bbe3b"
+    },
+    {
+        "name": "Sushi Bar",
+        "category": "entertainment",
+        "type": "E",
+        "amount": 11.12,
+        "date": "24.08.2025",
+        "id": "91b617de-83a5-4611-90f3-2df634681cfd"
+    },
+    {
+        "name": "YouTube Revenue",
+        "category": "salary",
+        "type": "I",
+        "amount": 466.78,
+        "date": "24.08.2025",
+        "id": "e8ab2db2-a548-4eb5-b34d-3fed9dba699b"
+    },
+    {
+        "name": "Gym Membership",
+        "category": "clothing",
+        "type": "E",
+        "amount": 40.62,
+        "date": "25.08.2025",
+        "id": "09e638cc-9b77-4cb5-bf14-47cc220a8c4f"
+    },
+    {
+        "name": "Uniqlo",
+        "category": "utilities",
+        "type": "E",
+        "amount": 95.87,
+        "date": "25.08.2025",
+        "id": "1761ad90-a228-4299-a1fc-8732ee7d043c"
+    },
+    {
+        "name": "BILLA",
+        "category": "travel",
+        "type": "E",
+        "amount": 104.99,
+        "date": "26.08.2025",
+        "id": "4e4a2ff4-019f-41d8-a17e-82f648f4eb43"
+    },
+    {
+        "name": "Caf\u00e9 Central",
+        "category": "insurance",
+        "type": "E",
+        "amount": 108.39,
+        "date": "26.08.2025",
+        "id": "8c676680-842a-4816-9cef-cf9d14581577"
+    },
+    {
+        "name": "Conrad",
+        "category": "electronics",
+        "type": "E",
+        "amount": 41.92,
+        "date": "26.08.2025",
+        "id": "a6774885-b1fb-461e-9694-a6fde7643206"
+    },
+    {
+        "name": "Shell",
+        "category": "unknown",
+        "type": "E",
+        "amount": 399.95,
+        "date": "26.08.2025",
+        "id": "372c5059-6d1c-46a9-aaad-6a2d6b8bf0b5"
+    },
+    {
+        "name": "Apple iCloud",
+        "category": "coffee",
+        "type": "E",
+        "amount": 297.07,
+        "date": "27.08.2025",
+        "id": "304113e4-44da-49ec-b117-f6f458173eb0"
+    },
+    {
+        "name": "BILLA",
+        "category": "groceries",
+        "type": "E",
+        "amount": 259.96,
+        "date": "27.08.2025",
+        "id": "a6f7f7bf-7dca-48a9-9fb9-ba17f0d826cc"
+    },
+    {
+        "name": "Kebabhaus",
+        "category": "shopping",
+        "type": "E",
+        "amount": 2.46,
+        "date": "27.08.2025",
+        "id": "dbc78599-c21a-4a61-9983-e0694ced83f4"
+    },
+    {
+        "name": "Netflix",
+        "category": "household",
+        "type": "E",
+        "amount": 63.8,
+        "date": "27.08.2025",
+        "id": "5a8d596d-248c-445e-afb6-0a198799dd45"
+    },
+    {
+        "name": "Google Play",
+        "category": "travel",
+        "type": "E",
+        "amount": 99.72,
+        "date": "28.08.2025",
+        "id": "b4567767-56e6-46db-8118-99c5f11fa359"
+    },
+    {
+        "name": "YouTube Premium",
+        "category": "rent",
+        "type": "E",
+        "amount": 15.38,
+        "date": "28.08.2025",
+        "id": "5cc5961c-fe97-43f6-9f65-122cb98a99d6"
+    },
+    {
+        "name": "Adobe",
+        "category": "electronics",
+        "type": "E",
+        "amount": 15.14,
+        "date": "29.08.2025",
+        "id": "94123bae-e289-4984-a2bc-4a81d43db13d"
+    },
+    {
+        "name": "Cashback",
+        "category": "interest",
+        "type": "I",
+        "amount": 208.25,
+        "date": "29.08.2025",
+        "id": "ab68d049-637a-41a5-8ff8-d47c1d385343"
+    },
+    {
+        "name": "Conrad",
+        "category": "transport",
+        "type": "E",
+        "amount": 11.04,
+        "date": "29.08.2025",
+        "id": "dde647d5-8d92-434d-8595-587eb47c55cf"
+    },
+    {
+        "name": "Google Play",
+        "category": "internet",
+        "type": "E",
+        "amount": 11.57,
+        "date": "30.08.2025",
+        "id": "8abf5a99-2022-44b4-973d-829c8f800398"
+    },
+    {
+        "name": "Kebabhaus",
+        "category": "travel",
+        "type": "E",
+        "amount": 1.16,
+        "date": "30.08.2025",
+        "id": "32e65b91-d546-4787-aae3-9094afb989c5"
+    },
+    {
+        "name": "Wiener Linien",
+        "category": "subscriptions",
+        "type": "E",
+        "amount": 229.62,
+        "date": "30.08.2025",
+        "id": "06c4032e-657d-43bd-9532-fd10561d6949"
+    },
+    {
+        "name": "Zara",
+        "category": "shopping",
+        "type": "E",
+        "amount": 41.79,
+        "date": "30.08.2025",
+        "id": "2b50e9b8-8f74-4b80-92b2-523f63d093e6"
+    },
+    {
+        "name": "Bolt",
+        "category": "internet",
+        "type": "E",
+        "amount": 308.24,
+        "date": "31.08.2025",
+        "id": "4f18bf35-2a0d-45fc-90c2-6d75c306bf57"
+    },
+    {
+        "name": "Caf\u00e9 Central",
+        "category": "rent",
+        "type": "E",
+        "amount": 28.04,
+        "date": "31.08.2025",
+        "id": "4d0cdc8a-dae6-45b0-af05-f1afc6252940"
+    },
+    {
+        "name": "McDonald's",
+        "category": "bank_fees",
+        "type": "E",
+        "amount": 411.17,
+        "date": "31.08.2025",
+        "id": "fad9bd67-8ee0-4cc5-a90c-0e38d2df30cd"
+    },
+    {
+        "name": "Apotheke",
+        "category": "coffee",
+        "type": "E",
+        "amount": 18.29,
+        "date": "01.09.2025",
+        "id": "f89229fb-5e4e-4221-92b3-06e54fa9f8e9"
+    },
+    {
+        "name": "BIPA",
+        "category": "education",
+        "type": "E",
+        "amount": 321.41,
+        "date": "01.09.2025",
+        "id": "4eec4b4c-7e6e-4774-a0ed-5e697989c700"
+    },
+    {
+        "name": "HOFER",
+        "category": "bank_fees",
+        "type": "E",
+        "amount": 15.63,
+        "date": "01.09.2025",
+        "id": "dd6f5643-2f5b-46f7-b7b8-2885c389d707"
+    },
+    {
+        "name": "Uber",
+        "category": "insurance",
+        "type": "E",
+        "amount": 37.93,
+        "date": "01.09.2025",
+        "id": "72457548-7ac4-4938-beea-52a13d029b73"
+    },
+    {
+        "name": "Apotheke",
+        "category": "gifts",
+        "type": "E",
+        "amount": 2.7,
+        "date": "02.09.2025",
+        "id": "2e9fd31d-34ba-4c19-b075-41b5b41ed89e"
+    },
+    {
+        "name": "Google Play",
+        "category": "travel",
+        "type": "E",
+        "amount": 3.98,
+        "date": "02.09.2025",
+        "id": "4a763b03-52e1-4801-acae-9f27bbc13aec"
+    },
+    {
+        "name": "Str\u00f6ck",
+        "category": "subscriptions",
+        "type": "E",
+        "amount": 15.57,
+        "date": "02.09.2025",
+        "id": "a2191a16-dfab-47ec-9dff-675888d5596b"
+    },
+    {
+        "name": "Zara",
+        "category": "gifts",
+        "type": "E",
+        "amount": 8.3,
+        "date": "02.09.2025",
+        "id": "2c75f6b9-c202-4a77-b99c-4e83d4141795"
+    },
+    {
+        "name": "Refund",
+        "category": "gift",
+        "type": "I",
+        "amount": 1608.9,
+        "date": "03.09.2025",
+        "id": "1c8d3cb9-55ee-4909-ac34-66cdf67e33c5"
+    },
+    {
+        "name": "IKEA",
+        "category": "bank_fees",
+        "type": "E",
+        "amount": 8.41,
+        "date": "04.09.2025",
+        "id": "59d45ed3-6c0d-45a8-92c7-0480e0e79b58"
+    },
+    {
+        "name": "Zara",
+        "category": "shopping",
+        "type": "E",
+        "amount": 23.18,
+        "date": "04.09.2025",
+        "id": "9ad8ce16-ee2e-49e6-8881-580633236e4e"
+    },
+    {
+        "name": "Zara",
+        "category": "eating_out",
+        "type": "E",
+        "amount": 89.87,
+        "date": "04.09.2025",
+        "id": "56a41708-52a3-434a-8cb8-d98c80c3a3f1"
+    },
+    {
+        "name": "Client Payout",
+        "category": "gift",
+        "type": "I",
+        "amount": 1073.44,
+        "date": "05.09.2025",
+        "id": "235b7685-50c3-4383-8f57-affaccc663a5"
+    },
+    {
+        "name": "Kebabhaus",
+        "category": "insurance",
+        "type": "E",
+        "amount": 10.04,
+        "date": "06.09.2025",
+        "id": "6c0ebdf2-d406-45ac-ba94-cc06b5a9bde4"
+    },
+    {
+        "name": "MediaMarkt",
+        "category": "rent",
+        "type": "E",
+        "amount": 2.73,
+        "date": "06.09.2025",
+        "id": "42695571-300e-4bea-8294-9794e66971c9"
+    },
+    {
+        "name": "BIPA",
+        "category": "gifts",
+        "type": "E",
+        "amount": 75.06,
+        "date": "07.09.2025",
+        "id": "a932b677-432a-4c3d-9bac-20ccffaf3ed2"
+    },
+    {
+        "name": "B\u00e4ckerei",
+        "category": "fitness",
+        "type": "E",
+        "amount": 345.13,
+        "date": "07.09.2025",
+        "id": "51137c44-7fcb-42a3-aa9a-8ab69958582a"
+    },
+    {
+        "name": "Caf\u00e9 Central",
+        "category": "transport",
+        "type": "E",
+        "amount": 83.92,
+        "date": "07.09.2025",
+        "id": "46a0839f-21b4-42c4-a8fc-c346322f59aa"
+    },
+    {
+        "name": "Caf\u00e9 Central",
+        "category": "transport",
+        "type": "E",
+        "amount": 340.49,
+        "date": "07.09.2025",
+        "id": "15f6c037-ffab-4107-9233-4ebce0faa642"
+    },
+    {
+        "name": "SPAR",
+        "category": "subscriptions",
+        "type": "E",
+        "amount": 37.16,
+        "date": "07.09.2025",
+        "id": "ab495de1-7db5-4145-978a-41fa2883fd14"
+    },
+    {
+        "name": "Amazon",
+        "category": "utilities",
+        "type": "E",
+        "amount": 31.37,
+        "date": "08.09.2025",
+        "id": "d7b4faed-2390-44ff-a5e2-53b2abf705d3"
+    },
+    {
+        "name": "Conrad",
+        "category": "shopping",
+        "type": "E",
+        "amount": 38.83,
+        "date": "09.09.2025",
+        "id": "b8ce6fff-7927-4f8a-a17f-e095eb14e674"
+    },
+    {
+        "name": "Google Play",
+        "category": "travel",
+        "type": "E",
+        "amount": 106.54,
+        "date": "09.09.2025",
+        "id": "6172016c-ef17-41b6-8caa-b8a504e9fac0"
+    },
+    {
+        "name": "Kebabhaus",
+        "category": "household",
+        "type": "E",
+        "amount": 107.45,
+        "date": "09.09.2025",
+        "id": "a34b33b1-69ba-4198-8769-88b337be7a88"
+    },
+    {
+        "name": "HOFER",
+        "category": "unknown",
+        "type": "E",
+        "amount": 5.07,
+        "date": "10.09.2025",
+        "id": "9aee53b0-8be5-4f64-92d3-e67ea05840a9"
+    },
+    {
+        "name": "LIDL",
+        "category": "household",
+        "type": "E",
+        "amount": 197.55,
+        "date": "10.09.2025",
+        "id": "657669dd-08b1-48f5-9185-4fd02e8a362a"
+    },
+    {
+        "name": "Spotify",
+        "category": "phone",
+        "type": "E",
+        "amount": 11.45,
+        "date": "10.09.2025",
+        "id": "94a78ed3-ca5d-4a4e-a433-43239650de1f"
+    },
+    {
+        "name": "YouTube Premium",
+        "category": "household",
+        "type": "E",
+        "amount": 43.89,
+        "date": "11.09.2025",
+        "id": "30379d37-8578-47f3-a394-ec0f4b795e4d"
+    },
+    {
+        "name": "Burger King",
+        "category": "rent",
+        "type": "E",
+        "amount": 407.95,
+        "date": "12.09.2025",
+        "id": "b7a5de9a-2f21-4826-be89-15004140fa20"
+    },
+    {
+        "name": "LIDL",
+        "category": "insurance",
+        "type": "E",
+        "amount": 5.26,
+        "date": "12.09.2025",
+        "id": "06c06554-da00-4119-9f14-3d9ba6fb5430"
+    },
+    {
+        "name": "Adobe",
+        "category": "groceries",
+        "type": "E",
+        "amount": 7.76,
+        "date": "13.09.2025",
+        "id": "55f67789-6515-406b-a123-205815329b49"
+    },
+    {
+        "name": "DM",
+        "category": "fitness",
+        "type": "E",
+        "amount": 16.59,
+        "date": "13.09.2025",
+        "id": "3a486298-c4bf-4da2-918a-ec08ae6440c4"
+    },
+    {
+        "name": "McDonald's",
+        "category": "clothing",
+        "type": "E",
+        "amount": 6.83,
+        "date": "14.09.2025",
+        "id": "8a81e1b1-0a05-4f88-a46f-62ada193abe6"
+    },
+    {
+        "name": "SPAR",
+        "category": "hobbies",
+        "type": "E",
+        "amount": 5.35,
+        "date": "14.09.2025",
+        "id": "917a765b-7123-4a34-b196-04c460bbbb09"
+    },
+    {
+        "name": "SPAR",
+        "category": "transport",
+        "type": "E",
+        "amount": 13.85,
+        "date": "15.09.2025",
+        "id": "22aea418-8b3d-4bda-b2c2-b59f2668317e"
+    },
+    {
+        "name": "Starbucks",
+        "category": "utilities",
+        "type": "E",
+        "amount": 107.99,
+        "date": "15.09.2025",
+        "id": "3d88a5f6-4d1d-4431-99e0-561da7782107"
+    },
+    {
+        "name": "Apple iCloud",
+        "category": "coffee",
+        "type": "E",
+        "amount": 60.76,
+        "date": "16.09.2025",
+        "id": "1de6d640-7312-4d41-9a07-c2d692df87a5"
+    },
+    {
+        "name": "BIPA",
+        "category": "eating_out",
+        "type": "E",
+        "amount": 37.23,
+        "date": "16.09.2025",
+        "id": "29ee1274-f30d-4587-95a5-a3733e553a5f"
+    },
+    {
+        "name": "KFC",
+        "category": "coffee",
+        "type": "E",
+        "amount": 33.15,
+        "date": "16.09.2025",
+        "id": "b37ba0b5-5663-4ff3-be1b-e0f11dff19d2"
+    },
+    {
+        "name": "Caf\u00e9 Central",
+        "category": "gifts",
+        "type": "E",
+        "amount": 9.51,
+        "date": "17.09.2025",
+        "id": "6a203581-cd84-40f9-b26d-7b4740cdf5a7"
+    },
+    {
+        "name": "SPAR",
+        "category": "insurance",
+        "type": "E",
+        "amount": 144.1,
+        "date": "17.09.2025",
+        "id": "1e0ebde8-1593-4683-a41e-6d26488672b2"
+    },
+    {
+        "name": "Anker",
+        "category": "travel",
+        "type": "E",
+        "amount": 2.27,
+        "date": "19.09.2025",
+        "id": "11cfbfa6-100c-4bde-96c0-f0a5b784e9aa"
+    },
+    {
+        "name": "SPAR",
+        "category": "health",
+        "type": "E",
+        "amount": 7.45,
+        "date": "19.09.2025",
+        "id": "c15bce07-de8c-4411-95c6-47c18268886b"
+    },
+    {
+        "name": "Starbucks",
+        "category": "education",
+        "type": "E",
+        "amount": 5.35,
+        "date": "19.09.2025",
+        "id": "32ef614c-93c8-4e86-bee0-fa94787de886"
+    },
+    {
+        "name": "IKEA",
+        "category": "unknown",
+        "type": "E",
+        "amount": 214.67,
+        "date": "20.09.2025",
+        "id": "1a6e6830-1bbb-493a-b65a-998cbf5fd560"
+    },
+    {
+        "name": "OMV",
+        "category": "unknown",
+        "type": "E",
+        "amount": 109.2,
+        "date": "21.09.2025",
+        "id": "3121c28f-2717-46a8-bed8-4448e311a18a"
+    },
+    {
+        "name": "Pizzeria Napoli",
+        "category": "education",
+        "type": "E",
+        "amount": 1.27,
+        "date": "21.09.2025",
+        "id": "2332bec9-25ac-412c-9cdf-de607b1d1bcf"
+    },
+    {
+        "name": "Apple iCloud",
+        "category": "unknown",
+        "type": "E",
+        "amount": 16.2,
+        "date": "22.09.2025",
+        "id": "6db600f6-2693-463f-800a-6a85e41f0152"
+    },
+    {
+        "name": "Google Play",
+        "category": "subscriptions",
+        "type": "E",
+        "amount": 110.73,
+        "date": "22.09.2025",
+        "id": "816253b7-3a76-4247-919b-75b0888fa51d"
+    },
+    {
+        "name": "SPAR",
+        "category": "electronics",
+        "type": "E",
+        "amount": 237.42,
+        "date": "22.09.2025",
+        "id": "8cfae2e3-ab21-436c-9e07-2e5c857d3042"
+    },
+    {
+        "name": "\u00d6BB",
+        "category": "rent",
+        "type": "E",
+        "amount": 74.72,
+        "date": "22.09.2025",
+        "id": "545f4a8a-b5a0-425d-afd3-977ed5f59f44"
+    },
+    {
+        "name": "Buchhandlung",
+        "category": "clothing",
+        "type": "E",
+        "amount": 7.6,
+        "date": "23.09.2025",
+        "id": "942a5df2-14fd-4df4-b0c0-c7e644164f7b"
+    },
+    {
+        "name": "B\u00e4ckerei",
+        "category": "rent",
+        "type": "E",
+        "amount": 39.96,
+        "date": "23.09.2025",
+        "id": "c7dd9004-2c74-4893-9ff3-f79015f40957"
+    },
+    {
+        "name": "Amazon",
+        "category": "transport",
+        "type": "E",
+        "amount": 394.03,
+        "date": "24.09.2025",
+        "id": "118ed740-ebe5-4609-bebe-5c7e5e719abc"
+    },
+    {
+        "name": "Bolt",
+        "category": "groceries",
+        "type": "E",
+        "amount": 366.47,
+        "date": "24.09.2025",
+        "id": "1b51a652-8553-4109-a8b9-fafd8b0deb0e"
+    },
+    {
+        "name": "B\u00e4ckerei",
+        "category": "rent",
+        "type": "E",
+        "amount": 110.36,
+        "date": "24.09.2025",
+        "id": "3056b8c1-a305-4851-bbc7-719368b1e22d"
+    },
+    {
+        "name": "Burger King",
+        "category": "travel",
+        "type": "E",
+        "amount": 14.52,
+        "date": "25.09.2025",
+        "id": "26e83421-08d1-4051-a11a-5adf75fcf2f6"
+    },
+    {
+        "name": "Cashback",
+        "category": "gift",
+        "type": "I",
+        "amount": 4096.81,
+        "date": "25.09.2025",
+        "id": "d7bc96d2-b6c7-44bc-b47b-eef46832cbff"
+    },
+    {
+        "name": "IKEA",
+        "category": "rent",
+        "type": "E",
+        "amount": 5.17,
+        "date": "25.09.2025",
+        "id": "c2693e30-7a22-46e1-b490-e96adfd55ce4"
+    },
+    {
+        "name": "Bonus Payment",
+        "category": "freelance",
+        "type": "I",
+        "amount": 1893.81,
+        "date": "27.09.2025",
+        "id": "a3343c8b-b8e8-4da8-bffe-536041b12ea3"
+    },
+    {
+        "name": "McDonald's",
+        "category": "fitness",
+        "type": "E",
+        "amount": 55.68,
+        "date": "27.09.2025",
+        "id": "87059e8b-bf94-42be-95ae-26d11230c75c"
+    },
+    {
+        "name": "Netflix",
+        "category": "electronics",
+        "type": "E",
+        "amount": 19.8,
+        "date": "28.09.2025",
+        "id": "c7e24c0d-c22a-4d58-9923-43f4895dd14a"
+    },
+    {
+        "name": "SPAR",
+        "category": "fitness",
+        "type": "E",
+        "amount": 62.68,
+        "date": "28.09.2025",
+        "id": "7859a597-6207-4a43-9ce8-2d1380a24334"
+    },
+    {
+        "name": "Kebabhaus",
+        "category": "groceries",
+        "type": "E",
+        "amount": 23.61,
+        "date": "30.09.2025",
+        "id": "2bdd6dc8-06d5-4382-8e30-7d969e3dbe20"
+    },
+    {
+        "name": "Amazon",
+        "category": "hobbies",
+        "type": "E",
+        "amount": 79.71,
+        "date": "01.10.2025",
+        "id": "0df47db5-0bc7-482f-86e1-75aed6745b9e"
+    },
+    {
+        "name": "BIPA",
+        "category": "fitness",
+        "type": "E",
+        "amount": 292.91,
+        "date": "01.10.2025",
+        "id": "82ddf07e-6882-4319-bd9c-1f49025c9bc3"
+    },
+    {
+        "name": "Cashback",
+        "category": "salary",
+        "type": "I",
+        "amount": 1164.84,
+        "date": "01.10.2025",
+        "id": "4f5fe31f-8f99-494c-8bf6-ff1643ddcbef"
+    },
+    {
+        "name": "Conrad",
+        "category": "clothing",
+        "type": "E",
+        "amount": 102.67,
+        "date": "01.10.2025",
+        "id": "35ca8797-b4af-4569-acea-76ed26250381"
+    },
+    {
+        "name": "DM",
+        "category": "household",
+        "type": "E",
+        "amount": 126.71,
+        "date": "01.10.2025",
+        "id": "54dd8fae-209f-462c-82ed-dc4aabae177e"
+    },
+    {
+        "name": "Starbucks",
+        "category": "transport",
+        "type": "E",
+        "amount": 56.98,
+        "date": "01.10.2025",
+        "id": "647e35d2-eb8d-43cb-b255-ac7d2b69b2e6"
+    },
+    {
+        "name": "Uniqlo",
+        "category": "internet",
+        "type": "E",
+        "amount": 99.18,
+        "date": "01.10.2025",
+        "id": "1adf6003-e764-4da0-90b1-db9ca1951ef0"
+    },
+    {
+        "name": "Uber",
+        "category": "fitness",
+        "type": "E",
+        "amount": 355.03,
+        "date": "02.10.2025",
+        "id": "89508dd9-3b3b-4209-854e-96e797703d2c"
+    },
+    {
+        "name": "Cashback",
+        "category": "salary",
+        "type": "I",
+        "amount": 3985.2,
+        "date": "03.10.2025",
+        "id": "b25ff340-013f-42a8-977c-1bf6428f19e9"
+    },
+    {
+        "name": "Conrad",
+        "category": "fitness",
+        "type": "E",
+        "amount": 336.12,
+        "date": "03.10.2025",
+        "id": "0ce3b9eb-6c1f-4f80-b991-f38d81bce9ff"
+    },
+    {
+        "name": "Conrad",
+        "category": "electronics",
+        "type": "E",
+        "amount": 160.31,
+        "date": "03.10.2025",
+        "id": "7a821921-11eb-453f-ad81-f29d000f4ee6"
+    },
+    {
+        "name": "Kebabhaus",
+        "category": "coffee",
+        "type": "E",
+        "amount": 2.62,
+        "date": "03.10.2025",
+        "id": "7b02bdc9-c34a-4ce3-a0ab-8ed7af0b4701"
+    },
+    {
+        "name": "Lieferando",
+        "category": "subscriptions",
+        "type": "E",
+        "amount": 5.81,
+        "date": "03.10.2025",
+        "id": "6f67acae-8bf1-44ce-a0d0-a8a20136e9e9"
+    },
+    {
+        "name": "Spotify",
+        "category": "phone",
+        "type": "E",
+        "amount": 84.71,
+        "date": "03.10.2025",
+        "id": "6d2fc8a0-325c-4bca-a0c9-6f3b06252566"
+    },
+    {
+        "name": "Uber",
+        "category": "fitness",
+        "type": "E",
+        "amount": 125.35,
+        "date": "03.10.2025",
+        "id": "1b54934b-a785-4f6e-aebe-0aa6f6542311"
+    },
+    {
+        "name": "Amazon",
+        "category": "coffee",
+        "type": "E",
+        "amount": 341.1,
+        "date": "04.10.2025",
+        "id": "1275f803-b6b0-44bb-8872-03a529db8e21"
+    },
+    {
+        "name": "\u00d6BB",
+        "category": "hobbies",
+        "type": "E",
+        "amount": 11.15,
+        "date": "04.10.2025",
+        "id": "e7d8862d-5227-414d-85c9-01c2dbe108b5"
+    },
+    {
+        "name": "DM",
+        "category": "phone",
+        "type": "E",
+        "amount": 287.18,
+        "date": "05.10.2025",
+        "id": "2c7fe59a-a1b6-4c77-a056-e013905eaa79"
+    },
+    {
+        "name": "IKEA",
+        "category": "internet",
+        "type": "E",
+        "amount": 194.44,
+        "date": "05.10.2025",
+        "id": "76d51694-153c-4792-904d-16e6b2a80818"
+    },
+    {
+        "name": "Netflix",
+        "category": "phone",
+        "type": "E",
+        "amount": 392.02,
+        "date": "05.10.2025",
+        "id": "aa5b997b-c368-4613-8e62-fa44cb06d922"
+    },
+    {
+        "name": "YouTube Revenue",
+        "category": "gift",
+        "type": "I",
+        "amount": 297.31,
+        "date": "05.10.2025",
+        "id": "24a45624-141e-4b18-9822-3c278d1bdd69"
+    },
+    {
+        "name": "Gym Membership",
+        "category": "phone",
+        "type": "E",
+        "amount": 4.26,
+        "date": "06.10.2025",
+        "id": "c02aa09a-09fa-4a3a-aa61-596678f4e7c1"
+    },
+    {
+        "name": "Steam",
+        "category": "phone",
+        "type": "E",
+        "amount": 38.91,
+        "date": "06.10.2025",
+        "id": "f7ec5a63-1351-4904-804f-8da4a1dcba1d"
+    },
+    {
+        "name": "YouTube Premium",
+        "category": "hobbies",
+        "type": "E",
+        "amount": 33.52,
+        "date": "06.10.2025",
+        "id": "b3f2ad5e-3fa9-40c3-b19b-30c837988b49"
+    },
+    {
+        "name": "Amazon",
+        "category": "utilities",
+        "type": "E",
+        "amount": 29.25,
+        "date": "07.10.2025",
+        "id": "16aa1c19-b327-4ee7-970b-dcfd7a24c0df"
+    },
+    {
+        "name": "H&M",
+        "category": "insurance",
+        "type": "E",
+        "amount": 3.68,
+        "date": "07.10.2025",
+        "id": "764bc80c-9fa0-4bf0-99c4-000bf123838d"
+    },
+    {
+        "name": "LIDL",
+        "category": "subscriptions",
+        "type": "E",
+        "amount": 37.73,
+        "date": "07.10.2025",
+        "id": "d38f2afc-0e3b-472b-87c2-5d50201af06a"
+    },
+    {
+        "name": "Refund",
+        "category": "investment",
+        "type": "I",
+        "amount": 200.75,
+        "date": "07.10.2025",
+        "id": "6eb7738e-3421-40f0-9484-124f600e094d"
+    },
+    {
+        "name": "Dividend",
+        "category": "refund",
+        "type": "I",
+        "amount": 199.46,
+        "date": "08.10.2025",
+        "id": "bc24f871-03f6-4f25-b349-dde2524b862e"
+    },
+    {
+        "name": "Shell",
+        "category": "gifts",
+        "type": "E",
+        "amount": 206.89,
+        "date": "08.10.2025",
+        "id": "6189aaed-95fd-458f-93ac-43208919abd1"
+    },
+    {
+        "name": "DM",
+        "category": "bank_fees",
+        "type": "E",
+        "amount": 117.32,
+        "date": "09.10.2025",
+        "id": "b6f529af-b421-40fe-9b64-6f2daeda684b"
+    },
+    {
+        "name": "McDonald's",
+        "category": "phone",
+        "type": "E",
+        "amount": 10.07,
+        "date": "09.10.2025",
+        "id": "34b32cd1-cc1a-4929-a53a-e2768e65d8de"
+    },
+    {
+        "name": "Uber",
+        "category": "travel",
+        "type": "E",
+        "amount": 5.97,
+        "date": "09.10.2025",
+        "id": "78184f26-44e7-4028-bfa8-53510a526a8f"
+    },
+    {
+        "name": "Bonus Payment",
+        "category": "gift",
+        "type": "I",
+        "amount": 1819.84,
+        "date": "10.10.2025",
+        "id": "cf52028f-cf61-4310-834f-f51bdfa453d4"
+    },
+    {
+        "name": "H&M",
+        "category": "subscriptions",
+        "type": "E",
+        "amount": 11.3,
+        "date": "10.10.2025",
+        "id": "ee88049d-23c6-4840-b7a1-5ca062502f39"
+    },
+    {
+        "name": "Kebabhaus",
+        "category": "utilities",
+        "type": "E",
+        "amount": 361.68,
+        "date": "10.10.2025",
+        "id": "9ea9cfe3-8131-4544-841f-daf963d10234"
+    },
+    {
+        "name": "McDonald's",
+        "category": "fitness",
+        "type": "E",
+        "amount": 304.5,
+        "date": "10.10.2025",
+        "id": "80738cfa-aa0f-4ce7-9da5-ebd6c28e8c72"
+    },
+    {
+        "name": "YouTube Revenue",
+        "category": "salary",
+        "type": "I",
+        "amount": 1237.97,
+        "date": "10.10.2025",
+        "id": "3c11a355-e3d6-416a-bc44-ee4550bc39b5"
+    },
+    {
+        "name": "B\u00e4ckerei",
+        "category": "gifts",
+        "type": "E",
+        "amount": 54.08,
+        "date": "11.10.2025",
+        "id": "21280a92-5cc8-47d0-bdd8-c3ea840cdf53"
+    },
+    {
+        "name": "Bolt",
+        "category": "phone",
+        "type": "E",
+        "amount": 13.98,
+        "date": "12.10.2025",
+        "id": "b63be3d8-f524-459e-af3d-746574eeb094"
+    },
+    {
+        "name": "Bonus Payment",
+        "category": "gift",
+        "type": "I",
+        "amount": 98.64,
+        "date": "12.10.2025",
+        "id": "c68eae11-b4ea-4dc9-b849-d1d25e0860cb"
+    },
+    {
+        "name": "Spotify",
+        "category": "household",
+        "type": "E",
+        "amount": 167.12,
+        "date": "12.10.2025",
+        "id": "bf05144d-02ff-46f4-9bbc-b33700a37f9a"
+    },
+    {
+        "name": "Gym Membership",
+        "category": "unknown",
+        "type": "E",
+        "amount": 353.3,
+        "date": "13.10.2025",
+        "id": "54299c14-0fc2-4668-a3a4-2439847189d8"
+    },
+    {
+        "name": "\u00d6BB",
+        "category": "shopping",
+        "type": "E",
+        "amount": 80.51,
+        "date": "13.10.2025",
+        "id": "5d20e917-ac13-42c7-b985-fcdce912dcaa"
+    },
+    {
+        "name": "Amazon",
+        "category": "electronics",
+        "type": "E",
+        "amount": 45.69,
+        "date": "14.10.2025",
+        "id": "27270e1a-112c-41b3-974c-46845aef6a65"
+    },
+    {
+        "name": "Salary Payment",
+        "category": "gift",
+        "type": "I",
+        "amount": 2166.85,
+        "date": "14.10.2025",
+        "id": "1fbf2ad1-f0e6-43b0-be84-70c09649b6eb"
+    },
+    {
+        "name": "Kebabhaus",
+        "category": "shopping",
+        "type": "E",
+        "amount": 128.79,
+        "date": "15.10.2025",
+        "id": "5cc9662f-595c-4c88-9257-8795cf50bccb"
+    },
+    {
+        "name": "Lieferando",
+        "category": "utilities",
+        "type": "E",
+        "amount": 432.71,
+        "date": "15.10.2025",
+        "id": "d10487eb-a342-477c-a4ce-c9bccd340e58"
+    },
+    {
+        "name": "Anker",
+        "category": "rent",
+        "type": "E",
+        "amount": 36.72,
+        "date": "16.10.2025",
+        "id": "81e18e9d-497d-4589-acf4-ad26496d699a"
+    },
+    {
+        "name": "KFC",
+        "category": "groceries",
+        "type": "E",
+        "amount": 3.64,
+        "date": "16.10.2025",
+        "id": "547c1a21-c369-481d-9685-2771c18bff2a"
+    },
+    {
+        "name": "Pizzeria Napoli",
+        "category": "entertainment",
+        "type": "E",
+        "amount": 25.96,
+        "date": "16.10.2025",
+        "id": "bef18abd-ea2d-48cb-9c68-ac101e0d93d5"
+    },
+    {
+        "name": "LIDL",
+        "category": "shopping",
+        "type": "E",
+        "amount": 190.2,
+        "date": "17.10.2025",
+        "id": "2e3dc18f-589c-4b43-bed8-895a1fa742b9"
+    },
+    {
+        "name": "Uniqlo",
+        "category": "gifts",
+        "type": "E",
+        "amount": 232.77,
+        "date": "17.10.2025",
+        "id": "bc94f6d4-6158-447d-863f-d52195e7cd79"
+    },
+    {
+        "name": "Buchhandlung",
+        "category": "internet",
+        "type": "E",
+        "amount": 93.25,
+        "date": "18.10.2025",
+        "id": "f9d21635-89e7-4261-b242-2750d02a6e3c"
+    },
+    {
+        "name": "Kebabhaus",
+        "category": "insurance",
+        "type": "E",
+        "amount": 4.98,
+        "date": "18.10.2025",
+        "id": "196a902b-217f-4e69-bc5a-f5cd6985059b"
+    },
+    {
+        "name": "YouTube Premium",
+        "category": "groceries",
+        "type": "E",
+        "amount": 8.75,
+        "date": "18.10.2025",
+        "id": "ba4eb278-15c3-4c7a-84a0-e7e906d6b47e"
+    },
+    {
+        "name": "Apple iCloud",
+        "category": "phone",
+        "type": "E",
+        "amount": 283.75,
+        "date": "20.10.2025",
+        "id": "3563b611-ec4d-46a4-811c-1bdb0e49129b"
+    },
+    {
+        "name": "Client Payout",
+        "category": "investment",
+        "type": "I",
+        "amount": 719.36,
+        "date": "20.10.2025",
+        "id": "7e268493-992f-442e-94de-abf69d627ec3"
+    },
+    {
+        "name": "Dividend",
+        "category": "gift",
+        "type": "I",
+        "amount": 883.0,
+        "date": "20.10.2025",
+        "id": "72166c4f-6b1f-4bd0-9057-616fa96c5a75"
+    },
+    {
+        "name": "Starbucks",
+        "category": "transport",
+        "type": "E",
+        "amount": 3.68,
+        "date": "20.10.2025",
+        "id": "88ec8651-b94a-492a-ad6b-194243f6467d"
+    },
+    {
+        "name": "Gym Membership",
+        "category": "travel",
+        "type": "E",
+        "amount": 98.31,
+        "date": "21.10.2025",
+        "id": "ecb8ac0b-48a6-46f2-a7ea-dda5699e817e"
+    },
+    {
+        "name": "BILLA",
+        "category": "groceries",
+        "type": "E",
+        "amount": 38.96,
+        "date": "22.10.2025",
+        "id": "ba082212-f84c-4311-a6a9-52d3312e7056"
+    },
+    {
+        "name": "BIPA",
+        "category": "hobbies",
+        "type": "E",
+        "amount": 95.09,
+        "date": "22.10.2025",
+        "id": "ae406f11-480b-482a-b6e0-af6680059253"
+    },
+    {
+        "name": "Buchhandlung",
+        "category": "unknown",
+        "type": "E",
+        "amount": 12.32,
+        "date": "22.10.2025",
+        "id": "042de649-01fa-4214-a983-3a506afcf0bb"
+    },
+    {
+        "name": "Cashback",
+        "category": "interest",
+        "type": "I",
+        "amount": 3276.02,
+        "date": "22.10.2025",
+        "id": "4b65bc71-df07-4f75-9482-8882452e832a"
+    },
+    {
+        "name": "McDonald's",
+        "category": "household",
+        "type": "E",
+        "amount": 6.2,
+        "date": "22.10.2025",
+        "id": "d81f27ec-f5f6-44c8-b06f-b62c6f484f00"
+    },
+    {
+        "name": "Shell",
+        "category": "subscriptions",
+        "type": "E",
+        "amount": 259.71,
+        "date": "23.10.2025",
+        "id": "99e79275-deca-42a5-8150-f0cce1386bd8"
+    },
+    {
+        "name": "Wiener Linien",
+        "category": "utilities",
+        "type": "E",
+        "amount": 3.35,
+        "date": "23.10.2025",
+        "id": "47c49e4e-f905-4447-913f-7ebedd360903"
+    },
+    {
+        "name": "Apotheke",
+        "category": "hobbies",
+        "type": "E",
+        "amount": 16.24,
+        "date": "24.10.2025",
+        "id": "39bef042-8196-4e39-964d-925532ef8e52"
+    },
+    {
+        "name": "IKEA",
+        "category": "travel",
+        "type": "E",
+        "amount": 132.92,
+        "date": "24.10.2025",
+        "id": "4ef862ea-d1e8-46aa-8efd-74f0e7fe7d21"
+    },
+    {
+        "name": "IKEA",
+        "category": "clothing",
+        "type": "E",
+        "amount": 365.0,
+        "date": "24.10.2025",
+        "id": "31cb4a9e-3529-4941-9f50-63f3fa3e8b40"
+    },
+    {
+        "name": "Bolt",
+        "category": "health",
+        "type": "E",
+        "amount": 53.0,
+        "date": "25.10.2025",
+        "id": "55068760-011c-4d43-9211-b40c631b88d1"
+    },
+    {
+        "name": "Salary Payment",
+        "category": "refund",
+        "type": "I",
+        "amount": 4056.79,
+        "date": "25.10.2025",
+        "id": "0ab9b997-53a2-481c-95ea-b7c54b8cff2c"
+    },
+    {
+        "name": "Steam",
+        "category": "subscriptions",
+        "type": "E",
+        "amount": 5.06,
+        "date": "25.10.2025",
+        "id": "4edf1029-fb37-4186-9d16-d06bcf8972e5"
+    },
+    {
+        "name": "Sushi Bar",
+        "category": "gifts",
+        "type": "E",
+        "amount": 2.78,
+        "date": "25.10.2025",
+        "id": "e7cb0f69-c732-443f-9b23-af917ad229ca"
+    },
+    {
+        "name": "Caf\u00e9 Central",
+        "category": "internet",
+        "type": "E",
+        "amount": 53.57,
+        "date": "26.10.2025",
+        "id": "2bbe562e-6af7-4fd6-abe0-6fbece3c74c7"
+    },
+    {
+        "name": "Netflix",
+        "category": "shopping",
+        "type": "E",
+        "amount": 337.81,
+        "date": "26.10.2025",
+        "id": "8a7a40de-e870-41be-a953-3bb53f0df8c6"
+    },
+    {
+        "name": "Sushi Bar",
+        "category": "hobbies",
+        "type": "E",
+        "amount": 251.25,
+        "date": "26.10.2025",
+        "id": "2d890178-be00-407b-b9f5-04fe4d33f43d"
+    },
+    {
+        "name": "Decathlon",
+        "category": "coffee",
+        "type": "E",
+        "amount": 322.18,
+        "date": "27.10.2025",
+        "id": "4303701d-6e81-4ccf-9a43-b2af139c8a13"
+    },
+    {
+        "name": "Kebabhaus",
+        "category": "unknown",
+        "type": "E",
+        "amount": 154.5,
+        "date": "27.10.2025",
+        "id": "89a2924c-b659-4424-8aac-ca6b82ee987e"
+    },
+    {
+        "name": "Amazon",
+        "category": "clothing",
+        "type": "E",
+        "amount": 6.87,
+        "date": "28.10.2025",
+        "id": "34838144-f77b-437d-baf5-594721ad011e"
+    },
+    {
+        "name": "Bolt",
+        "category": "unknown",
+        "type": "E",
+        "amount": 5.42,
+        "date": "28.10.2025",
+        "id": "53a9bb45-fe32-4a21-aab2-0a943a6a85f4"
+    },
+    {
+        "name": "Client Payout",
+        "category": "salary",
+        "type": "I",
+        "amount": 981.37,
+        "date": "28.10.2025",
+        "id": "ec4f2009-6cfc-442c-ba3c-d396fdb450cf"
+    },
+    {
+        "name": "Str\u00f6ck",
+        "category": "health",
+        "type": "E",
+        "amount": 22.91,
+        "date": "28.10.2025",
+        "id": "e2e91ed4-72a4-41cb-b7d0-34d35d82563a"
+    },
+    {
+        "name": "Spotify",
+        "category": "insurance",
+        "type": "E",
+        "amount": 131.67,
+        "date": "29.10.2025",
+        "id": "96b09f68-3112-4240-a5be-beb1c2f68389"
+    },
+    {
+        "name": "Buchhandlung",
+        "category": "subscriptions",
+        "type": "E",
+        "amount": 40.79,
+        "date": "30.10.2025",
+        "id": "9898b6d2-2bf4-4cdd-9b7d-f4d3f6e647e5"
+    },
+    {
+        "name": "Cashback",
+        "category": "refund",
+        "type": "I",
+        "amount": 3200.87,
+        "date": "30.10.2025",
+        "id": "47adb2ae-aca8-4479-bbb8-baba1ed20cf1"
+    },
+    {
+        "name": "Google Play",
+        "category": "health",
+        "type": "E",
+        "amount": 2.03,
+        "date": "30.10.2025",
+        "id": "eca8df22-25f4-4e29-a0dd-e284170aa98e"
+    },
+    {
+        "name": "Gym Membership",
+        "category": "gifts",
+        "type": "E",
+        "amount": 6.64,
+        "date": "30.10.2025",
+        "id": "4e0f8163-086c-4e5b-8b9e-5c7c590716c0"
+    },
+    {
+        "name": "Kebabhaus",
+        "category": "coffee",
+        "type": "E",
+        "amount": 4.84,
+        "date": "30.10.2025",
+        "id": "70e44623-3db3-4c3d-9817-9aac581329c7"
+    },
+    {
+        "name": "Zara",
+        "category": "electronics",
+        "type": "E",
+        "amount": 3.19,
+        "date": "30.10.2025",
+        "id": "601192b6-7fc6-4411-942e-b6e416556602"
+    },
+    {
+        "name": "\u00d6BB",
+        "category": "health",
+        "type": "E",
+        "amount": 67.58,
+        "date": "30.10.2025",
+        "id": "0996bdb5-5cd1-4da1-bdaa-d2bf4469713b"
+    },
+    {
+        "name": "Google Play",
+        "category": "electronics",
+        "type": "E",
+        "amount": 17.5,
+        "date": "31.10.2025",
+        "id": "326019bd-b032-4fe0-bdb8-ebc03e783c34"
+    },
+    {
+        "name": "MediaMarkt",
+        "category": "rent",
+        "type": "E",
+        "amount": 14.44,
+        "date": "31.10.2025",
+        "id": "29cba9eb-f8e1-4b55-9db7-7680be0d2e7a"
+    },
+    {
+        "name": "Sushi Bar",
+        "category": "subscriptions",
+        "type": "E",
+        "amount": 103.21,
+        "date": "31.10.2025",
+        "id": "554d648b-e64d-4dc4-93e0-32d1e86a023e"
+    },
+    {
+        "name": "YouTube Premium",
+        "category": "groceries",
+        "type": "E",
+        "amount": 72.98,
+        "date": "31.10.2025",
+        "id": "83c430e6-b40a-4f42-b500-60a8700e76f4"
+    },
+    {
+        "name": "Netflix",
+        "category": "transport",
+        "type": "E",
+        "amount": 3.4,
+        "date": "01.11.2025",
+        "id": "b769a15d-33e1-4ed3-bb58-43cb72405773"
+    },
+    {
+        "name": "Pizzeria Napoli",
+        "category": "groceries",
+        "type": "E",
+        "amount": 57.42,
+        "date": "01.11.2025",
+        "id": "a4464b2e-8f48-456a-9e2a-56864bf2104c"
+    },
+    {
+        "name": "Steam",
+        "category": "eating_out",
+        "type": "E",
+        "amount": 395.63,
+        "date": "01.11.2025",
+        "id": "93f7e834-afc3-4ab2-829f-256267efe3ef"
+    },
+    {
+        "name": "Zara",
+        "category": "internet",
+        "type": "E",
+        "amount": 3.31,
+        "date": "01.11.2025",
+        "id": "a6aaa702-12f0-486c-bf4e-bb7ee5b2272a"
+    },
+    {
+        "name": "B\u00e4ckerei",
+        "category": "travel",
+        "type": "E",
+        "amount": 97.02,
+        "date": "02.11.2025",
+        "id": "8829bb4d-9c3f-4c7d-9175-efb14918dc61"
+    },
+    {
+        "name": "Steam",
+        "category": "electronics",
+        "type": "E",
+        "amount": 22.34,
+        "date": "02.11.2025",
+        "id": "0210e999-d347-44d2-a29c-c4a15c0ddd39"
+    },
+    {
+        "name": "B\u00e4ckerei",
+        "category": "internet",
+        "type": "E",
+        "amount": 166.19,
+        "date": "03.11.2025",
+        "id": "8ec4ad7c-f65c-4b8d-863e-38aa40da4c41"
+    },
+    {
+        "name": "Gym Membership",
+        "category": "groceries",
+        "type": "E",
+        "amount": 96.88,
+        "date": "03.11.2025",
+        "id": "f0bebcab-23b4-4dea-94fb-b6ee8c9de973"
+    },
+    {
+        "name": "Gym Membership",
+        "category": "rent",
+        "type": "E",
+        "amount": 56.13,
+        "date": "03.11.2025",
+        "id": "f1dc9223-ede7-43c0-8571-1a77e924954a"
+    },
+    {
+        "name": "IKEA",
+        "category": "fitness",
+        "type": "E",
+        "amount": 353.41,
+        "date": "03.11.2025",
+        "id": "6d74a357-e0d5-4bbb-8c5b-5112b482f998"
+    },
+    {
+        "name": "IKEA",
+        "category": "groceries",
+        "type": "E",
+        "amount": 7.31,
+        "date": "03.11.2025",
+        "id": "12e73cb0-d734-47a0-8929-a01aeb748f15"
+    },
+    {
+        "name": "Lieferando",
+        "category": "entertainment",
+        "type": "E",
+        "amount": 3.05,
+        "date": "03.11.2025",
+        "id": "62450466-c477-48a8-b62c-5ae9cc3607a3"
+    },
+    {
+        "name": "Uber",
+        "category": "internet",
+        "type": "E",
+        "amount": 4.83,
+        "date": "03.11.2025",
+        "id": "458d5e4f-7958-48ba-b9a7-3cc17375b120"
+    },
+    {
+        "name": "Conrad",
+        "category": "shopping",
+        "type": "E",
+        "amount": 2.92,
+        "date": "04.11.2025",
+        "id": "60929837-8644-4c58-9e3b-3a63af4ac6d5"
+    },
+    {
+        "name": "OMV",
+        "category": "coffee",
+        "type": "E",
+        "amount": 20.09,
+        "date": "04.11.2025",
+        "id": "c88a2ad3-0b58-4617-9f5c-fb9b252d4595"
+    },
+    {
+        "name": "Pizzeria Napoli",
+        "category": "clothing",
+        "type": "E",
+        "amount": 67.85,
+        "date": "04.11.2025",
+        "id": "28be3188-6e19-4876-886f-0bea1cba4c48"
+    },
+    {
+        "name": "SPAR",
+        "category": "gifts",
+        "type": "E",
+        "amount": 7.09,
+        "date": "04.11.2025",
+        "id": "0b19c322-7cec-4da6-96a9-9da166d2327d"
+    },
+    {
+        "name": "Str\u00f6ck",
+        "category": "travel",
+        "type": "E",
+        "amount": 306.83,
+        "date": "04.11.2025",
+        "id": "82ad5fb1-e8c0-4c78-ba1f-ddd8144a56cf"
+    },
+    {
+        "name": "Uber",
+        "category": "subscriptions",
+        "type": "E",
+        "amount": 64.38,
+        "date": "04.11.2025",
+        "id": "4733d97f-95d2-4061-8788-8ed2b72e2e9f"
+    },
+    {
+        "name": "Apple iCloud",
+        "category": "electronics",
+        "type": "E",
+        "amount": 63.5,
+        "date": "05.11.2025",
+        "id": "8a655c33-db1b-4578-8870-edc28c9afc9e"
+    },
+    {
+        "name": "Lieferando",
+        "category": "eating_out",
+        "type": "E",
+        "amount": 23.63,
+        "date": "05.11.2025",
+        "id": "f3871740-3449-420c-a44e-1778f463f8a2"
+    },
+    {
+        "name": "Google Play",
+        "category": "fitness",
+        "type": "E",
+        "amount": 85.24,
+        "date": "06.11.2025",
+        "id": "740dc07a-c5f0-4ae4-bf80-b510adb36dc8"
+    },
+    {
+        "name": "IKEA",
+        "category": "shopping",
+        "type": "E",
+        "amount": 372.54,
+        "date": "06.11.2025",
+        "id": "3af50dd0-bcc3-469e-b4a9-6f605fa90fe2"
+    },
+    {
+        "name": "Apple iCloud",
+        "category": "electronics",
+        "type": "E",
+        "amount": 281.3,
+        "date": "07.11.2025",
+        "id": "6a28c41c-f300-4fdc-9bc8-e6477fa22e9f"
+    },
+    {
+        "name": "Uniqlo",
+        "category": "coffee",
+        "type": "E",
+        "amount": 80.62,
+        "date": "07.11.2025",
+        "id": "6da7e2f7-7fa3-4f0a-b0b2-d773443c2d77"
+    },
+    {
+        "name": "Bonus Payment",
+        "category": "interest",
+        "type": "I",
+        "amount": 3909.78,
+        "date": "08.11.2025",
+        "id": "62419fe5-80b7-4903-a622-b3cc2fb668e1"
+    },
+    {
+        "name": "Gym Membership",
+        "category": "internet",
+        "type": "E",
+        "amount": 1.47,
+        "date": "08.11.2025",
+        "id": "35c7cbce-e25d-4cb9-a63d-039c5826f9b3"
+    },
+    {
+        "name": "MediaMarkt",
+        "category": "insurance",
+        "type": "E",
+        "amount": 18.27,
+        "date": "08.11.2025",
+        "id": "4cabd01a-225c-46fb-a9e0-d4aa439d47a2"
+    },
+    {
+        "name": "Bolt",
+        "category": "unknown",
+        "type": "E",
+        "amount": 22.36,
+        "date": "09.11.2025",
+        "id": "ce93ba04-c2e1-497b-8736-e884798f96c5"
+    },
+    {
+        "name": "IKEA",
+        "category": "entertainment",
+        "type": "E",
+        "amount": 37.93,
+        "date": "09.11.2025",
+        "id": "d91e454c-22d4-4e34-94f7-82ef88d051da"
+    },
+    {
+        "name": "Uber",
+        "category": "rent",
+        "type": "E",
+        "amount": 15.15,
+        "date": "09.11.2025",
+        "id": "e7e2a12e-6497-4829-b07f-c369f9abf8ca"
+    },
+    {
+        "name": "Wiener Linien",
+        "category": "rent",
+        "type": "E",
+        "amount": 4.42,
+        "date": "09.11.2025",
+        "id": "18a45ab9-ada2-4c09-8437-347953785acf"
+    },
+    {
+        "name": "Apple iCloud",
+        "category": "clothing",
+        "type": "E",
+        "amount": 110.89,
+        "date": "10.11.2025",
+        "id": "a8ae7683-0b71-40f4-996b-c9e60b6e2332"
+    },
+    {
+        "name": "HOFER",
+        "category": "insurance",
+        "type": "E",
+        "amount": 66.17,
+        "date": "10.11.2025",
+        "id": "18964279-ee16-4bbb-979c-db0511c0296d"
+    },
+    {
+        "name": "McDonald's",
+        "category": "coffee",
+        "type": "E",
+        "amount": 33.85,
+        "date": "10.11.2025",
+        "id": "8b263982-7d11-43cf-93aa-c89a1b75bfe0"
+    },
+    {
+        "name": "OMV",
+        "category": "rent",
+        "type": "E",
+        "amount": 199.31,
+        "date": "10.11.2025",
+        "id": "89bb749a-4026-422b-947c-dac0fdefed34"
+    },
+    {
+        "name": "Spotify",
+        "category": "insurance",
+        "type": "E",
+        "amount": 48.48,
+        "date": "10.11.2025",
+        "id": "5dd7b94c-9377-4708-a8c4-0083f40ab0d9"
+    },
+    {
+        "name": "Starbucks",
+        "category": "transport",
+        "type": "E",
+        "amount": 38.48,
+        "date": "10.11.2025",
+        "id": "5f4a3eb7-8b54-4a9b-af23-87b6fd3a959e"
+    },
+    {
+        "name": "Str\u00f6ck",
+        "category": "rent",
+        "type": "E",
+        "amount": 90.18,
+        "date": "10.11.2025",
+        "id": "2b1dc788-a885-4b8d-aea6-75268e1cb39d"
+    },
+    {
+        "name": "Bolt",
+        "category": "phone",
+        "type": "E",
+        "amount": 399.61,
+        "date": "11.11.2025",
+        "id": "2c816e79-38ed-4bbb-9a12-c0219c3e0aaf"
+    },
+    {
+        "name": "Burger King",
+        "category": "fitness",
+        "type": "E",
+        "amount": 14.01,
+        "date": "11.11.2025",
+        "id": "5b99921a-2b4a-4a18-b40d-9469b5b8d17d"
+    },
+    {
+        "name": "B\u00e4ckerei",
+        "category": "education",
+        "type": "E",
+        "amount": 103.1,
+        "date": "11.11.2025",
+        "id": "729941ec-b99a-4de9-a988-e544fd6fcbe8"
+    },
+    {
+        "name": "Cashback",
+        "category": "interest",
+        "type": "I",
+        "amount": 3441.65,
+        "date": "11.11.2025",
+        "id": "1d8cdf15-c95c-4320-9021-fa75525f1bbc"
+    },
+    {
+        "name": "Google Play",
+        "category": "unknown",
+        "type": "E",
+        "amount": 27.13,
+        "date": "11.11.2025",
+        "id": "81181483-3a37-4fef-81fb-b619b193db7f"
+    },
+    {
+        "name": "H&M",
+        "category": "electronics",
+        "type": "E",
+        "amount": 98.52,
+        "date": "11.11.2025",
+        "id": "b0703332-eda5-45cf-ac8d-d2d4afa65aa5"
+    },
+    {
+        "name": "Pizzeria Napoli",
+        "category": "household",
+        "type": "E",
+        "amount": 233.1,
+        "date": "11.11.2025",
+        "id": "1593397d-ea37-42b0-a39b-283004edf199"
+    },
+    {
+        "name": "Decathlon",
+        "category": "clothing",
+        "type": "E",
+        "amount": 66.22,
+        "date": "12.11.2025",
+        "id": "63e7c8e3-17fb-4673-be7e-f316b99badbb"
+    },
+    {
+        "name": "YouTube Revenue",
+        "category": "bonus",
+        "type": "I",
+        "amount": 163.0,
+        "date": "12.11.2025",
+        "id": "4d1ecfc7-b87b-44c1-a51c-21464b2580e2"
+    },
+    {
+        "name": "BILLA",
+        "category": "clothing",
+        "type": "E",
+        "amount": 114.68,
+        "date": "13.11.2025",
+        "id": "c1eb15f9-340d-4028-9399-dc1ffa914fe3"
+    },
+    {
+        "name": "Netflix",
+        "category": "fitness",
+        "type": "E",
+        "amount": 71.39,
+        "date": "13.11.2025",
+        "id": "5139cc6b-246e-4d94-a5ab-1a28fa712ba6"
+    },
+    {
+        "name": "OMV",
+        "category": "groceries",
+        "type": "E",
+        "amount": 63.66,
+        "date": "13.11.2025",
+        "id": "f6fb7178-eaa8-4fe5-b565-84fb1cc6d26f"
+    },
+    {
+        "name": "Spotify",
+        "category": "rent",
+        "type": "E",
+        "amount": 15.7,
+        "date": "13.11.2025",
+        "id": "02a92fe7-a58d-4e57-9885-10380663c42e"
+    },
+    {
+        "name": "BILLA",
+        "category": "electronics",
+        "type": "E",
+        "amount": 8.92,
+        "date": "14.11.2025",
+        "id": "7736e868-4601-4411-a067-9906a7c20b91"
+    },
+    {
+        "name": "Lieferando",
+        "category": "fitness",
+        "type": "E",
+        "amount": 9.89,
+        "date": "14.11.2025",
+        "id": "c7aca375-fa0c-4a9b-b8fc-76b84edfd8b9"
+    },
+    {
+        "name": "Steam",
+        "category": "coffee",
+        "type": "E",
+        "amount": 99.07,
+        "date": "14.11.2025",
+        "id": "958266f8-9829-41ca-839e-6936b8d19eb8"
+    },
+    {
+        "name": "YouTube Premium",
+        "category": "travel",
+        "type": "E",
+        "amount": 7.89,
+        "date": "14.11.2025",
+        "id": "aab8df56-27fb-4ef0-9061-c2a9934dc785"
+    },
+    {
+        "name": "Conrad",
+        "category": "groceries",
+        "type": "E",
+        "amount": 190.35,
+        "date": "15.11.2025",
+        "id": "01a4ea07-c578-46bd-b0ad-69fbdddc69c9"
+    },
+    {
+        "name": "MediaMarkt",
+        "category": "insurance",
+        "type": "E",
+        "amount": 92.15,
+        "date": "15.11.2025",
+        "id": "807729ce-9eaf-430f-9048-c87ea6153e2f"
+    },
+    {
+        "name": "Netflix",
+        "category": "fitness",
+        "type": "E",
+        "amount": 33.61,
+        "date": "15.11.2025",
+        "id": "0ebe8aee-61a7-40b5-be53-486d97182434"
+    },
+    {
+        "name": "Shell",
+        "category": "gifts",
+        "type": "E",
+        "amount": 64.68,
+        "date": "15.11.2025",
+        "id": "3d0c7032-52a2-4e78-9ee1-01ec51076c08"
+    },
+    {
+        "name": "Amazon",
+        "category": "electronics",
+        "type": "E",
+        "amount": 15.91,
+        "date": "16.11.2025",
+        "id": "937ed5f0-c1b1-40e4-83ab-85f7d101adda"
+    },
+    {
+        "name": "Apotheke",
+        "category": "fitness",
+        "type": "E",
+        "amount": 1.68,
+        "date": "16.11.2025",
+        "id": "caa44a0e-8ea1-46fe-aa87-6077d630a39d"
+    },
+    {
+        "name": "Apotheke",
+        "category": "fitness",
+        "type": "E",
+        "amount": 284.5,
+        "date": "16.11.2025",
+        "id": "be208c27-07ae-4b07-802f-29c61d0e1c19"
+    },
+    {
+        "name": "BIPA",
+        "category": "entertainment",
+        "type": "E",
+        "amount": 190.6,
+        "date": "16.11.2025",
+        "id": "0d7b218d-3855-4813-8310-3c74ba48e623"
+    },
+    {
+        "name": "B\u00e4ckerei",
+        "category": "transport",
+        "type": "E",
+        "amount": 6.76,
+        "date": "16.11.2025",
+        "id": "4229b4eb-1ed5-4c2e-af57-b09bb6ecada8"
+    },
+    {
+        "name": "Salary Payment",
+        "category": "salary",
+        "type": "I",
+        "amount": 801.65,
+        "date": "16.11.2025",
+        "id": "b8d36f34-2411-4633-9fa6-b7d926d85667"
+    },
+    {
+        "name": "Pizzeria Napoli",
+        "category": "eating_out",
+        "type": "E",
+        "amount": 248.32,
+        "date": "17.11.2025",
+        "id": "9fa4c9be-e7e0-44c1-ac68-e508e20167c3"
+    },
+    {
+        "name": "Pizzeria Napoli",
+        "category": "health",
+        "type": "E",
+        "amount": 9.54,
+        "date": "17.11.2025",
+        "id": "9da5854c-aba6-4798-bfe9-b86f9c8a8b4d"
+    },
+    {
+        "name": "SPAR",
+        "category": "insurance",
+        "type": "E",
+        "amount": 85.84,
+        "date": "17.11.2025",
+        "id": "e2b2e7d1-8404-4d97-8be5-3c0c445060a2"
+    },
+    {
+        "name": "Shell",
+        "category": "hobbies",
+        "type": "E",
+        "amount": 12.89,
+        "date": "17.11.2025",
+        "id": "ed4667a7-7bd6-4624-8443-c5a3c39adb42"
+    },
+    {
+        "name": "Wiener Linien",
+        "category": "rent",
+        "type": "E",
+        "amount": 330.85,
+        "date": "17.11.2025",
+        "id": "895463f9-f179-4b0c-acdd-8132d292f4c5"
+    },
+    {
+        "name": "YouTube Premium",
+        "category": "insurance",
+        "type": "E",
+        "amount": 105.35,
+        "date": "17.11.2025",
+        "id": "f84846ac-21f1-43f4-acec-3751ff53d0f6"
+    },
+    {
+        "name": "Gym Membership",
+        "category": "subscriptions",
+        "type": "E",
+        "amount": 64.44,
+        "date": "18.11.2025",
+        "id": "d40db9fe-66c3-46a7-82ad-298d78746e23"
+    },
+    {
+        "name": "Zara",
+        "category": "coffee",
+        "type": "E",
+        "amount": 9.82,
+        "date": "18.11.2025",
+        "id": "fc79a1b2-eacf-44c1-bb75-1da92293d498"
+    },
+    {
+        "name": "Zara",
+        "category": "transport",
+        "type": "E",
+        "amount": 24.64,
+        "date": "18.11.2025",
+        "id": "d8c5eeea-c183-4ddc-a4bd-3120a02f4b73"
+    },
+    {
+        "name": "BILLA",
+        "category": "hobbies",
+        "type": "E",
+        "amount": 85.27,
+        "date": "19.11.2025",
+        "id": "c6f59c7c-5344-4a5b-8f94-9ecbd05e357a"
+    },
+    {
+        "name": "Bolt",
+        "category": "hobbies",
+        "type": "E",
+        "amount": 40.98,
+        "date": "19.11.2025",
+        "id": "8f54d407-9490-4d35-aa46-3b0af2518f48"
+    },
+    {
+        "name": "Freelance Invoice",
+        "category": "gift",
+        "type": "I",
+        "amount": 3229.62,
+        "date": "19.11.2025",
+        "id": "47eb2a88-7319-482e-a09c-db325e68747b"
+    },
+    {
+        "name": "HOFER",
+        "category": "phone",
+        "type": "E",
+        "amount": 30.86,
+        "date": "19.11.2025",
+        "id": "66bd94f7-9378-479c-b4d2-2c48d24ea289"
+    },
+    {
+        "name": "Refund",
+        "category": "gift",
+        "type": "I",
+        "amount": 94.04,
+        "date": "19.11.2025",
+        "id": "ec60f17f-e271-4923-bb24-ba0f6816ff13"
+    },
+    {
+        "name": "Refund",
+        "category": "gift",
+        "type": "I",
+        "amount": 93.19,
+        "date": "19.11.2025",
+        "id": "cd24e631-002b-4c7f-8641-012744e8cae8"
+    },
+    {
+        "name": "Uber",
+        "category": "education",
+        "type": "E",
+        "amount": 351.14,
+        "date": "19.11.2025",
+        "id": "9ee62135-6902-4c02-a51a-ea4aefd5ea3b"
+    },
+    {
+        "name": "H&M",
+        "category": "entertainment",
+        "type": "E",
+        "amount": 3.08,
+        "date": "20.11.2025",
+        "id": "99d14197-3077-43be-a1ea-b5d76539c3a4"
+    },
+    {
+        "name": "Shell",
+        "category": "shopping",
+        "type": "E",
+        "amount": 16.22,
+        "date": "20.11.2025",
+        "id": "8fe15f4c-e687-49a4-9b25-25c9e0429d20"
+    },
+    {
+        "name": "\u00d6BB",
+        "category": "utilities",
+        "type": "E",
+        "amount": 1.45,
+        "date": "20.11.2025",
+        "id": "9c8b0b4e-a6b2-47ec-a1e3-250eec898478"
+    },
+    {
+        "name": "McDonald's",
+        "category": "electronics",
+        "type": "E",
+        "amount": 43.36,
+        "date": "21.11.2025",
+        "id": "1592b871-055d-41b7-bfc7-47144d25b4d8"
+    },
+    {
+        "name": "Starbucks",
+        "category": "bank_fees",
+        "type": "E",
+        "amount": 57.71,
+        "date": "21.11.2025",
+        "id": "8927ebd5-14bd-466e-98d3-3a6d2aeeee37"
+    },
+    {
+        "name": "Uber",
+        "category": "clothing",
+        "type": "E",
+        "amount": 106.79,
+        "date": "21.11.2025",
+        "id": "6aeb5dd5-13c4-419c-97fe-f6141f9e87e3"
+    },
+    {
+        "name": "Apple iCloud",
+        "category": "rent",
+        "type": "E",
+        "amount": 32.89,
+        "date": "22.11.2025",
+        "id": "b63b8392-5a94-4571-8a28-f885a837182d"
+    },
+    {
+        "name": "B\u00e4ckerei",
+        "category": "electronics",
+        "type": "E",
+        "amount": 224.33,
+        "date": "22.11.2025",
+        "id": "82e31893-bc49-4f10-a41a-43281db647bc"
+    },
+    {
+        "name": "HOFER",
+        "category": "gifts",
+        "type": "E",
+        "amount": 6.86,
+        "date": "22.11.2025",
+        "id": "ca58434c-3116-4c98-a342-6eb0eff4b747"
+    },
+    {
+        "name": "Shell",
+        "category": "subscriptions",
+        "type": "E",
+        "amount": 345.43,
+        "date": "22.11.2025",
+        "id": "b968b835-f08c-4dd1-b736-435eef0a9126"
+    },
+    {
+        "name": "Starbucks",
+        "category": "bank_fees",
+        "type": "E",
+        "amount": 24.84,
+        "date": "22.11.2025",
+        "id": "bb95c897-cda7-4acd-a69a-16ce67ac4dea"
+    },
+    {
+        "name": "Buchhandlung",
+        "category": "health",
+        "type": "E",
+        "amount": 73.98,
+        "date": "23.11.2025",
+        "id": "a0c4f168-30c5-4a9d-8afd-a46d784954b1"
+    },
+    {
+        "name": "HOFER",
+        "category": "subscriptions",
+        "type": "E",
+        "amount": 7.62,
+        "date": "23.11.2025",
+        "id": "4c95c2d3-bdfa-49b5-a4f8-8bed742b46d2"
+    },
+    {
+        "name": "Netflix",
+        "category": "coffee",
+        "type": "E",
+        "amount": 69.27,
+        "date": "23.11.2025",
+        "id": "b4ad8997-ca1f-4700-bdd1-3c72698c2004"
+    },
+    {
+        "name": "Zara",
+        "category": "education",
+        "type": "E",
+        "amount": 1.5,
+        "date": "23.11.2025",
+        "id": "b1accb45-6117-49b6-ad39-1cff17796dda"
+    },
+    {
+        "name": "Buchhandlung",
+        "category": "gifts",
+        "type": "E",
+        "amount": 1.79,
+        "date": "24.11.2025",
+        "id": "0b4b4e79-c1bc-4962-add1-3a0c69899f0d"
+    },
+    {
+        "name": "Google Play",
+        "category": "clothing",
+        "type": "E",
+        "amount": 92.04,
+        "date": "24.11.2025",
+        "id": "8cb0d8dd-7282-4d2e-b270-3dbc6105ca5c"
+    },
+    {
+        "name": "Gym Membership",
+        "category": "rent",
+        "type": "E",
+        "amount": 10.42,
+        "date": "24.11.2025",
+        "id": "c1a1731d-1191-4575-a08e-c8804741ae0b"
+    },
+    {
+        "name": "Interest Credit",
+        "category": "interest",
+        "type": "I",
+        "amount": 1512.37,
+        "date": "24.11.2025",
+        "id": "c5879575-a9fd-4bb4-af0b-202390bbb6be"
+    },
+    {
+        "name": "Burger King",
+        "category": "education",
+        "type": "E",
+        "amount": 224.41,
+        "date": "25.11.2025",
+        "id": "c1439651-6113-46b2-a62e-cc363648c891"
+    },
+    {
+        "name": "Sushi Bar",
+        "category": "rent",
+        "type": "E",
+        "amount": 28.86,
+        "date": "25.11.2025",
+        "id": "406f7540-231d-4939-8394-e7ed649abcd1"
+    },
+    {
+        "name": "Uber",
+        "category": "bank_fees",
+        "type": "E",
+        "amount": 34.19,
+        "date": "25.11.2025",
+        "id": "dd67cbc9-d240-4d10-a5f8-ed065b5a86ed"
+    },
+    {
+        "name": "YouTube Premium",
+        "category": "internet",
+        "type": "E",
+        "amount": 401.64,
+        "date": "25.11.2025",
+        "id": "da39c996-642b-4575-aaa4-6e81b4208c41"
+    },
+    {
+        "name": "H&M",
+        "category": "entertainment",
+        "type": "E",
+        "amount": 371.75,
+        "date": "26.11.2025",
+        "id": "51c4a342-9c62-4080-8e03-ca81b009af78"
+    },
+    {
+        "name": "Adobe",
+        "category": "electronics",
+        "type": "E",
+        "amount": 80.25,
+        "date": "27.11.2025",
+        "id": "869e8859-fafc-4ec3-baa4-9f8253619336"
+    },
+    {
+        "name": "Burger King",
+        "category": "subscriptions",
+        "type": "E",
+        "amount": 2.09,
+        "date": "27.11.2025",
+        "id": "35a84d9a-dc92-47c7-950b-cc173f4e9551"
+    },
+    {
+        "name": "Lieferando",
+        "category": "phone",
+        "type": "E",
+        "amount": 10.36,
+        "date": "27.11.2025",
+        "id": "281c901c-11f7-4d62-91c3-5187a15a560e"
+    },
+    {
+        "name": "YouTube Premium",
+        "category": "rent",
+        "type": "E",
+        "amount": 63.48,
+        "date": "27.11.2025",
+        "id": "c02fb041-cdb2-4896-a1cc-04ab22eafd6f"
+    },
+    {
+        "name": "Burger King",
+        "category": "coffee",
+        "type": "E",
+        "amount": 438.66,
+        "date": "28.11.2025",
+        "id": "56eeb277-1669-4eb0-9cf5-eea1396eec9f"
+    },
+    {
+        "name": "MediaMarkt",
+        "category": "phone",
+        "type": "E",
+        "amount": 6.03,
+        "date": "28.11.2025",
+        "id": "a7ddc893-4b29-4fc4-ba52-a0a8bd93350e"
+    },
+    {
+        "name": "Netflix",
+        "category": "unknown",
+        "type": "E",
+        "amount": 26.13,
+        "date": "28.11.2025",
+        "id": "9459b799-16a0-4499-aaa9-270a1f472a14"
+    },
+    {
+        "name": "Shell",
+        "category": "insurance",
+        "type": "E",
+        "amount": 360.51,
+        "date": "28.11.2025",
+        "id": "71e95afb-a341-4a55-9cf0-bcb2086e580a"
+    },
+    {
+        "name": "Str\u00f6ck",
+        "category": "groceries",
+        "type": "E",
+        "amount": 17.27,
+        "date": "28.11.2025",
+        "id": "4cfaf725-1638-462f-b071-10ca7306fe17"
+    },
+    {
+        "name": "BIPA",
+        "category": "hobbies",
+        "type": "E",
+        "amount": 15.89,
+        "date": "29.11.2025",
+        "id": "789b752e-174f-4068-932a-9f164916af2e"
+    },
+    {
+        "name": "Bonus Payment",
+        "category": "interest",
+        "type": "I",
+        "amount": 163.79,
+        "date": "29.11.2025",
+        "id": "01982a2f-f007-4d07-a802-b22606613e62"
+    },
+    {
+        "name": "Steam",
+        "category": "utilities",
+        "type": "E",
+        "amount": 26.53,
+        "date": "29.11.2025",
+        "id": "30c5b9bb-89f4-419a-ab0e-ea7a71efb1d3"
+    },
+    {
+        "name": "Wiener Linien",
+        "category": "entertainment",
+        "type": "E",
+        "amount": 87.92,
+        "date": "29.11.2025",
+        "id": "e03f70c0-dff9-4159-8afa-bbfab9ba3563"
+    },
+    {
+        "name": "Decathlon",
+        "category": "shopping",
+        "type": "E",
+        "amount": 31.98,
+        "date": "30.11.2025",
+        "id": "c7b17386-01dd-4514-a37c-5d6f32946f82"
+    },
+    {
+        "name": "LIDL",
+        "category": "subscriptions",
+        "type": "E",
+        "amount": 60.13,
+        "date": "30.11.2025",
+        "id": "de79c6a3-dcc1-4b17-bc47-27a8425f9fca"
+    },
+    {
+        "name": "Pizzeria Napoli",
+        "category": "clothing",
+        "type": "E",
+        "amount": 47.01,
+        "date": "01.12.2025",
+        "id": "bd6ff032-2f19-427d-8509-4b596f159a7f"
+    },
+    {
+        "name": "Uniqlo",
+        "category": "household",
+        "type": "E",
+        "amount": 8.68,
+        "date": "01.12.2025",
+        "id": "9d393ad1-152f-4fec-be4a-f663af021a97"
+    },
+    {
+        "name": "IKEA",
+        "category": "travel",
+        "type": "E",
+        "amount": 44.64,
+        "date": "02.12.2025",
+        "id": "6c77614e-b367-49da-ab87-793e4b679701"
+    },
+    {
+        "name": "McDonald's",
+        "category": "unknown",
+        "type": "E",
+        "amount": 108.97,
+        "date": "02.12.2025",
+        "id": "d2559526-cc4e-406a-97b1-435a6193516c"
+    },
+    {
+        "name": "McDonald's",
+        "category": "insurance",
+        "type": "E",
+        "amount": 103.16,
+        "date": "02.12.2025",
+        "id": "a8bf9883-d10b-4282-8b7f-eecf75322ff7"
+    },
+    {
+        "name": "OMV",
+        "category": "internet",
+        "type": "E",
+        "amount": 216.18,
+        "date": "02.12.2025",
+        "id": "216d3ed0-3d05-4b48-97ab-9ddaac8de07a"
+    },
+    {
+        "name": "Steam",
+        "category": "bank_fees",
+        "type": "E",
+        "amount": 51.09,
+        "date": "02.12.2025",
+        "id": "baa0b60d-b762-4294-9ce7-1999e20b2113"
+    },
+    {
+        "name": "\u00d6BB",
+        "category": "travel",
+        "type": "E",
+        "amount": 222.38,
+        "date": "02.12.2025",
+        "id": "a31b444c-e60b-4cdc-9bda-a9a182534291"
+    },
+    {
+        "name": "Decathlon",
+        "category": "fitness",
+        "type": "E",
+        "amount": 135.76,
+        "date": "03.12.2025",
+        "id": "e679f8b3-77b2-4127-a54c-661332e26d56"
+    },
+    {
+        "name": "Starbucks",
+        "category": "unknown",
+        "type": "E",
+        "amount": 2.73,
+        "date": "03.12.2025",
+        "id": "50616ad7-362f-4ae3-aa05-3b5ce9fdbcf9"
+    },
+    {
+        "name": "Starbucks",
+        "category": "education",
+        "type": "E",
+        "amount": 23.31,
+        "date": "03.12.2025",
+        "id": "32cbd514-18d7-4ef3-b591-f13567884f1e"
+    },
+    {
+        "name": "Uniqlo",
+        "category": "health",
+        "type": "E",
+        "amount": 21.75,
+        "date": "03.12.2025",
+        "id": "95213ee7-80ad-4872-97f4-f2871da5750f"
+    },
+    {
+        "name": "Apple iCloud",
+        "category": "bank_fees",
+        "type": "E",
+        "amount": 79.34,
+        "date": "04.12.2025",
+        "id": "5a226129-fa51-46f7-8a5b-92423924de48"
+    },
+    {
+        "name": "HOFER",
+        "category": "bank_fees",
+        "type": "E",
+        "amount": 368.39,
+        "date": "04.12.2025",
+        "id": "9d42a8b5-beff-4788-a1ea-1b56cc4f7fc8"
+    },
+    {
+        "name": "Google Play",
+        "category": "eating_out",
+        "type": "E",
+        "amount": 106.01,
+        "date": "05.12.2025",
+        "id": "e8740ab2-b636-4d59-9ce2-4954c587d66b"
+    },
+    {
+        "name": "Wiener Linien",
+        "category": "household",
+        "type": "E",
+        "amount": 17.25,
+        "date": "05.12.2025",
+        "id": "d5901f0b-41da-4b1c-afc6-610be5ce5661"
+    },
+    {
+        "name": "Amazon",
+        "category": "clothing",
+        "type": "E",
+        "amount": 17.35,
+        "date": "06.12.2025",
+        "id": "f95e17ea-8aa3-47dd-bb0e-1f041c57adf7"
+    },
+    {
+        "name": "Freelance Invoice",
+        "category": "freelance",
+        "type": "I",
+        "amount": 542.92,
+        "date": "06.12.2025",
+        "id": "ff49c495-849d-4f2f-b498-c6bda193e024"
+    },
+    {
+        "name": "Apotheke",
+        "category": "rent",
+        "type": "E",
+        "amount": 41.87,
+        "date": "07.12.2025",
+        "id": "95b8e37e-acee-41a5-aca2-f41abb9ada37"
+    },
+    {
+        "name": "KFC",
+        "category": "utilities",
+        "type": "E",
+        "amount": 72.99,
+        "date": "07.12.2025",
+        "id": "d4dc5a6d-71e5-45a2-814b-d3867325a383"
+    },
+    {
+        "name": "Lieferando",
+        "category": "hobbies",
+        "type": "E",
+        "amount": 34.19,
+        "date": "07.12.2025",
+        "id": "c7a2ec7e-18ed-4a06-9e06-87f5e3af6ce4"
+    },
+    {
+        "name": "YouTube Revenue",
+        "category": "salary",
+        "type": "I",
+        "amount": 64.65,
+        "date": "07.12.2025",
+        "id": "43764fb9-467c-4ef7-922e-34c640f89527"
+    },
+    {
+        "name": "B\u00e4ckerei",
+        "category": "transport",
+        "type": "E",
+        "amount": 4.39,
+        "date": "08.12.2025",
+        "id": "c5799273-5923-4acc-974b-e196b2a9c9a7"
+    },
+    {
+        "name": "DM",
+        "category": "rent",
+        "type": "E",
+        "amount": 388.17,
+        "date": "08.12.2025",
+        "id": "fbd309ad-d274-42e9-922a-a0017dd20208"
+    },
+    {
+        "name": "\u00d6BB",
+        "category": "clothing",
+        "type": "E",
+        "amount": 142.11,
+        "date": "08.12.2025",
+        "id": "1089ecf4-e305-4afa-b011-e8bb677246f3"
+    },
+    {
+        "name": "B\u00e4ckerei",
+        "category": "rent",
+        "type": "E",
+        "amount": 7.4,
+        "date": "09.12.2025",
+        "id": "95108580-e5a0-4548-be4c-d19c8157eb90"
+    },
+    {
+        "name": "Shell",
+        "category": "subscriptions",
+        "type": "E",
+        "amount": 26.26,
+        "date": "09.12.2025",
+        "id": "0b6deed5-d07f-49a6-9412-3a5b4c5efe4d"
+    },
+    {
+        "name": "Str\u00f6ck",
+        "category": "electronics",
+        "type": "E",
+        "amount": 5.55,
+        "date": "09.12.2025",
+        "id": "feedd145-ed0d-4b7d-af1c-09e1ed164ee9"
+    },
+    {
+        "name": "BILLA",
+        "category": "travel",
+        "type": "E",
+        "amount": 1.01,
+        "date": "10.12.2025",
+        "id": "592ff5c0-826b-4f96-a55f-655685f3871e"
+    },
+    {
+        "name": "BILLA",
+        "category": "rent",
+        "type": "E",
+        "amount": 90.02,
+        "date": "10.12.2025",
+        "id": "7c8f4abf-452b-489e-93f2-f9af4bb803fa"
+    },
+    {
+        "name": "KFC",
+        "category": "travel",
+        "type": "E",
+        "amount": 43.42,
+        "date": "10.12.2025",
+        "id": "d8a911ac-a9d1-4417-9b20-1b536f2874f0"
+    },
+    {
+        "name": "\u00d6BB",
+        "category": "insurance",
+        "type": "E",
+        "amount": 45.39,
+        "date": "10.12.2025",
+        "id": "312dc7c2-d9ee-467b-a38f-643a03540ef7"
+    },
+    {
+        "name": "Lieferando",
+        "category": "gifts",
+        "type": "E",
+        "amount": 55.02,
+        "date": "11.12.2025",
+        "id": "31d48286-d7a2-4241-bbf0-63d9b4032b45"
+    },
+    {
+        "name": "Steam",
+        "category": "phone",
+        "type": "E",
+        "amount": 1.12,
+        "date": "11.12.2025",
+        "id": "a587e4f8-1da1-4bb5-9909-238f36a8f661"
+    },
+    {
+        "name": "Uber",
+        "category": "unknown",
+        "type": "E",
+        "amount": 308.31,
+        "date": "11.12.2025",
+        "id": "edf65819-57ef-4f29-ae00-d5ecd7a79e41"
+    },
+    {
+        "name": "YouTube Revenue",
+        "category": "investment",
+        "type": "I",
+        "amount": 181.86,
+        "date": "11.12.2025",
+        "id": "2756fd9e-c16c-4d86-af06-7748d49bd825"
+    },
+    {
+        "name": "Gym Membership",
+        "category": "entertainment",
+        "type": "E",
+        "amount": 160.43,
+        "date": "13.12.2025",
+        "id": "dbdc2371-12b0-42e8-ab1c-433a8fad25f1"
+    },
+    {
+        "name": "IKEA",
+        "category": "transport",
+        "type": "E",
+        "amount": 23.2,
+        "date": "13.12.2025",
+        "id": "212f333a-8711-4d62-a2d3-a516dc251b83"
+    },
+    {
+        "name": "Refund",
+        "category": "refund",
+        "type": "I",
+        "amount": 121.39,
+        "date": "13.12.2025",
+        "id": "88b7b6b7-e5d4-4f3a-a857-f003f5582373"
+    },
+    {
+        "name": "Shell",
+        "category": "clothing",
+        "type": "E",
+        "amount": 90.63,
+        "date": "13.12.2025",
+        "id": "002e3a9e-002b-4891-9c38-e0ab20389d73"
+    },
+    {
+        "name": "\u00d6BB",
+        "category": "education",
+        "type": "E",
+        "amount": 57.44,
+        "date": "13.12.2025",
+        "id": "db52f66b-f555-4202-be37-4e7cf3f5a45e"
+    },
+    {
+        "name": "HOFER",
+        "category": "groceries",
+        "type": "E",
+        "amount": 18.58,
+        "date": "14.12.2025",
+        "id": "da0dfbd0-b1e0-422f-bae3-df44d5f73ff0"
+    },
+    {
+        "name": "HOFER",
+        "category": "rent",
+        "type": "E",
+        "amount": 24.45,
+        "date": "14.12.2025",
+        "id": "33648cce-d66f-40d5-bbed-795dfafd154a"
+    },
+    {
+        "name": "DM",
+        "category": "subscriptions",
+        "type": "E",
+        "amount": 306.03,
+        "date": "15.12.2025",
+        "id": "0d4acdd2-686b-4027-ae03-9612bc5aaa7f"
+    },
+    {
+        "name": "DM",
+        "category": "household",
+        "type": "E",
+        "amount": 61.72,
+        "date": "15.12.2025",
+        "id": "c669ed43-15bc-44c1-a34e-3b81af20a7b7"
+    },
+    {
+        "name": "H&M",
+        "category": "shopping",
+        "type": "E",
+        "amount": 25.81,
+        "date": "15.12.2025",
+        "id": "48365520-99ae-4e86-b86f-a37cbaee264f"
+    },
+    {
+        "name": "Kebabhaus",
+        "category": "bank_fees",
+        "type": "E",
+        "amount": 293.0,
+        "date": "15.12.2025",
+        "id": "57e4646f-253c-4245-9373-f99e7e718599"
+    },
+    {
+        "name": "\u00d6BB",
+        "category": "rent",
+        "type": "E",
+        "amount": 6.16,
+        "date": "15.12.2025",
+        "id": "6eadbac7-d251-410b-adff-e7bf8f42f813"
+    }
+]
