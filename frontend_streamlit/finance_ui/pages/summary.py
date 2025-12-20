@@ -8,6 +8,7 @@ from finance_ui.api import endpoints
 from finance_ui.components import charts
 from finance_ui.state import keys
 from finance_ui.ui.messages import show_api_error
+from finance_ui.utils.filtering import clean_summary_filters
 
 
 def render() -> None:
@@ -19,23 +20,58 @@ def render() -> None:
     st.markdown("## Summary")
 
     ss = st.session_state
-    active_filter: dict[str, Any] = ss.get(keys.SUMMARY_FILTERS, {}) or {}
+    pinned = clean_summary_filters(ss.get(keys.SUMMARY_FILTERS, {}) or {})
+    tx_live = clean_summary_filters(ss.get(keys.TX_FILTERS, {}) or {})
+
+    use_tx = bool(ss.get(keys.SUMMARY_USE_TX_FILTERS, False))
+
+    # If user has no pinned filter but *does* have a TX filter, auto-enable live mode once.
+    # This matches the expected workflow: build filter in Transactions → go Summary → see filtered graphs.
+    if not pinned and tx_live and not use_tx:
+        ss[keys.SUMMARY_USE_TX_FILTERS] = True
+        use_tx = True
+
+    active_filter = tx_live if use_tx else pinned
 
     with st.expander("Filter (applies to all graphs)", expanded=bool(active_filter)):
-        if active_filter:
-            st.write("**Active filter:**", active_filter)
+        mode = "Transactions (live)" if use_tx else ("Pinned snapshot" if pinned else "None")
+        st.write(f"**Mode:** {mode}")
+
+        if use_tx:
+            st.write("**Using Transactions filter:**", tx_live or {})
             c1, c2 = st.columns(2)
             with c1:
-                if st.button("Clear filter", use_container_width=True):
-                    ss[keys.SUMMARY_FILTERS] = {}
+                if st.button("Pin current filter (snapshot)", use_container_width=True):
+                    ss[keys.SUMMARY_FILTERS] = tx_live
+                    ss[keys.SUMMARY_USE_TX_FILTERS] = False
                     st.rerun()
             with c2:
+                if st.button("Disable filter in Summary", use_container_width=True):
+                    ss[keys.SUMMARY_USE_TX_FILTERS] = False
+                    st.rerun()
+
+        else:
+            if pinned:
+                st.write("**Pinned filter:**", pinned)
+                c1, c2 = st.columns(2)
+                with c1:
+                    if st.button("Clear pinned filter", use_container_width=True):
+                        ss[keys.SUMMARY_FILTERS] = {}
+                        st.rerun()
+                with c2:
+                    if st.button("Use Transactions filter instead", use_container_width=True):
+                        ss[keys.SUMMARY_USE_TX_FILTERS] = True
+                        st.rerun()
+            else:
+                st.info("No filter active. Create one in Transactions, then open Summary.")
+                if tx_live:
+                    if st.button("Use current Transactions filter", use_container_width=True):
+                        ss[keys.SUMMARY_USE_TX_FILTERS] = True
+                        st.rerun()
                 if st.button("Edit filter in Transactions", use_container_width=True):
                     ss[keys.ACTIVE_PAGE] = "Transactions"
                     ss[keys.NAV_REQUESTED_PAGE] = "Transactions"
                     st.rerun()
-        else:
-            st.info("No filter active. Create one in Transactions → click 'View Summary with this filter'.")
 
     if st.button("Refresh"):
         st.rerun()

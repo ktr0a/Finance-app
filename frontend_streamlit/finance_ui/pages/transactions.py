@@ -8,6 +8,7 @@ from finance_ui.api import endpoints
 from finance_ui.components import tx_filters, tx_forms, tx_table
 from finance_ui.state import keys
 from finance_ui.ui.messages import show_api_error
+from finance_ui.utils.filtering import clean_summary_filters
 
 
 def _load_transactions(save_id: str, filters: dict[str, Any]) -> dict[str, Any]:
@@ -70,18 +71,16 @@ def render() -> None:
     st.markdown("### Summary")
     ss = st.session_state
 
-    def _clean_for_summary(f: dict[str, Any]) -> dict[str, Any]:
-        # Only keep keys the summary endpoint supports
-        keep = ["q", "type", "category", "date_from", "date_to"]
-        out: dict[str, Any] = {}
-        for k in keep:
-            v = f.get(k)
-            if v is not None:
-                out[k] = v
-        return out
-
     if st.button("View Summary with this filter", use_container_width=True):
-        ss[keys.SUMMARY_FILTERS] = _clean_for_summary(filters)
+        ss[keys.SUMMARY_FILTERS] = {}
+        ss[keys.SUMMARY_USE_TX_FILTERS] = True
+        ss[keys.ACTIVE_PAGE] = "Summary"
+        ss[keys.NAV_REQUESTED_PAGE] = "Summary"
+        st.rerun()
+
+    if st.button("Pin this filter to Summary (snapshot)", use_container_width=True):
+        ss[keys.SUMMARY_FILTERS] = clean_summary_filters(filters)
+        ss[keys.SUMMARY_USE_TX_FILTERS] = False
         ss[keys.ACTIVE_PAGE] = "Summary"
         ss[keys.NAV_REQUESTED_PAGE] = "Summary"
         st.rerun()

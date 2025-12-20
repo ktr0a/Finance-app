@@ -8,6 +8,7 @@ NAV_REQUESTED_PAGE = "nav_requested_page"
 
 TX_FILTERS = "tx_filters"
 SUMMARY_FILTERS = "summary_filters"
+SUMMARY_USE_TX_FILTERS = "summary_use_tx_filters"
 TX_CACHE = "tx_cache"
 
 PDF_PREVIEW = "pdf_preview"
