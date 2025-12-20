@@ -52,60 +52,55 @@ def render(categories: list[str]) -> dict[str, Any]:
     type_options = ["All", "Income", "Expense"]
     desired_type_label = _type_to_label(f.get("type"))
 
-    # Only fix invalid widget value; do NOT force-sync every run (it cancels user selection).
-    if ss.get(keys.TX_TYPE_WIDGET) not in type_options:
-        ss[keys.TX_TYPE_WIDGET] = desired_type_label if desired_type_label in type_options else "All"
-
-    # Use index as a fallback only; actual value comes from widget state.
-    current_type_label = ss.get(keys.TX_TYPE_WIDGET, desired_type_label)
-    if current_type_label not in type_options:
-        current_type_label = desired_type_label if desired_type_label in type_options else "All"
+    # Only fix invalid widget value; DO NOT force-sync every run.
+    current_type = ss.get(keys.TX_TYPE_WIDGET)
+    if current_type not in type_options:
+        current_type = desired_type_label if desired_type_label in type_options else "All"
+        ss[keys.TX_TYPE_WIDGET] = current_type
 
     type_label = st.selectbox(
         "Type",
         type_options,
-        index=type_options.index(current_type_label),
+        index=type_options.index(current_type),
         key=keys.TX_TYPE_WIDGET,
     )
     t = _label_to_type(type_label)
 
-    # Build canonical category options (stable, no duplicates from casing/whitespace)
+    # Build canonical category options
     canon_set = {canon_category(c) for c in categories if c}
     canon_set.add("unknown")
 
-    # Stored category from TX_FILTERS (may be old on rerun)
+    # Stored category from TX_FILTERS (may lag one rerun behind)
     stored_cat = f.get("category")
     stored_cat_canon = canon_category(stored_cat) if stored_cat is not None else None
     if stored_cat_canon:
         canon_set.add(stored_cat_canon)
 
-    # IMPORTANT: include current widget selection so it never "disappears" during reruns
+    # Include current widget selection so it can't "disappear" during reruns
     current_widget_cat = ss.get(keys.TX_CATEGORY_WIDGET)
-    if isinstance(current_widget_cat, str) and current_widget_cat != "All":
+    if isinstance(current_widget_cat, str) and current_widget_cat and current_widget_cat != "All":
         canon_set.add(canon_category(current_widget_cat))
 
     cat_options = ["All"] + sorted(canon_set)
 
-    # Determine preferred default (only used if widget is invalid)
-    desired_cat_label = "All" if stored_cat_canon is None else stored_cat_canon
-    if desired_cat_label not in cat_options:
-        desired_cat_label = "All"
+    # Choose default only for invalid widget cases
+    desired_default = "All" if stored_cat_canon is None else stored_cat_canon
+    if desired_default not in cat_options:
+        desired_default = "All"
 
-    # Only fix invalid widget value; do NOT force-sync every run (it cancels user selection)
-    if ss.get(keys.TX_CATEGORY_WIDGET) not in cat_options:
-        ss[keys.TX_CATEGORY_WIDGET] = desired_cat_label
-
-    current_cat_label = ss.get(keys.TX_CATEGORY_WIDGET, desired_cat_label)
-    if current_cat_label not in cat_options:
-        current_cat_label = desired_cat_label
+    # Only fix invalid widget value; DO NOT force-sync every run.
+    current_cat = ss.get(keys.TX_CATEGORY_WIDGET)
+    if current_cat not in cat_options:
+        current_cat = desired_default
+        ss[keys.TX_CATEGORY_WIDGET] = current_cat
 
     cat_label = st.selectbox(
         "Category",
         cat_options,
-        index=cat_options.index(current_cat_label),
+        index=cat_options.index(current_cat),
         key=keys.TX_CATEGORY_WIDGET,
     )
-    category = None if cat_label == "All" else cat_label  # already canonical
+    category = None if cat_label == "All" else cat_label
 
     # Optional date range: Streamlit date_input cannot be empty, so we gate with a checkbox.
     existing_from = f.get("date_from")
