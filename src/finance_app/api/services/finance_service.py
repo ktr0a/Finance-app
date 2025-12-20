@@ -40,6 +40,18 @@ def _safe_parse_date(value: str | None) -> datetime:
         return datetime.min
 
 
+def _norm_category(raw: object) -> str:
+    s = ""
+    if raw is not None:
+        try:
+            s = str(raw).strip()
+        except Exception:
+            s = ""
+    if not s or s.lower() == "none":
+        return "unknown"
+    return s
+
+
 def _build_engine(save_id: str) -> Engine:
     save_path = resolve_save_path(save_id)
     repo = JsonRepository(save_path=str(save_path))
@@ -205,8 +217,8 @@ class FinanceService:
             items = [t for t in items if t.get("type") == type]
 
         if category:
-            cat_lower = category.lower()
-            items = [t for t in items if str(t.get("category", "")).lower() == cat_lower]
+            cat_lower = str(category).strip().lower()
+            items = [t for t in items if _norm_category(t.get("category")).lower() == cat_lower]
 
         if from_dt or to_dt:
             filtered: list[dict] = []
@@ -300,9 +312,33 @@ class FinanceService:
         idx = _find_tx_index(transactions, tx_id)
         return dict(transactions[idx])
 
-    def summary(self, save_id: str) -> dict:
+    def summary(
+        self,
+        save_id: str,
+        *,
+        q: str | None = None,
+        type: str | None = None,
+        category: str | None = None,
+        date_from: str | None = None,
+        date_to: str | None = None,
+    ) -> dict:
         """Compute summary totals for a save."""
-        _, transactions = _load_transactions(save_id)
+        if any([q, type, category, date_from, date_to]):
+            res = self.list_transactions(
+                save_id,
+                q=q,
+                type=type,
+                category=category,
+                date_from=date_from,
+                date_to=date_to,
+                sort=None,
+                order=None,
+                limit=0,
+                offset=0,
+            )
+            transactions = res.items
+        else:
+            _, transactions = _load_transactions(save_id)
 
         income_total = 0.0
         expense_total = 0.0
@@ -319,15 +355,7 @@ class FinanceService:
                 continue
 
             tx_type = tx.get("type")
-            raw_cat = tx.get("category")
-            category = ""
-            if raw_cat is not None:
-                try:
-                    category = str(raw_cat).strip()
-                except Exception:
-                    category = ""
-            if not category or category.lower() == "none":
-                category = "unknown"
+            category = _norm_category(tx.get("category"))
 
             if tx_type == "I":
                 income_total += amount

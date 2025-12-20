@@ -57,8 +57,9 @@ def delete_transaction(save_id: str, tx_id: str) -> dict:
     return _client.delete(f"/saves/{save_id}/transactions/{tx_id}")
 
 
-def get_summary(save_id: str) -> dict:
-    return _client.get(f"/saves/{save_id}/summary")
+def get_summary(save_id: str, filters: dict[str, Any] | None = None) -> dict:
+    params = {k: v for k, v in (filters or {}).items() if v is not None}
+    return _client.get(f"/saves/{save_id}/summary", params=params)
 
 
 def undo(save_id: str) -> dict:

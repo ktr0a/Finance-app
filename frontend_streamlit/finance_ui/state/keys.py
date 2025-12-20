@@ -7,6 +7,7 @@ ACTIVE_PAGE_WIDGET = "active_page_widget"
 NAV_REQUESTED_PAGE = "nav_requested_page"
 
 TX_FILTERS = "tx_filters"
+SUMMARY_FILTERS = "summary_filters"
 TX_CACHE = "tx_cache"
 
 PDF_PREVIEW = "pdf_preview"

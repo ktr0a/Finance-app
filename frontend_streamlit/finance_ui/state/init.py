@@ -36,6 +36,7 @@ def ensure_defaults() -> None:
             "offset": 0,
         },
     )
+    ss.setdefault(keys.SUMMARY_FILTERS, {})
     ss.setdefault(keys.TX_CACHE, {})
     ss.setdefault(keys.PDF_PREVIEW, None)
     ss.setdefault(keys.LAST_ACTION_MSG, None)

@@ -18,6 +18,25 @@ def render() -> None:
 
     st.markdown("## Summary")
 
+    ss = st.session_state
+    active_filter: dict[str, Any] = ss.get(keys.SUMMARY_FILTERS, {}) or {}
+
+    with st.expander("Filter (applies to all graphs)", expanded=bool(active_filter)):
+        if active_filter:
+            st.write("**Active filter:**", active_filter)
+            c1, c2 = st.columns(2)
+            with c1:
+                if st.button("Clear filter", use_container_width=True):
+                    ss[keys.SUMMARY_FILTERS] = {}
+                    st.rerun()
+            with c2:
+                if st.button("Edit filter in Transactions", use_container_width=True):
+                    ss[keys.ACTIVE_PAGE] = "Transactions"
+                    ss[keys.NAV_REQUESTED_PAGE] = "Transactions"
+                    st.rerun()
+        else:
+            st.info("No filter active. Create one in Transactions → click 'View Summary with this filter'.")
+
     if st.button("Refresh"):
         st.rerun()
 
@@ -25,12 +44,19 @@ def render() -> None:
     try:
         with st.spinner("Loading summary..."):
             info = endpoints.get_save(save_id)
-            summary = endpoints.get_summary(save_id)
+            summary = endpoints.get_summary(save_id, filters=active_filter)
     except Exception as e:
         show_api_error(e)
         return
 
     tx_count = info.get("tx_count")
+    if active_filter:
+        try:
+            count_page = endpoints.list_transactions(save_id, {**active_filter, "limit": 1, "offset": 0})
+            if isinstance(count_page, dict) and "total" in count_page:
+                tx_count = count_page.get("total")
+        except Exception:
+            pass
     income_total = float(summary.get("income_total", 0.0))
     expense_total = float(summary.get("expense_total", 0.0))
     net_total = float(summary.get("net_total", 0.0))
@@ -88,8 +114,11 @@ def render() -> None:
     # Top merchants requires transactions list (derived plot)
     try:
         with st.spinner("Loading merchants..."):
-            page = endpoints.list_transactions(save_id, {"limit": 10000, "offset": 0})
+            page = endpoints.list_transactions(save_id, {**active_filter, "limit": 0, "offset": 0})
         items = page.get("items", []) if isinstance(page, dict) else []
+        total = page.get("total", len(items)) if isinstance(page, dict) else len(items)
+        if total and len(items) < int(total):
+            st.warning("Top merchants uses a partial transaction list (limit). Consider increasing limit.")
     except Exception as e:
         show_api_error(e)
         return

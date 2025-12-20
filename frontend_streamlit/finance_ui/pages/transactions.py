@@ -59,10 +59,32 @@ def render() -> None:
     offset = first.get("offset", 0) if isinstance(first, dict) else 0
 
     # Derive categories from current list (spec)
-    categories = sorted({str(x.get("category") or "").strip() for x in items if x.get("category") is not None})
+    categories_set = {str(x.get("category") or "").strip() for x in items if x.get("category") is not None}
+    categories_set.add("unknown")
+    categories = sorted({c for c in categories_set if c})
 
     # Filters
     filters = tx_filters.render(categories=categories)
+
+    st.divider()
+    st.markdown("### Summary")
+    ss = st.session_state
+
+    def _clean_for_summary(f: dict[str, Any]) -> dict[str, Any]:
+        # Only keep keys the summary endpoint supports
+        keep = ["q", "type", "category", "date_from", "date_to"]
+        out: dict[str, Any] = {}
+        for k in keep:
+            v = f.get(k)
+            if v is not None:
+                out[k] = v
+        return out
+
+    if st.button("View Summary with this filter", use_container_width=True):
+        ss[keys.SUMMARY_FILTERS] = _clean_for_summary(filters)
+        ss[keys.ACTIVE_PAGE] = "Summary"
+        ss[keys.NAV_REQUESTED_PAGE] = "Summary"
+        st.rerun()
 
     # Reload if filters changed (tx_cache logic handles this)
     try:
