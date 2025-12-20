@@ -55,7 +55,7 @@ class JsonRepository(Repository):
 
     def _load_like_core(self):
         if self.main_data_file.exists() is False:
-            return None, None  # no save yet
+            return False, []  # no save yet (distinguish from corrupted file)
 
         try:
             with self.main_data_file.open("r", encoding="utf-8") as f:
@@ -281,7 +281,7 @@ class JsonHistory(History):
             return False, None
 
         status, newsave = self.repo._load_like_core()
-        if status is not True:
+        if status is None:
             return False, None
         return True, newsave
 
@@ -329,6 +329,6 @@ class JsonHistory(History):
             return False, None
 
         status, newsave = self.repo._load_like_core()
-        if status is not True:
+        if status is None:
             return False, None
         return True, newsave
