@@ -65,6 +65,21 @@ class HistoryOut(BaseModel):
     redo_depth: Optional[int] = None
 
 
+class BackupInfo(BaseModel):
+    filename: str
+    path: str
+    created_at: Optional[str] = None
+
+
+class RestoreBackupIn(BaseModel):
+    path: str
+
+
+class RestoreResult(BaseModel):
+    ok: bool
+    message: str
+
+
 class PdfPreviewItem(BaseModel):
     preview_id: str
     candidate: TransactionBase

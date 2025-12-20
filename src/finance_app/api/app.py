@@ -5,7 +5,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
 from finance_app.api.errors import InvalidRequestError, SaveNotFoundError, TransactionNotFoundError
-from finance_app.api.routers import health, history, import_pdf, saves, summary, transactions
+from finance_app.api.routers import backups, health, history, import_pdf, saves, summary, transactions
 from finance_app.api.settings import CORS_ORIGINS, ENABLE_CORS
 
 app = FastAPI(title="Finance App API", version="0.1.0")
@@ -48,3 +48,4 @@ app.include_router(transactions.router)
 app.include_router(summary.router)
 app.include_router(history.router)
 app.include_router(import_pdf.router)
+app.include_router(backups.router)

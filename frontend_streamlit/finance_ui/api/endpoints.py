@@ -28,6 +28,18 @@ def delete_save(save_id: str) -> dict:
     return _client.delete(f"/saves/{save_id}")
 
 
+def list_backups(save_id: str) -> list[dict]:
+    return _client.get(f"/saves/{save_id}/backups")
+
+
+def restore_latest_backup(save_id: str) -> dict:
+    return _client.post(f"/saves/{save_id}/backups/restore-latest")
+
+
+def restore_backup_file(save_id: str, path: str) -> dict:
+    return _client.post(f"/saves/{save_id}/backups/restore", json={"path": path})
+
+
 def list_transactions(save_id: str, filters: dict[str, Any]) -> dict:
     params = {k: v for k, v in filters.items() if v is not None}
     return _client.get(f"/saves/{save_id}/transactions", params=params)

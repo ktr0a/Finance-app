@@ -11,7 +11,7 @@ from finance_app.api.errors import InvalidRequestError, TransactionNotFoundError
 from finance_app.api.services.save_registry import resolve_save_path
 from finance_app.api.services.tx_id import ensure_ids
 from finance_app.core.schema import DATE_FORMAT
-from finance_app.config.storage import BACKUP_FILE_PREFIX, REDO_DIR_NAME, UNDO_DIR_NAME
+from finance_app.config.storage import BACKUP_DIR_NAME, BACKUP_FILE_PREFIX, REDO_DIR_NAME, UNDO_DIR_NAME
 from finance_app.core.engine import Engine
 from finance_app.infra.storage_json import JsonHistory, JsonRepository
 from finance_app.infra.pdf.api import list_parsers, parse_pdf
@@ -110,6 +110,27 @@ def _ensure_parseable_date(value: str | None) -> datetime | None:
         return _parse_date(value)
     except ValueError as exc:
         raise InvalidRequestError("Invalid date format") from exc
+
+
+def _parse_backup_created_at(name: str) -> str | None:
+    stem = Path(name).stem
+    if not stem.startswith(BACKUP_FILE_PREFIX):
+        return None
+    suffix = stem[len(BACKUP_FILE_PREFIX):]
+    for fmt in ("%Y%m%d_%H%M%S_%f", "%Y%m%d_%H%M%S"):
+        try:
+            return datetime.strptime(suffix, fmt).isoformat()
+        except ValueError:
+            continue
+    return None
+
+
+def _backup_restore_result(res: bool | None, *, success_message: str) -> dict:
+    if res is True:
+        return {"ok": True, "message": success_message}
+    if res is False:
+        return {"ok": False, "message": "Backup restore failed."}
+    return {"ok": False, "message": "No backups found."}
 
 
 def _validate_transactions_query(
@@ -399,6 +420,52 @@ class FinanceService:
             "undo_depth": undo_count,
             "redo_depth": redo_count,
         }
+
+    def list_backups(self, save_id: str) -> list[dict]:
+        save_path = resolve_save_path(save_id)
+        repo = JsonRepository(save_path=str(save_path))
+        hist = JsonHistory(repo)
+        _ = Engine(repo, hist)
+
+        backups = repo.list_backups()
+        out: list[dict] = []
+        for p in backups:
+            out.append(
+                {
+                    "filename": p.name,
+                    "path": str(p),
+                    "created_at": _parse_backup_created_at(p.name),
+                }
+            )
+        return out
+
+    def restore_latest_backup(self, save_id: str) -> dict:
+        save_path = resolve_save_path(save_id)
+        repo = JsonRepository(save_path=str(save_path))
+        hist = JsonHistory(repo)
+        engine = Engine(repo, hist)
+
+        res = engine.restore_latest_backup()
+        return _backup_restore_result(res, success_message="Backup restored (latest).")
+
+    def restore_backup_file(self, save_id: str, path: str) -> dict:
+        save_path = resolve_save_path(save_id)
+        repo = JsonRepository(save_path=str(save_path))
+        hist = JsonHistory(repo)
+        engine = Engine(repo, hist)
+
+        backup_dir = save_path.parent / BACKUP_DIR_NAME
+        try:
+            target = Path(path).resolve()
+            backup_root = backup_dir.resolve()
+        except Exception:
+            return {"ok": False, "message": "Invalid backup path."}
+
+        if backup_root not in target.parents:
+            return {"ok": False, "message": "Invalid backup path."}
+
+        res = engine.restore_backup_file(Path(path))
+        return _backup_restore_result(res, success_message="Backup restored.")
 
     def pdf_preview(self, file_bytes: bytes, *, parser: str = "auto", year: str | None = None) -> dict:
         """Parse a PDF into preview candidates without persisting."""
