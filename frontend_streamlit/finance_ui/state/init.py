@@ -20,6 +20,7 @@ def ensure_defaults() -> None:
     ss.setdefault(keys.SELECTED_SAVE_ID, None)
     ss.setdefault(keys.ACTIVE_PAGE, "Summary")
     ss.setdefault(keys.ACTIVE_PAGE_WIDGET, ss.get(keys.ACTIVE_PAGE, "Summary"))
+    ss.setdefault(keys.NAV_REQUESTED_PAGE, None)
 
     ss.setdefault(
         keys.TX_FILTERS,

@@ -411,6 +411,7 @@ def _step4_result() -> None:
 
     if st.button("Go to Transactions", width="stretch"):
         ss[keys.ACTIVE_PAGE] = "Transactions"
+        ss[keys.NAV_REQUESTED_PAGE] = "Transactions"
         ss[keys.IMPORT_STEP] = 1
         st.rerun()
 

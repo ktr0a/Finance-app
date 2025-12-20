@@ -74,31 +74,31 @@ def render() -> None:
 
         current = ss.get(keys.ACTIVE_PAGE, "Summary")
 
-        # What the radio should show:
-        # - If we're on a main page, show that page.
-        # - If we're on an advanced page (Settings/Advanced), keep whatever the radio last showed.
-        shown = current if current in PAGES else ss.get(keys.ACTIVE_PAGE_WIDGET, PAGES[0])
-        if shown not in PAGES:
-            shown = PAGES[0]
+        # Apply programmatic navigation request (safe: before widget instantiation)
+        req = ss.get(keys.NAV_REQUESTED_PAGE)
+        if req in PAGES:
+            ss[keys.ACTIVE_PAGE_WIDGET] = req
+            ss[keys.ACTIVE_PAGE] = req
+            ss[keys.NAV_REQUESTED_PAGE] = None
 
-        # Align widget key BEFORE instantiation
-        if ss.get(keys.ACTIVE_PAGE_WIDGET) != shown:
-            ss[keys.ACTIVE_PAGE_WIDGET] = shown
+        # Determine what the radio should show WITHOUT clobbering user clicks
+        default = ss.get(keys.ACTIVE_PAGE_WIDGET)
+        if default not in PAGES:
+            default = current if current in PAGES else PAGES[0]
+            ss[keys.ACTIVE_PAGE_WIDGET] = default  # safe: still before radio instantiation
 
-        prev_widget_value = ss.get(keys.ACTIVE_PAGE_WIDGET, shown)
+        def _on_nav_change() -> None:
+            picked = st.session_state.get(keys.ACTIVE_PAGE_WIDGET)
+            if picked in PAGES:
+                st.session_state[keys.ACTIVE_PAGE] = picked
 
-        picked = st.radio(
+        st.radio(
             "Go to",
             PAGES,
-            index=PAGES.index(shown),
+            index=PAGES.index(default),
             key=keys.ACTIVE_PAGE_WIDGET,
+            on_change=_on_nav_change,
         )
-
-        # Only change ACTIVE_PAGE when:
-        # - user changed the radio (picked != previous shown), OR
-        # - we're already on a main page (keep them in sync)
-        if picked != prev_widget_value or current in PAGES:
-            ss[keys.ACTIVE_PAGE] = picked
 
         st.divider()
 
