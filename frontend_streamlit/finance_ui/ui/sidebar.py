@@ -7,7 +7,7 @@ from finance_ui.state import actions, keys
 from finance_ui.ui.messages import show_api_error
 
 
-PAGES = ["Transactions", "Summary", "Import", "Advanced", "Settings"]
+PAGES = ["Summary", "Transactions", "Import"]
 
 
 @st.cache_data(ttl=5)
@@ -44,75 +44,112 @@ def render() -> None:
             actions.deselect_save()
             st.rerun()
 
-        st.markdown("### Danger zone")
-        confirm_del = st.checkbox("I understand this deletes the save", value=False)
-        if st.button("Delete save", type="primary", disabled=not confirm_del):
-            try:
-                endpoints.delete_save(save_id)
-                actions.deselect_save()
-                st.rerun()
-            except Exception as e:
-                show_api_error(e)
-
-        st.divider()
-
         st.markdown("### Quick Actions")
-        if st.button("Undo"):
-            try:
-                endpoints.undo(save_id)
-                st.session_state[keys.LAST_ACTION_MSG] = "Undone ✓"
-                st.session_state[keys.TX_CACHE] = {}
-                st.rerun()
-            except Exception:
-                st.warning("Undo not available.")
+        c1, c2 = st.columns(2)
 
-        if st.button("Redo"):
-            try:
-                endpoints.redo(save_id)
-                st.session_state[keys.LAST_ACTION_MSG] = "Redone ✓"
-                st.session_state[keys.TX_CACHE] = {}
-                st.rerun()
-            except Exception:
-                st.warning("Redo not available.")
+        with c1:
+            if st.button("Undo", use_container_width=True):
+                try:
+                    endpoints.undo(save_id)
+                    st.session_state[keys.LAST_ACTION_MSG] = "Undone ✓"
+                    st.session_state[keys.TX_CACHE] = {}
+                    st.rerun()
+                except Exception:
+                    st.warning("Undo not available.")
+
+        with c2:
+            if st.button("Redo", use_container_width=True):
+                try:
+                    endpoints.redo(save_id)
+                    st.session_state[keys.LAST_ACTION_MSG] = "Redone ✓"
+                    st.session_state[keys.TX_CACHE] = {}
+                    st.rerun()
+                except Exception:
+                    st.warning("Redo not available.")
 
         st.divider()
 
         st.markdown("### Navigation")
         ss = st.session_state
 
-        # App-level source of truth (safe to set from anywhere)
-        desired = ss.get(keys.ACTIVE_PAGE, "Summary")
-        if desired not in PAGES:
-            desired = PAGES[0]
+        current = ss.get(keys.ACTIVE_PAGE, "Summary")
 
-        # Ensure the radio widget is aligned BEFORE it is instantiated
-        if ss.get(keys.ACTIVE_PAGE_WIDGET) != desired:
-            ss[keys.ACTIVE_PAGE_WIDGET] = desired
+        # What the radio should show:
+        # - If we're on a main page, show that page.
+        # - If we're on an advanced page (Settings/Advanced), keep whatever the radio last showed.
+        shown = current if current in PAGES else ss.get(keys.ACTIVE_PAGE_WIDGET, PAGES[0])
+        if shown not in PAGES:
+            shown = PAGES[0]
 
-        st.radio(
+        # Align widget key BEFORE instantiation
+        if ss.get(keys.ACTIVE_PAGE_WIDGET) != shown:
+            ss[keys.ACTIVE_PAGE_WIDGET] = shown
+
+        prev_widget_value = ss.get(keys.ACTIVE_PAGE_WIDGET, shown)
+
+        picked = st.radio(
             "Go to",
             PAGES,
-            index=PAGES.index(desired),
-            key=keys.ACTIVE_PAGE_WIDGET,  # stable widget key (prevents double-click/state drift)
+            index=PAGES.index(shown),
+            key=keys.ACTIVE_PAGE_WIDGET,
         )
 
-        # After widget renders, mirror selection back to app state
-        picked = ss.get(keys.ACTIVE_PAGE_WIDGET, desired)
-        if picked in PAGES:
+        # Only change ACTIVE_PAGE when:
+        # - user changed the radio (picked != previous shown), OR
+        # - we're already on a main page (keep them in sync)
+        if picked != prev_widget_value or current in PAGES:
             ss[keys.ACTIVE_PAGE] = picked
 
         st.divider()
 
-        st.markdown("### Health")
-        base_url = st.session_state.get(keys.API_BASE_URL, "")
-        try:
-            ok = _cached_health(base_url)
-            st.success("API OK") if ok else st.error("API DOWN")
-        except Exception:
-            st.error("API DOWN")
+        with st.expander("Advanced", expanded=False):
+            ss = st.session_state
 
-        st.divider()
-        st.markdown("### Tools")
-        base_url = st.session_state.get(keys.API_BASE_URL, "").rstrip("/")
-        if base_url:
-            st.link_button("Open API docs", f"{base_url}/docs", width="stretch")
+            st.markdown("#### Pages")
+            p1, p2 = st.columns(2)
+            with p1:
+                if st.button("Settings", use_container_width=True):
+                    ss[keys.ACTIVE_PAGE] = "Settings"
+                    st.rerun()
+            with p2:
+                if st.button("Advanced", use_container_width=True):
+                    ss[keys.ACTIVE_PAGE] = "Advanced"
+                    st.rerun()
+
+            st.divider()
+
+            st.markdown("#### Health")
+            base_url = ss.get(keys.API_BASE_URL, "")
+            try:
+                ok = _cached_health(base_url)
+                st.success("API OK") if ok else st.error("API DOWN")
+            except Exception:
+                st.error("API DOWN")
+
+            st.divider()
+
+            st.markdown("#### Tools")
+            base_url = ss.get(keys.API_BASE_URL, "").rstrip("/")
+            if base_url:
+                st.link_button("Open API docs", f"{base_url}/docs", width="stretch")
+
+            st.divider()
+
+            st.markdown("#### Danger zone")
+            confirm_del = st.checkbox(
+                "I understand this deletes the save",
+                value=False,
+                key="danger_confirm_delete",
+            )
+            if st.button(
+                "Delete save",
+                type="primary",
+                disabled=not confirm_del,
+                use_container_width=True,
+            ):
+                try:
+                    endpoints.delete_save(save_id)
+                    actions.deselect_save()
+                    st.rerun()
+                except Exception as e:
+                    show_api_error(e)
