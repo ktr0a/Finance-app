@@ -4,6 +4,7 @@ import streamlit as st
 
 from finance_ui.api import endpoints
 from finance_ui.state import actions, keys
+from finance_ui.ui.messages import show_api_error
 
 
 PAGES = ["Transactions", "Summary", "Import", "Advanced", "Settings"]
@@ -20,11 +21,38 @@ def render() -> None:
 
     with st.sidebar:
         st.markdown("### Current Save")
-        st.write(save_id)
+        meta = None
+        try:
+            meta = endpoints.get_save(save_id) if save_id else None
+        except Exception:
+            meta = None
+
+        if meta and isinstance(meta, dict):
+            sid = meta.get("save_id") or save_id
+            name = meta.get("filename") or meta.get("name")
+            txc = meta.get("tx_count")
+
+            st.write(f"**ID:** {sid}")
+            if name:
+                st.write(f"**Name:** {name}")
+            if txc is not None:
+                st.write(f"**Tx count:** {txc}")
+        else:
+            st.write(save_id)
 
         if st.button("Change save"):
             actions.deselect_save()
             st.rerun()
+
+        st.markdown("### Danger zone")
+        confirm_del = st.checkbox("I understand this deletes the save", value=False)
+        if st.button("Delete save", type="primary", disabled=not confirm_del):
+            try:
+                endpoints.delete_save(save_id)
+                actions.deselect_save()
+                st.rerun()
+            except Exception as e:
+                show_api_error(e)
 
         st.divider()
 
@@ -50,7 +78,7 @@ def render() -> None:
         st.divider()
 
         st.markdown("### Navigation")
-        current = st.session_state.get(keys.ACTIVE_PAGE, "Transactions")
+        current = st.session_state.get(keys.ACTIVE_PAGE, "Summary")
         st.radio(
             "Go to",
             PAGES,
@@ -67,3 +95,9 @@ def render() -> None:
             st.success("API OK") if ok else st.error("API DOWN")
         except Exception:
             st.error("API DOWN")
+
+        st.divider()
+        st.markdown("### Tools")
+        base_url = st.session_state.get(keys.API_BASE_URL, "").rstrip("/")
+        if base_url:
+            st.link_button("Open API docs", f"{base_url}/docs", width="stretch")

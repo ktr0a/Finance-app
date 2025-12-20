@@ -17,7 +17,7 @@ def main() -> None:
 
     sidebar.render()
 
-    page = st.session_state.get(keys.ACTIVE_PAGE, "Transactions")
+    page = st.session_state.get(keys.ACTIVE_PAGE, "Summary")
     if page == "Transactions":
         transactions.render()
     elif page == "Summary":
@@ -29,7 +29,7 @@ def main() -> None:
     elif page == "Settings":
         settings.render()
     else:
-        transactions.render()
+        summary.render()
 
 
 if __name__ == "__main__":

@@ -18,7 +18,7 @@ def ensure_defaults() -> None:
 
     ss.setdefault(keys.API_BASE_URL, "http://127.0.0.1:8000")
     ss.setdefault(keys.SELECTED_SAVE_ID, None)
-    ss.setdefault(keys.ACTIVE_PAGE, "Transactions")
+    ss.setdefault(keys.ACTIVE_PAGE, "Summary")
 
     ss.setdefault(
         keys.TX_FILTERS,
