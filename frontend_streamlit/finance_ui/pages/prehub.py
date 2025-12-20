@@ -26,7 +26,7 @@ def render() -> None:
         else:
             options = {f"{s.get('filename', s.get('save_id'))} ({s.get('save_id')})": s.get("save_id") for s in saves}
             label = st.selectbox("Select save", list(options.keys()), key="prehub_save_select")
-            if st.button("Load", use_container_width=True):
+            if st.button("Load", width="stretch"):
                 save_id = options[label]
                 if save_id:
                     actions.select_save(save_id)
@@ -41,7 +41,7 @@ def render() -> None:
             help="Allowed: A–Z a–z 0–9 _ -",
         )
 
-        if st.button("Create empty save", use_container_width=True):
+        if st.button("Create empty save", width="stretch"):
             if not is_valid_save_id(name):
                 st.error("Save ID must match: A–Z a–z 0–9 _ -")
             else:

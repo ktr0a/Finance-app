@@ -28,10 +28,35 @@ def render() -> None:
 
         st.divider()
 
+        st.markdown("### Quick Actions")
+        if st.button("Undo"):
+            try:
+                endpoints.undo(save_id)
+                st.session_state[keys.LAST_ACTION_MSG] = "Undone ✓"
+                st.session_state[keys.TX_CACHE] = {}
+                st.rerun()
+            except Exception:
+                st.warning("Undo not available.")
+
+        if st.button("Redo"):
+            try:
+                endpoints.redo(save_id)
+                st.session_state[keys.LAST_ACTION_MSG] = "Redone ✓"
+                st.session_state[keys.TX_CACHE] = {}
+                st.rerun()
+            except Exception:
+                st.warning("Redo not available.")
+
+        st.divider()
+
         st.markdown("### Navigation")
         current = st.session_state.get(keys.ACTIVE_PAGE, "Transactions")
-        choice = st.radio("Go to", PAGES, index=PAGES.index(current) if current in PAGES else 0)
-        st.session_state[keys.ACTIVE_PAGE] = choice
+        st.radio(
+            "Go to",
+            PAGES,
+            index=PAGES.index(current) if current in PAGES else 0,
+            key=keys.ACTIVE_PAGE,  # stable widget key prevents “double click” / state drift
+        )
 
         st.divider()
 

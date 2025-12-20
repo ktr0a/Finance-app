@@ -1,0 +1,109 @@
+﻿from __future__ import annotations
+
+from datetime import date
+from typing import Any
+
+import streamlit as st
+
+from finance_ui.state import keys
+from finance_ui.utils.dates import from_api_date, to_api_date
+
+
+def _normalize_none(s: str | None) -> str | None:
+    if s is None:
+        return None
+    s = s.strip()
+    return s or None
+
+
+def render(categories: list[str]) -> dict[str, Any]:
+    """
+    Renders filter UI and updates st.session_state[keys.TX_FILTERS].
+
+    Rule: changing any filter (except offset itself) resets offset=0.
+    """
+    ss = st.session_state
+    f = dict(ss.get(keys.TX_FILTERS, {}))
+
+    prev = f.copy()
+
+    st.markdown("#### Filters")
+
+    q = st.text_input("Search", value=f.get("q") or "")
+    q = _normalize_none(q)
+
+    type_label = st.selectbox("Type", ["All", "Income", "Expense"], index=0)
+    t: str | None = None
+    if type_label == "Income":
+        t = "I"
+    elif type_label == "Expense":
+        t = "E"
+
+    cat_options = ["All"] + sorted([c for c in categories if c])
+    cat_label = st.selectbox("Category", cat_options, index=0)
+    category = None if cat_label == "All" else cat_label
+
+    # Optional date range: Streamlit date_input cannot be empty, so we gate with a checkbox.
+    existing_from = f.get("date_from")
+    existing_to = f.get("date_to")
+    use_date = st.checkbox(
+        "Enable date range",
+        value=bool(existing_from or existing_to),
+        key="tx_use_date_range",
+    )
+
+    # Defaults: if existing values are present, parse them; otherwise today.
+    from_default = date.today()
+    to_default = date.today()
+    if isinstance(existing_from, str):
+        try:
+            from_default = from_api_date(existing_from)
+        except Exception:
+            pass
+    if isinstance(existing_to, str):
+        try:
+            to_default = from_api_date(existing_to)
+        except Exception:
+            pass
+
+    c1, c2 = st.columns(2)
+    d0 = c1.date_input("From", value=from_default, key="tx_date_from_input")
+    d1 = c2.date_input("To", value=to_default, key="tx_date_to_input")
+
+    date_from: str | None = None
+    date_to: str | None = None
+    if use_date:
+        date_from = to_api_date(d0)
+        date_to = to_api_date(d1)
+
+    sort_label = st.selectbox("Sort", ["(none)", "date", "amount", "name", "category"], index=0)
+    sort = None if sort_label == "(none)" else sort_label
+
+    order_label = st.selectbox("Order", ["(none)", "asc", "desc"], index=0)
+    order = None if order_label == "(none)" else order_label
+
+    limit = st.selectbox("Limit", [50, 100, 200, 500], index=[50, 100, 200, 500].index(int(f.get("limit") or 200)))
+    offset = st.number_input("Offset", min_value=0, step=1, value=int(f.get("offset") or 0))
+
+    f.update(
+        {
+            "q": q,
+            "type": t,
+            "category": category,
+            "date_from": date_from,
+            "date_to": date_to,
+            "sort": sort,
+            "order": order,
+            "limit": int(limit),
+            "offset": int(offset),
+        }
+    )
+
+    # Reset offset when any non-offset filter changes
+    non_offset_keys = ["q", "type", "category", "date_from", "date_to", "sort", "order", "limit"]
+    changed_non_offset = any(prev.get(k) != f.get(k) for k in non_offset_keys)
+    if changed_non_offset and prev.get("offset") == f.get("offset"):
+        f["offset"] = 0
+
+    ss[keys.TX_FILTERS] = f
+    return f
