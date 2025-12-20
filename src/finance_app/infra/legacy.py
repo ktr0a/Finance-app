@@ -32,6 +32,12 @@ class LegacyRepository:
     def _cr_backup_lst_like_core(self, lst, mode=None, delbackup=True):
         return cr_backup_lst(lst, mode=mode, delbackup=delbackup)
 
+    def create_backup(self, lst, mode=None, delbackup=True):
+        return self._cr_backup_lst_like_core(lst, mode=mode, delbackup=delbackup)
+
+    def session_backup(self):
+        return self._cr_backup_json_like_core()
+
     def list_backups(self):
         return list_backups()
 

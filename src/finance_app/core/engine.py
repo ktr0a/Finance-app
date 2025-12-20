@@ -244,8 +244,8 @@ class Engine:
 
     def create_backup(self, state) -> Result:
         try:
-            if hasattr(self.repo, "_cr_backup_lst_like_core"):
-                status = self.repo._cr_backup_lst_like_core(state)  # type: ignore[attr-defined]
+            if hasattr(self.repo, "create_backup"):
+                status = self.repo.create_backup(state)  # type: ignore[attr-defined]
                 return Result(ok=True, data=status)
             raise NotImplementedError("Backup not supported by repository")
         except Exception as exc:
@@ -255,9 +255,6 @@ class Engine:
         try:
             if hasattr(self.repo, "list_backups"):
                 backups = self.repo.list_backups()  # type: ignore[attr-defined]
-                return Result(ok=True, data=backups)
-            if hasattr(self.repo, "_sort_backups_like_core"):
-                backups = self.repo._sort_backups_like_core(ascending=False)  # type: ignore[attr-defined]
                 return Result(ok=True, data=backups)
             raise NotImplementedError("Backup listing not supported by repository")
         except Exception as exc:
@@ -292,8 +289,8 @@ class Engine:
 
     def push_undo_snapshot(self, state) -> Result:
         try:
-            if hasattr(self.repo, "_cr_backup_lst_like_core"):
-                status = self.repo._cr_backup_lst_like_core(  # type: ignore[attr-defined]
+            if hasattr(self.repo, "create_backup"):
+                status = self.repo.create_backup(  # type: ignore[attr-defined]
                     state, mode="undo", delbackup=False
                 )
                 return Result(ok=True, data=status)
@@ -321,8 +318,8 @@ class Engine:
 
     def session_backup(self, state) -> Result:
         try:
-            if hasattr(self.repo, "_cr_backup_json_like_core"):
-                self.repo._cr_backup_json_like_core()  # type: ignore[attr-defined]
+            if hasattr(self.repo, "session_backup"):
+                self.repo.session_backup()  # type: ignore[attr-defined]
             else:
                 raise NotImplementedError("Session backup not supported by repository")
 

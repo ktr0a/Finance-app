@@ -113,6 +113,12 @@ class JsonRepository(Repository):
             return None
         return True
 
+    def create_backup(self, lst, mode=None, delbackup=True):
+        return self._cr_backup_lst_like_core(lst, mode=mode, delbackup=delbackup)
+
+    def session_backup(self):
+        return self._cr_backup_json_like_core()
+
     def _del_backup_like_core(self):
         backups = self._sort_backups_like_core(ascending=True)  # oldest -> newest
 
