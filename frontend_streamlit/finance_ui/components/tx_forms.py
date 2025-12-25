@@ -30,7 +30,7 @@ def render_add(save_id: str) -> None:
         name = st.text_input("Name", value="")
         category = st.text_input("Category", value="unknown")
         tlabel = st.selectbox("Type", ["Income", "Expense"], index=0)
-        amount = st.number_input("Amount", value=0.0, step=0.01)
+        amount = st.number_input("Amount", value=0.0, step=0.01, format="%.2f")
         d = st.date_input("Date", value=date.today())
 
         submitted = st.form_submit_button("Add")
@@ -70,7 +70,7 @@ def render_edit(save_id: str, selected_tx: dict[str, Any] | None) -> None:
         name = st.text_input("Name", value=str(selected_tx.get("name") or ""))
         category = st.text_input("Category", value=str(selected_tx.get("category") or "unknown"))
         tlabel = st.selectbox("Type", ["Income", "Expense"], index=0 if selected_tx.get("type") == "I" else 1)
-        amount = st.number_input("Amount", value=float(selected_tx.get("amount") or 0.0), step=0.01)
+        amount = st.number_input("Amount", value=float(selected_tx.get("amount") or 0.0), step=0.01, format="%.2f")
         d = st.date_input("Date", value=default_date)
 
         submitted = st.form_submit_button("Update")
@@ -112,6 +112,7 @@ def render_delete(save_id: str, selected_tx: dict[str, Any] | None) -> None:
             with st.spinner("Deleting..."):
                 endpoints.delete_transaction(save_id, tx_id)
             _set_saved_msg()
+            st.session_state[keys.SELECTED_TX_ID] = None
             st.rerun()
         except Exception as e:
             show_api_error(e)

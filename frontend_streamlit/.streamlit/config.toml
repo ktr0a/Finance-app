@@ -1,8 +1,0 @@
-﻿[server]
-headless = true
-
-[ui]
-hideTopBar = false
-
-[theme]
-base="dark"

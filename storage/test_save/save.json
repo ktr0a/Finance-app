@@ -3998,5 +3998,13 @@
         "amount": 6.16,
         "date": "15.12.2025",
         "id": "6eadbac7-d251-410b-adff-e7bf8f42f813"
+    },
+    {
+        "name": "Test Lunch",
+        "category": "unknownfood",
+        "type": "E",
+        "amount": 0.00155,
+        "date": "22.12.2025",
+        "id": "08e4e08e-28a4-4a01-a64b-47df2fc4cfa5"
     }
 ]
